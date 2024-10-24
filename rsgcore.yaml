@@ -174,11 +174,6 @@ tasks:
     dest: ./resources/[framework]/rsg-weapons
 
   - action: download_github
-    src: https://github.com/Rexshack-RedM/rsg-weaponcomp
-    ref: main
-    dest: ./resources/[framework]/rsg-weaponcomp
-
-  - action: download_github
     src: https://github.com/Rexshack-RedM/rsg-ammo
     ref: main
     dest: ./resources/[framework]/rsg-ammo
