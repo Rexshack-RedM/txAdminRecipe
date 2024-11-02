@@ -99,6 +99,11 @@ tasks:
     dest: ./resources/[standalone]/rNotify
     ref: main
     src: https://github.com/RexShack/rNotify
+    
+  - action: download_github
+    dest: ./resources/[standalone]/ox_target
+    ref: main
+    src: https://github.com/Rexshack-RedM/ox_target
 
   - action: waste_time # prevent github throttling
     seconds: 10
@@ -162,11 +167,6 @@ tasks:
     src: https://github.com/Rexshack-RedM/rsg-spawn
     ref: main
     dest: ./resources/[framework]/rsg-spawn
-
-  - action: download_github
-    src: https://github.com/Rexshack-RedM/rsg-target
-    ref: main
-    dest: ./resources/[framework]/rsg-target
 
   - action: download_github
     src: https://github.com/Rexshack-RedM/rsg-weapons
