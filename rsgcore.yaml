@@ -99,11 +99,16 @@ tasks:
     dest: ./resources/[standalone]/rNotify
     ref: main
     src: https://github.com/RexShack/rNotify
-    
+
   - action: download_github
     dest: ./resources/[standalone]/ox_target
     ref: main
     src: https://github.com/Rexshack-RedM/ox_target
+
+  - action: download_github
+    dest: ./resources/[standalone]/ox_doorlock
+    ref: main
+    src: https://github.com/Rexshack-RedM/ox_doorlock
 
   - action: waste_time # prevent github throttling
     seconds: 10
