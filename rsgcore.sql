@@ -200,3 +200,12 @@ CREATE TABLE IF NOT EXISTS `ox_doorlock` (
   `data` longtext NOT NULL,
   PRIMARY KEY (`id`)
 );
+
+CREATE TABLE IF NOT EXISTS `shop_stock` (
+	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`shop_name` VARCHAR(50) NOT NULL,
+	`item_name` VARCHAR(50) NOT NULL,
+	`stock` INT(11) UNSIGNED NOT NULL,
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `shop_name_item_name` (`shop_name`, `item_name`)
+) ENGINE=InnoDB;
