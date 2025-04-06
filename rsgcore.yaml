@@ -25,7 +25,7 @@ tasks:
   - action: query_database
     file: ./tmp/RSGCore/rsgcore.sql
 
-  # Downloading Standalone Resources  
+  # Downloading Standalone Resources
   - action: download_github
     src: https://github.com/citizenfx/cfx-server-data
     subpath: resources
@@ -76,19 +76,14 @@ tasks:
     src: https://github.com/RexShack/xsound
 
   - action: download_github
-    dest: ./resources/[standalone]/interact-sound 
+    dest: ./resources/[standalone]/interact-sound
     ref: main
-    src: https://github.com/Rexshack-RedM/interact-sound 
+    src: https://github.com/Rexshack-RedM/interact-sound
 
   - action: download_github
     dest: ./resources/[standalone]/menu_base
     ref: main
     src: https://github.com/Rexshack-RedM/menu_base
-
-  - action: download_github
-    dest: ./resources/[standalone]/db-femped
-    ref: main
-    src: https://github.com/RexShack/db-femped
 
   - action: download_github
     dest: ./resources/[standalone]/ip-chat
