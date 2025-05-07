@@ -142,34 +142,43 @@ CREATE TABLE IF NOT EXISTS `player_ammo` (
   `ammo_hatchet_cleaver` INT(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `citizenid` (`citizenid`) USING BTREE
-)
-ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `player_weapons` (
-    `id` int NOT NULL AUTO_INCREMENT,
-    `serial` varchar(16) NOT NULL,
-    `citizenid` varchar(9) NOT NULL,
-    `components` varchar(4096) NOT NULL DEFAULT '{}',
-    `components_before` varchar(4096) NOT NULL DEFAULT '{}',
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `serial` varchar(16) NOT NULL,
+  `citizenid` varchar(9) NOT NULL,
+  `components` varchar(4096) NOT NULL DEFAULT '{}',
+  `components_before` varchar(4096) NOT NULL DEFAULT '{}',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `player_weapons_custom` (
+  `gunsiteid` VARCHAR(20) NOT NULL,
+  `propid` VARCHAR(20) NOT NULL,
+  `citizenid` VARCHAR(50) NOT NULL,
+  `item` VARCHAR(50) NOT NULL,
+  `propdata` LONGTEXT NOT NULL,
+  PRIMARY KEY (`gunsiteid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `address_book` (
-`id` INT(11) NOT NULL AUTO_INCREMENT,
-`citizenid` VARCHAR(50) NOT NULL,
-`name`  VARCHAR(50) NOT NULL,
-`owner`  VARCHAR(50) NOT NULL,
-PRIMARY KEY (`id`));
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` VARCHAR(50) NOT NULL,
+  `name`  VARCHAR(50) NOT NULL,
+  `owner`  VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `management_funds` (
-`id` INT(11) NOT NULL AUTO_INCREMENT,
-`job_name` VARCHAR(50) NOT NULL,
-`amount`  INT(100) NOT NULL,
-`type` ENUM('boss','gang') NOT NULL DEFAULT 'boss',
-PRIMARY KEY (`id`),
-UNIQUE KEY `job_name` (`job_name`),
-KEY `type` (`type`)
-);
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `job_name` VARCHAR(50) NOT NULL,
+  `amount`  INT(100) NOT NULL,
+  `type` ENUM('boss','gang') NOT NULL DEFAULT 'boss',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `job_name` (`job_name`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `management_funds` (`job_name`, `amount`, `type`) VALUES
 ('vallaw', 0, 'boss'),
@@ -187,11 +196,11 @@ CREATE TABLE IF NOT EXISTS `favorites_animations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `player_jobs` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `citizenid` varchar(50) DEFAULT NULL,
-    `job` varchar(50) DEFAULT NULL,
-    `grade` INT(11) DEFAULT NULL,
-    PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) DEFAULT NULL,
+  `job` varchar(50) DEFAULT NULL,
+  `grade` INT(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `ox_doorlock` (
@@ -199,13 +208,13 @@ CREATE TABLE IF NOT EXISTS `ox_doorlock` (
   `name` varchar(50) NOT NULL,
   `data` longtext NOT NULL,
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `shop_stock` (
-	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`shop_name` VARCHAR(50) NOT NULL,
-	`item_name` VARCHAR(50) NOT NULL,
-	`stock` INT(11) UNSIGNED NOT NULL,
-	PRIMARY KEY (`id`),
-	UNIQUE INDEX `shop_name_item_name` (`shop_name`, `item_name`)
-) ENGINE=InnoDB;
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `shop_name` VARCHAR(50) NOT NULL,
+  `item_name` VARCHAR(50) NOT NULL,
+  `stock` INT(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `shop_name_item_name` (`shop_name`, `item_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
