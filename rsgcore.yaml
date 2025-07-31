@@ -294,6 +294,11 @@ tasks:
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-weaponcomp
 
+  - action: download_github
+    dest: ./resources/[framework]/rsg-loading
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-loading
+
   # Download Rexshack MapMod resources
 
   - action: download_github
