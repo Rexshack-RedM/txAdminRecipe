@@ -86,11 +86,6 @@ tasks:
     src: https://github.com/Rexshack-RedM/menu_base
 
   - action: download_github
-    dest: ./resources/[standalone]/db-femped
-    ref: main
-    src: https://github.com/RexShack/db-femped
-
-  - action: download_github
     dest: ./resources/[standalone]/ip-chat
     ref: main
     src: https://github.com/Rexshack-RedM/ip-chat
