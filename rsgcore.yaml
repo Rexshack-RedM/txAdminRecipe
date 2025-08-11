@@ -37,13 +37,11 @@ tasks:
   - action: unzip
     dest: ./resources/[standalone]
     src: ./tmp/files/oxmysql.zip
-
-  - action: download_file
-    path: ./tmp/files/ox_lib.zip
-    url: https://github.com/CommunityOx/ox_lib/releases/latest/download/ox_lib.zip
-  - action: unzip
-    dest: ./resources/[standalone]
-    src: ./tmp/files/ox_lib.zip
+    
+  - action: download_github
+    dest: ./resources/[standalone]/ox_lib
+    ref: main
+    src: https://github.com/Rexshack-RedM/ox_lib
 
   - action: download_github
     dest: ./resources/[standalone]/connectqueue
