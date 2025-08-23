@@ -295,11 +295,6 @@ tasks:
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-loading
 
-  - action: download_github
-    dest: ./resources/[framework]/rsg-wagons
-    ref: main
-    src: https://github.com/Rexshack-RedM/rsg-wagons
-
   # Download Rexshack MapMod resources
 
   - action: download_github
