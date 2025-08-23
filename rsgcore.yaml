@@ -282,6 +282,9 @@ tasks:
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-fishing
 
+  - action: waste_time # prevent github throttling
+    seconds: 10
+
   - action: download_github
     dest: ./resources/[framework]/rsg-weaponcomp
     ref: main
@@ -291,6 +294,11 @@ tasks:
     dest: ./resources/[framework]/rsg-loading
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-loading
+
+  - action: download_github
+    dest: ./resources/[framework]/rsg-wagons
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-wagons
 
   # Download Rexshack MapMod resources
 
