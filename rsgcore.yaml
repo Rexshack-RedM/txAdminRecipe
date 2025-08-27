@@ -84,9 +84,9 @@ tasks:
     src: https://github.com/Rexshack-RedM/menu_base
 
   - action: download_github
-    dest: ./resources/[standalone]/ip-chat
+    dest: ./resources/[standalone]/chat-redm
     ref: main
-    src: https://github.com/Rexshack-RedM/ip-chat
+    src: https://github.com/Rexshack-RedM/chat-redm
 
   - action: download_github
     dest: ./resources/[standalone]/rNotify
