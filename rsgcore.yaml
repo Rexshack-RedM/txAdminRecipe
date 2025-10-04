@@ -44,11 +44,6 @@ tasks:
     src: https://github.com/Rexshack-RedM/ox_lib
 
   - action: download_github
-    dest: ./resources/[standalone]/connectqueue
-    ref: main
-    src: https://github.com/Rexshack-RedM/connectqueue
-
-  - action: download_github
     dest: ./resources/[standalone]/progressbar
     ref: main
     src: https://github.com/Rexshack-RedM/progressbar
