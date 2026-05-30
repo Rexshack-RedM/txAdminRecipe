@@ -289,6 +289,11 @@ tasks:
     dest: ./resources/[framework]/rsg-loading
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-loading
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-mdt
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-mdt
 
   # Download Rexshack MapMod resources
 
