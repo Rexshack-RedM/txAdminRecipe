@@ -51,7 +51,7 @@ tasks:
   - action: download_github
     dest: ./resources/[standalone]/PolyZone
     ref: main
-    src: https://github.com/RexShack/PolyZone
+    src: https://github.com/Rexshack-RedM/PolyZone
 
   - action: download_github
     dest: ./resources/[standalone]/pma-voice
@@ -61,12 +61,12 @@ tasks:
   - action: download_github
     dest: ./resources/[standalone]/weathersync
     ref: main
-    src: https://github.com/RexShack/weathersync
+    src: https://github.com/Rexshack-RedM/weathersync
 
   - action: download_github
     dest: ./resources/[standalone]/xsound
     ref: master
-    src: https://github.com/RexShack/xsound
+    src: https://github.com/Xogy/xsound
 
   - action: download_github
     dest: ./resources/[standalone]/interact-sound 
@@ -86,7 +86,7 @@ tasks:
   - action: download_github
     dest: ./resources/[standalone]/rNotify
     ref: main
-    src: https://github.com/RexShack/rNotify
+    src: https://github.com/Rexshack-RedM/rNotify
 
   - action: download_github
     dest: ./resources/[standalone]/ox_target
