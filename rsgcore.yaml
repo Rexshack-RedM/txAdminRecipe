@@ -98,10 +98,10 @@ tasks:
     ref: main
     src: https://github.com/Rexshack-RedM/ox_doorlock
     
-  - action: download_github
-    dest: ./resources/[standalone]/redm-female-fix
-    ref: main
-    src: https://github.com/Popisek/redm-female-fix
+  #- action: download_github
+  #  dest: ./resources/[standalone]/redm-female-fix
+  #  ref: main
+  #  src: https://github.com/Popisek/redm-female-fix
 
   - action: waste_time # prevent github throttling
     seconds: 10
