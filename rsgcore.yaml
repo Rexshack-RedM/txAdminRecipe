@@ -299,6 +299,11 @@ tasks:
     dest: ./resources/[framework]/rsg-mdt
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-mdt
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-hunting
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-hunting
 
   # Download Rexshack MapMod resources
 
