@@ -177,9 +177,9 @@ tasks:
     dest: ./resources/[framework]/rsg-ammo
 
   - action: download_github
-    src: https://github.com/Rexshack-RedM/rsg-shops
+    src: https://github.com/Rexshack-RedM/rsg-stores
     ref: main
-    dest: ./resources/[framework]/rsg-shops
+    dest: ./resources/[framework]/rsg-stores
 
   - action: download_github
     src: https://github.com/Rexshack-RedM/rsg-radialmenu
