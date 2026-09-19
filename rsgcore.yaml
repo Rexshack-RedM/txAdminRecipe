@@ -309,6 +309,11 @@ tasks:
     dest: ./resources/[framework]/rsg-chat
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-chat
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-hotair
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-hotair
 
   # Download Rexshack MapMod resources
 
