@@ -79,11 +79,6 @@ tasks:
     src: https://github.com/Rexshack-RedM/menu_base
 
   - action: download_github
-    dest: ./resources/[standalone]/chat-redm
-    ref: main
-    src: https://github.com/Rexshack-RedM/chat-redm
-
-  - action: download_github
     dest: ./resources/[standalone]/rNotify
     ref: main
     src: https://github.com/Rexshack-RedM/rNotify
@@ -309,6 +304,11 @@ tasks:
     dest: ./resources/[framework]/rsg-herbalist
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-herbalist
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-chat
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-chat
 
   # Download Rexshack MapMod resources
 
