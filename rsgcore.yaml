@@ -314,6 +314,14 @@ tasks:
     dest: ./resources/[framework]/rsg-hotair
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-hotair
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-samples
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-samples
+    
+  - action: waste_time # prevent github throttling
+    seconds: 10
 
   # Download Rexshack MapMod resources
 
