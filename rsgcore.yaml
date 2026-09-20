@@ -323,6 +323,18 @@ tasks:
   - action: waste_time # prevent github throttling
     seconds: 10
 
+  # Community Shares
+  
+  - action: download_github
+    dest: ./resources/[community]/Nt_Blackjack
+    ref: main
+    src: https://github.com/Nubetastic/Nt_Blackjack
+    
+  - action: download_github
+    dest: ./resources/[community]/Nt_Holdem
+    ref: main
+    src: https://github.com/Nubetastic/Nt_Holdem
+
   # Download Rexshack MapMod resources
 
   - action: download_github
