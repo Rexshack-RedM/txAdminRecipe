@@ -325,6 +325,11 @@ tasks:
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-track
     
+  - action: download_github
+    dest: ./resources/[framework]/rsg-goldclaim
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-goldclaim
+    
   - action: waste_time # prevent github throttling
     seconds: 10
 
