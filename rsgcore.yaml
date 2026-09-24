@@ -332,6 +332,16 @@ tasks:
     
   - action: waste_time # prevent github throttling
     seconds: 10
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-wagons
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-wagons
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-railroad
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-railroad
 
   # Community Shares
   
