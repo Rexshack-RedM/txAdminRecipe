@@ -342,6 +342,11 @@ tasks:
     dest: ./resources/[framework]/rsg-railroad
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-railroad
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-huntingpets
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-huntingpets
 
   # Community Shares
   

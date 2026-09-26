@@ -678,3 +678,35 @@ CREATE TABLE IF NOT EXISTS `railroad_company_supplies` (
     PRIMARY KEY (`id`),
     UNIQUE INDEX `idx_company_item` (`company_id`, `item_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `player_dogs` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `identifier` VARCHAR(50) NOT NULL,
+    `charid` INT(11) NOT NULL,
+    `model` VARCHAR(255) NOT NULL,
+    `preset` INT(11) NOT NULL DEFAULT '0',
+    `xp` INT(11) NOT NULL DEFAULT '0',
+    `price` INT(11) NOT NULL DEFAULT '0',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `player_birds` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `identifier` VARCHAR(50) NOT NULL,
+    `charid` INT(11) NOT NULL,
+    `model` VARCHAR(255) NOT NULL,
+    `preset` INT(11) NOT NULL DEFAULT '0',
+    `xp` INT(11) NOT NULL DEFAULT '0',
+    `price` INT(11) NOT NULL DEFAULT '0',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `player_selected_pets`;
+
+CREATE TABLE `player_selected_pets` (
+    `identifier` VARCHAR(50) NOT NULL,
+    `charid` INT(11) NOT NULL,
+    `selected_dog` INT(11) DEFAULT NULL,
+    `selected_bird` INT(11) DEFAULT NULL,
+    UNIQUE KEY `uc_player` (`identifier`, `charid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
