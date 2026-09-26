@@ -114,14 +114,9 @@ tasks:
     dest: ./resources/[framework]/rsg-inventory
 
   - action: download_github
-    src: https://github.com/Rexshack-RedM/rsg-multicharacter
+    src: https://github.com/Rexshack-RedM/rsg-character
     ref: main
-    dest: ./resources/[framework]/rsg-multicharacter
-
-  - action: download_github
-    src: https://github.com/Rexshack-RedM/rsg-appearance
-    ref: main
-    dest: ./resources/[framework]/rsg-appearance
+    dest: ./resources/[framework]/rsg-character
 
   - action: download_github
     src: https://github.com/Rexshack-RedM/rsg-wardrobe
@@ -155,11 +150,6 @@ tasks:
     src: https://github.com/Rexshack-RedM/rsg-banking
     ref: main
     dest: ./resources/[framework]/rsg-banking
-
-  - action: download_github
-    src: https://github.com/Rexshack-RedM/rsg-spawn
-    ref: main
-    dest: ./resources/[framework]/rsg-spawn
 
   - action: download_github
     src: https://github.com/Rexshack-RedM/rsg-weapons
