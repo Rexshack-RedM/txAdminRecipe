@@ -337,6 +337,11 @@ tasks:
     dest: ./resources/[framework]/rsg-huntingpets
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-huntingpets
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-trapdoors
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-trapdoors
 
   # Community Shares
   
