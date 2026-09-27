@@ -342,6 +342,11 @@ tasks:
     dest: ./resources/[framework]/rsg-trapdoors
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-trapdoors
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-cooking
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-cooking
 
   # Community Shares
   
