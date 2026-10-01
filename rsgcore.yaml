@@ -347,6 +347,29 @@ tasks:
     dest: ./resources/[framework]/rsg-cooking
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-cooking
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-fishmonger
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-fishmonger
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-backpacks
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-backpacks
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-looting
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-looting
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-lumberjack
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-lumberjack
+    
+  - action: waste_time # prevent github throttling
+    seconds: 10
 
   # Community Shares
   

@@ -731,3 +731,36 @@ CREATE TABLE IF NOT EXISTS `rsg_cooking_campfires` (
     PRIMARY KEY (`id`),
     INDEX `idx_citizenid` (`citizenid`)
 );
+
+CREATE TABLE IF NOT EXISTS `player_backpack` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `serial` VARCHAR(32) NOT NULL,
+    `citizenid` VARCHAR(50) DEFAULT NULL,
+    `owner` VARCHAR(50) DEFAULT NULL,
+    `backpackitem` VARCHAR(50) NOT NULL,
+    `model` VARCHAR(100) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `serial` (`serial`),
+    KEY `owner` (`owner`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_lumberjack_trees` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `identifier` VARCHAR(64) NOT NULL,
+    `owner_citizenid` VARCHAR(50) NOT NULL,
+    `x` DOUBLE NOT NULL,
+    `y` DOUBLE NOT NULL,
+    `z` DOUBLE NOT NULL,
+    `heading` FLOAT NOT NULL DEFAULT 0,
+    `model` VARCHAR(64) NOT NULL DEFAULT 'p_tree_birch_01_sapling',
+    `stage` TINYINT UNSIGNED NOT NULL DEFAULT 1,
+    `state` ENUM('planted','growing','ready','chopped') NOT NULL DEFAULT 'planted',
+    `watered` TINYINT(1) NOT NULL DEFAULT 0,
+    `fertilized` TINYINT(1) NOT NULL DEFAULT 0,
+    `planted_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `next_stage_at` DATETIME NULL,
+    PRIMARY KEY (`id`),
+    INDEX `idx_stage` (`stage`),
+    INDEX `idx_state` (`state`),
+    INDEX `idx_owner` (`owner_citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
