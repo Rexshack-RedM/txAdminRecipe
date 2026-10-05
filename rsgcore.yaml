@@ -371,6 +371,16 @@ tasks:
   - action: waste_time # prevent github throttling
     seconds: 10
 
+  - action: download_github
+    dest: ./resources/[framework]/rsg-mining
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-mining
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-smelting
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-smelting
+
   # Community Shares
   
   - action: download_github
