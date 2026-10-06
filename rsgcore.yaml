@@ -380,6 +380,11 @@ tasks:
     dest: ./resources/[framework]/rsg-smelting
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-smelting
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-trader
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-trader
 
   # Community Shares
   
