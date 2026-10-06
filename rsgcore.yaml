@@ -385,6 +385,11 @@ tasks:
     dest: ./resources/[framework]/rsg-trader
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-trader
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-crafting
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-crafting
 
   # Community Shares
   
