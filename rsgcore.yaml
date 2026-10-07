@@ -185,9 +185,9 @@ tasks:
     dest: ./resources/[framework]/rsg-telegram
 
   - action: download_github
-    src: https://github.com/Rexshack-RedM/rsg-horses
+    src: https://github.com/Rexshack-RedM/rsg-stables
     ref: main
-    dest: ./resources/[framework]/rsg-horses
+    dest: ./resources/[framework]/rsg-stables
 
   - action: download_github
     src: https://github.com/Rexshack-RedM/rsg-hud
