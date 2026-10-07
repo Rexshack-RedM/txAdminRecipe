@@ -390,6 +390,11 @@ tasks:
     dest: ./resources/[framework]/rsg-crafting
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-crafting
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-goldpanning
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-goldpanning
 
   # Community Shares
   
