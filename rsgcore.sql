@@ -230,32 +230,6 @@ CREATE TABLE IF NOT EXISTS `admin_report_nearby_players` (
   FOREIGN KEY (`report_id`) REFERENCES `admin_reports`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `telegrams` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(255) NOT NULL,
-  `recipient` varchar(255) NOT NULL,
-  `sender` varchar(255) NOT NULL,
-  `sendername` varchar(255) NOT NULL,
-  `subject` varchar(255) NOT NULL,
-  `sentDate` varchar(25) NOT NULL,
-  `message` varchar(455) NOT NULL,
-  `status` varchar(1) NOT NULL DEFAULT '0',
-  `birdstatus` TINYINT(2) NOT NULL DEFAULT '0',
-  `fromPostOffice` TINYINT(1) NOT NULL DEFAULT '0',
-  `pickedUp` TINYINT(1) NOT NULL DEFAULT '0',
-  `mailbox` VARCHAR(20) NOT NULL DEFAULT 'personal',
-  `jobTarget` VARCHAR(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `address_book` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `name`  VARCHAR(50) NOT NULL,
-  `owner`  VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 -- RSG MDT Database Schema
 -- Criminal Records Table
 CREATE TABLE IF NOT EXISTS `mdt_records` (
@@ -1005,4 +979,29 @@ CREATE TABLE IF NOT EXISTS `rsg_stables_breeding` (
   PRIMARY KEY (`id`),
   KEY `citizenid` (`citizenid`),
   KEY `stable` (`stable`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_telegrams` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `citizenid` VARCHAR(50) NOT NULL,
+    `recipient_name` VARCHAR(100) NOT NULL,
+    `sender_citizenid` VARCHAR(50) NOT NULL,
+    `sender_name` VARCHAR(100) NOT NULL,
+    `subject` VARCHAR(100) NOT NULL,
+    `message` TEXT NOT NULL,
+    `is_read` TINYINT(1) NOT NULL DEFAULT 0,
+    `sent_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    INDEX `idx_citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_telegram_contacts` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `citizenid` VARCHAR(50) NOT NULL,
+    `contact_citizenid` VARCHAR(50) NOT NULL,
+    `contact_name` VARCHAR(100) NOT NULL,
+    `nickname` VARCHAR(50) NULL DEFAULT NULL,
+    `added_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uniq_contact` (`citizenid`, `contact_citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
