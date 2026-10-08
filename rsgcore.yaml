@@ -395,6 +395,11 @@ tasks:
     dest: ./resources/[framework]/rsg-goldpanning
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-goldpanning
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-farming
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-farming
 
   # Community Shares
   
@@ -419,6 +424,9 @@ tasks:
     src: https://github.com/Rexshack-RedM/redm-ymaps
     ref: main
     dest: ./resources/[mapmods]/redm-ymaps
+    
+  - action: waste_time # prevent github throttling
+    seconds: 10
 
   # Remove Old Chat
   - action: remove_path
