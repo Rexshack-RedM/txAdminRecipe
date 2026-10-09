@@ -1100,3 +1100,25 @@ CREATE TABLE IF NOT EXISTS `rsg_bank_lockbox_items` (
     `amount` INT(11) NOT NULL DEFAULT 0,
     PRIMARY KEY (`citizenid`, `bank`, `item`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS horse_race_tracks (
+    track_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    points JSON NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_trapdoors_schema` (
+    `id` TINYINT UNSIGNED NOT NULL DEFAULT 1,
+    `version` INT UNSIGNED     NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_shops_presets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kind` varchar(10) NOT NULL,
+  `label` varchar(100) NOT NULL,
+  `value` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_kind_value` (`kind`, `value`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
