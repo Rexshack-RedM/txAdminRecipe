@@ -400,6 +400,14 @@ tasks:
     dest: ./resources/[framework]/rsg-farming
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-farming
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-poison
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-poison
+
+  - action: waste_time # prevent github throttling
+    seconds: 10
 
   # Community Shares
   
@@ -413,6 +421,9 @@ tasks:
     ref: main
     src: https://github.com/Nubetastic/Nt_Holdem
 
+  - action: waste_time # prevent github throttling
+    seconds: 10
+    
   # Download Rexshack MapMod resources
 
   - action: download_github
@@ -424,9 +435,6 @@ tasks:
     src: https://github.com/Rexshack-RedM/redm-ymaps
     ref: main
     dest: ./resources/[mapmods]/redm-ymaps
-    
-  - action: waste_time # prevent github throttling
-    seconds: 10
 
   # Remove Old Chat
   - action: remove_path
