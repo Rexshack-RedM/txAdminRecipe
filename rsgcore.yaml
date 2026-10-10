@@ -427,9 +427,9 @@ tasks:
   # Download Rexshack MapMod resources
 
   - action: download_github
-    src: https://github.com/Rexshack-RedM/redm-ipls
+    src: https://github.com/Rexshack-RedM/rsg-mapping
     ref: main
-    dest: ./resources/[mapmods]/redm-ipls
+    dest: ./resources/[mapmods]/rsg-mapping
 
   - action: download_github
     src: https://github.com/Rexshack-RedM/redm-ymaps
