@@ -1,3 +1,5 @@
+SET FOREIGN_KEY_CHECKS = 0;
+
 CREATE TABLE IF NOT EXISTS `admin_activity_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sample_time` timestamp NULL DEFAULT current_timestamp(),
@@ -284,7 +286,6 @@ CREATE TABLE IF NOT EXISTS `mdt_charge_templates` (
   KEY `idx_name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table redm.mdt_charge_templates: ~15 rows (approximately)
 INSERT INTO `mdt_charge_templates` (`id`, `name`, `description`, `fine`, `jailtime`, `category`, `created_by`, `created_by_name`, `created_at`, `updated_at`) VALUES
 	(1, 'Assault', 'Physical assault on another person', 50, 2, 'felony', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
 	(2, 'Battery', 'Unlawful physical force against another', 75, 3, 'felony', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
@@ -409,7 +410,6 @@ CREATE TABLE IF NOT EXISTS `mdt_roles` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table redm.mdt_roles: ~3 rows (approximately)
 INSERT INTO `mdt_roles` (`id`, `name`, `label`, `permissions`, `created_at`) VALUES
 	(1, 'admin', 'Administrator', '{"canCreateRecords": true, "canDeleteRecords": true, "canManageWarrants": true, "isAdmin": true}', '2026-10-10 19:26:58'),
 	(2, 'supervisor', 'Supervisor', '{"canCreateRecords": true, "canDeleteRecords": true, "canManageWarrants": true, "isAdmin": false}', '2026-10-10 19:26:58'),
@@ -964,7 +964,6 @@ CREATE TABLE IF NOT EXISTS `rsg_shops_presets` (
   UNIQUE KEY `uq_kind_value` (`kind`,`value`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Dumping data for table redm.rsg_shops_presets: ~29 rows (approximately)
 INSERT INTO `rsg_shops_presets` (`id`, `kind`, `label`, `value`) VALUES
 	(1, 'model', 'cfg_model_tumbleweed_store', 'u_f_m_tumgeneralstoreowner_01'),
 	(2, 'model', 'cfg_model_armadillo_store', 'u_m_m_armgeneralstoreowner_01'),
@@ -1135,3 +1134,5 @@ CREATE TABLE IF NOT EXISTS `shop_stock` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `shop_name_item_name` (`shop_name`,`item_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+SET FOREIGN_KEY_CHECKS = 1;
