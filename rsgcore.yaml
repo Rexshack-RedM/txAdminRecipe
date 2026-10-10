@@ -59,11 +59,6 @@ tasks:
     src: https://github.com/AvarianKnight/pma-voice
 
   - action: download_github
-    dest: ./resources/[standalone]/weathersync
-    ref: main
-    src: https://github.com/Rexshack-RedM/weathersync
-
-  - action: download_github
     dest: ./resources/[standalone]/xsound
     ref: master
     src: https://github.com/Xogy/xsound
@@ -405,6 +400,11 @@ tasks:
     dest: ./resources/[framework]/rsg-poison
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-poison
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-weather
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-weather
 
   - action: waste_time # prevent github throttling
     seconds: 10
