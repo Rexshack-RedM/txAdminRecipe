@@ -405,6 +405,11 @@ tasks:
     dest: ./resources/[framework]/rsg-weather
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-weather
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-loyalty
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-loyalty
 
   - action: waste_time # prevent github throttling
     seconds: 10
