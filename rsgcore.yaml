@@ -414,6 +414,11 @@ tasks:
   - action: waste_time # prevent github throttling
     seconds: 10
 
+  - action: download_github
+    dest: ./resources/[framework]/rsg-auction
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-auction
+
   # Community Shares
   
   - action: download_github
