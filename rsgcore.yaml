@@ -54,11 +54,6 @@ tasks:
     src: https://github.com/Rexshack-RedM/PolyZone
 
   - action: download_github
-    dest: ./resources/[standalone]/pma-voice
-    ref: main
-    src: https://github.com/AvarianKnight/pma-voice
-
-  - action: download_github
     dest: ./resources/[standalone]/xsound
     ref: master
     src: https://github.com/Xogy/xsound
@@ -410,6 +405,11 @@ tasks:
     dest: ./resources/[framework]/rsg-loyalty
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-loyalty
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-voice
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-voice
 
   - action: waste_time # prevent github throttling
     seconds: 10
