@@ -1215,4 +1215,18 @@ CREATE TABLE IF NOT EXISTS `rsg_auction_payouts` (
     PRIMARY KEY (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `rsg_moonshine_stills` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `citizenid` VARCHAR(50) NOT NULL,
+    `x` FLOAT NOT NULL, `y` FLOAT NOT NULL, `z` FLOAT NOT NULL,
+    `heading` FLOAT NOT NULL DEFAULT 0,
+    `recipe` VARCHAR(50) DEFAULT NULL,
+    `hopper` LONGTEXT DEFAULT NULL,
+    `output` INT NOT NULL DEFAULT 0,
+    `fuel` INT NOT NULL DEFAULT 0,
+    `batch_left` INT DEFAULT NULL,
+    `last_tick` INT DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 SET FOREIGN_KEY_CHECKS = 1;

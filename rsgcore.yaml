@@ -423,6 +423,11 @@ tasks:
     dest: ./resources/[framework]/rsg-deliveries
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-deliveries
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-moonshine
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-moonshine
 
   # Community Shares
   
