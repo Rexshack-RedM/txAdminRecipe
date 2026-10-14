@@ -561,6 +561,18 @@ CREATE TABLE IF NOT EXISTS `player_jobs` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
+CREATE TABLE IF NOT EXISTS `multijob_jobs` (
+    `name` VARCHAR(50) NOT NULL,
+    `label` VARCHAR(100) NOT NULL,
+    `type` VARCHAR(50) NULL DEFAULT NULL,
+    `icon` VARCHAR(100) NULL DEFAULT NULL,
+    `default_duty` TINYINT(1) NOT NULL DEFAULT 1,
+    `off_duty_pay` TINYINT(1) NOT NULL DEFAULT 0,
+    `grades` LONGTEXT NOT NULL,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
 CREATE TABLE IF NOT EXISTS `player_playtime` (
   `citizenid` varchar(50) NOT NULL,
   `minutes` int(11) NOT NULL DEFAULT 0,
