@@ -433,6 +433,11 @@ tasks:
     dest: ./resources/[framework]/rsg-ranch
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-ranch
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-lottery
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-lottery
 
   # Community Shares
   
