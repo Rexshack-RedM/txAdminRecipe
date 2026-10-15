@@ -1428,6 +1428,26 @@ CREATE TABLE IF NOT EXISTS `rsg_lottery_winners` (
     KEY `idx_citizen_collected` (`citizenid`, `collected`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `rsg_beehives` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `citizenid` VARCHAR(50) DEFAULT NULL,
+  `x` FLOAT NOT NULL,
+  `y` FLOAT NOT NULL,
+  `z` FLOAT NOT NULL,
+  `heading` FLOAT NOT NULL DEFAULT 0,
+  `active` TINYINT(1) NOT NULL DEFAULT 0,
+  `activated_at` INT UNSIGNED DEFAULT NULL,
+  `food` TINYINT UNSIGNED NOT NULL DEFAULT 100,
+  `water` TINYINT UNSIGNED NOT NULL DEFAULT 100,
+  `health` TINYINT UNSIGNED NOT NULL DEFAULT 100,
+  `honey` TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  `smoked_until` INT UNSIGNED DEFAULT NULL,
+  `prop` VARCHAR(50) NOT NULL DEFAULT 'bee_house_gk_1',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 INSERT IGNORE INTO `rsg_lottery_config` (`setting`, `value`) VALUES ('current_jackpot', '100');
 
 SET FOREIGN_KEY_CHECKS = 1;

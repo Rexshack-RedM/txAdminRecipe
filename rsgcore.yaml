@@ -438,6 +438,11 @@ tasks:
     dest: ./resources/[framework]/rsg-lottery
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-lottery
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-beekeeper
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-beekeeper
 
   # Community Shares
   
