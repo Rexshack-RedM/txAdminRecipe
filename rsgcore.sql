@@ -1539,6 +1539,10 @@ CREATE TABLE IF NOT EXISTS `rsg_housekeys` (
   `houseid` varchar(7) NOT NULL DEFAULT '0',
   `citizenid` varchar(50) NOT NULL DEFAULT '0',
   `guest` int(1) NOT NULL DEFAULT 0,
+  `perm_doors` tinyint(1) NOT NULL DEFAULT 1,
+  `perm_storage` tinyint(1) NOT NULL DEFAULT 1,
+  `perm_wardrobe` tinyint(1) NOT NULL DEFAULT 1,
+  `perm_mailbox` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   KEY `idx_citizenid` (`citizenid`),
   KEY `idx_houseid` (`houseid`)
