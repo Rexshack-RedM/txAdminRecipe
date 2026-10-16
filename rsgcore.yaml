@@ -443,6 +443,11 @@ tasks:
     dest: ./resources/[framework]/rsg-roulette
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-roulette
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-housing
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-housing
 
   # Community Shares
   
