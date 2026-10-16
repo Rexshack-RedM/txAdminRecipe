@@ -445,13 +445,6 @@ CREATE TABLE IF NOT EXISTS `mdt_warrants` (
   KEY `idx_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `ox_doorlock` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(50) NOT NULL,
-  `data` LONGTEXT NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE IF NOT EXISTS `player_ammo` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `citizenid` VARCHAR(255) NOT NULL,
@@ -1459,6 +1452,17 @@ CREATE TABLE IF NOT EXISTS `rsg_roulette_tables` (
     `room` BIGINT NOT NULL DEFAULT 0,
     `placed_by` VARCHAR(50) DEFAULT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_doorlocks` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(64) NOT NULL,
+    `doors` LONGTEXT NOT NULL,
+    `text_coords` LONGTEXT NOT NULL,
+    `jobs` LONGTEXT NOT NULL,
+    `distance` FLOAT NOT NULL DEFAULT 1.25,
+    `locked` TINYINT(1) NOT NULL DEFAULT 1,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
