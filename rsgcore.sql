@@ -1024,26 +1024,15 @@ CREATE TABLE IF NOT EXISTS `rsg_smelting_state` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `rsg_stables_breeding` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `stable` VARCHAR(50) NOT NULL,
-  `parent_a` INT(11) NOT NULL,
-  `parent_b` INT(11) NOT NULL,
-  `ready_at` BIGINT(20) NOT NULL,
-  `collected` TINYINT(1) NOT NULL DEFAULT 0,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  PRIMARY KEY (`id`),
-  KEY `citizenid` (`citizenid`),
-  KEY `stable` (`stable`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE IF NOT EXISTS `rsg_stables_horses` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `citizenid` VARCHAR(50) NOT NULL,
   `stable` VARCHAR(50) DEFAULT NULL,
   `model` VARCHAR(100) NOT NULL,
   `breed_label` VARCHAR(100) NOT NULL,
+  `gender` VARCHAR(6) DEFAULT NULL,
+  `breed_cooldown` BIGINT(20) NOT NULL DEFAULT 0,
+  `died_of_age` TINYINT(1) NOT NULL DEFAULT 0,
   `name` VARCHAR(50) NOT NULL DEFAULT 'Unnamed Horse',
   `outfit` INT(11) NOT NULL DEFAULT 0,
   `tack` TEXT DEFAULT NULL,
@@ -1064,11 +1053,25 @@ CREATE TABLE IF NOT EXISTS `rsg_stables_horses` (
   `pos_y` FLOAT DEFAULT NULL,
   `pos_z` FLOAT DEFAULT NULL,
   `pos_h` FLOAT DEFAULT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `citizenid` (`citizenid`),
   KEY `stable` (`stable`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_stables_breeding` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` VARCHAR(50) NOT NULL,
+  `stable` VARCHAR(50) NOT NULL,
+  `parent_a` INT(11) NOT NULL,
+  `parent_b` INT(11) NOT NULL,
+  `ready_at` BIGINT(20) NOT NULL,
+  `collected` TINYINT(1) NOT NULL DEFAULT 0,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `citizenid` (`citizenid`),
+  KEY `stable` (`stable`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `rsg_telegram_contacts` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
