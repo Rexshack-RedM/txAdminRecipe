@@ -448,6 +448,11 @@ tasks:
     dest: ./resources/[framework]/rsg-housing
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-housing
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-noticeboard
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-noticeboard
 
   # Community Shares
   
@@ -455,14 +460,14 @@ tasks:
     dest: ./resources/[community]/Nt_Blackjack
     ref: main
     src: https://github.com/Nubetastic/Nt_Blackjack
+
+  - action: waste_time # prevent github throttling
+    seconds: 10
     
   - action: download_github
     dest: ./resources/[community]/Nt_Holdem
     ref: main
     src: https://github.com/Nubetastic/Nt_Holdem
-
-  - action: waste_time # prevent github throttling
-    seconds: 10
     
   # Download Rexshack MapMod resources
 
