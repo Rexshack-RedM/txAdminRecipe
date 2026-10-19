@@ -453,6 +453,11 @@ tasks:
     dest: ./resources/[framework]/rsg-noticeboard
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-noticeboard
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-zonenotify
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-zonenotify
 
   # Community Shares
   
