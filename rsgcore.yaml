@@ -458,6 +458,14 @@ tasks:
     dest: ./resources/[framework]/rsg-zonenotify
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-zonenotify
+    
+  - action: waste_time # prevent github throttling
+    seconds: 10
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-telephone
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-telephone
 
   # Community Shares
   
@@ -465,9 +473,6 @@ tasks:
     dest: ./resources/[community]/Nt_Blackjack
     ref: main
     src: https://github.com/Nubetastic/Nt_Blackjack
-
-  - action: waste_time # prevent github throttling
-    seconds: 10
     
   - action: download_github
     dest: ./resources/[community]/Nt_Holdem
