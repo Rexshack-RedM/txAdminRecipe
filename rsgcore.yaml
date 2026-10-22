@@ -466,6 +466,11 @@ tasks:
     dest: ./resources/[framework]/rsg-telephone
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-telephone
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-treasure
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-treasure
 
   # Community Shares
   
