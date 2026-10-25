@@ -476,6 +476,11 @@ tasks:
     dest: ./resources/[framework]/rsg-targetpractise
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-targetpractise
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-drugs
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-drugs
 
   # Community Shares
   
