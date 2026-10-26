@@ -486,6 +486,11 @@ tasks:
     dest: ./resources/[framework]/rsg-drugs
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-drugs
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-bandana
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-bandana
 
   # Community Shares
   
@@ -510,6 +515,9 @@ tasks:
     src: https://github.com/Rexshack-RedM/redm-ymaps
     ref: main
     dest: ./resources/[mapmods]/redm-ymaps
+    
+  - action: waste_time # prevent github throttling
+    seconds: 10
 
   # Remove Old Chat
   - action: remove_path
