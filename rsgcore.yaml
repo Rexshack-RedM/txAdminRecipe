@@ -478,6 +478,11 @@ tasks:
     src: https://github.com/Rexshack-RedM/rsg-targetpractise
     
   - action: download_github
+    dest: ./resources/[framework]/rsg-ambush
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-ambush
+    
+  - action: download_github
     dest: ./resources/[framework]/rsg-drugs
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-drugs
