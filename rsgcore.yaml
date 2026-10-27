@@ -491,6 +491,11 @@ tasks:
     dest: ./resources/[framework]/rsg-bandana
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-bandana
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-fortuneteller
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-fortuneteller
 
   # Community Shares
   
@@ -511,14 +516,14 @@ tasks:
     ref: main
     dest: ./resources/[mapmods]/rsg-mapping
 
+  - action: waste_time # prevent github throttling
+    seconds: 10
+
   - action: download_github
     src: https://github.com/Rexshack-RedM/redm-ymaps
     ref: main
     dest: ./resources/[mapmods]/redm-ymaps
     
-  - action: waste_time # prevent github throttling
-    seconds: 10
-
   # Remove Old Chat
   - action: remove_path
     path: ./resources/[cfx-default]/[gameplay]/chat
