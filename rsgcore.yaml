@@ -496,6 +496,11 @@ tasks:
     dest: ./resources/[framework]/rsg-fortuneteller
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-fortuneteller
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-theatre
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-theatre
 
   # Community Shares
   
@@ -510,14 +515,14 @@ tasks:
     src: https://github.com/Nubetastic/Nt_Holdem
     
   # Download Rexshack MapMod resources
+  
+  - action: waste_time # prevent github throttling
+    seconds: 10
 
   - action: download_github
     src: https://github.com/Rexshack-RedM/rsg-mapping
     ref: main
     dest: ./resources/[mapmods]/rsg-mapping
-
-  - action: waste_time # prevent github throttling
-    seconds: 10
 
   - action: download_github
     src: https://github.com/Rexshack-RedM/redm-ymaps
