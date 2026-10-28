@@ -506,6 +506,14 @@ tasks:
     dest: ./resources/[framework]/rsg-cinema
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-cinema
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-bountyhunter
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-bountyhunter
+
+  - action: waste_time # prevent github throttling
+    seconds: 10
 
   # Community Shares
   
@@ -513,10 +521,7 @@ tasks:
     dest: ./resources/[community]/Nt_Blackjack
     ref: main
     src: https://github.com/Nubetastic/Nt_Blackjack
-    
-  - action: waste_time # prevent github throttling
-    seconds: 10
-    
+        
   - action: download_github
     dest: ./resources/[community]/Nt_Holdem
     ref: main
