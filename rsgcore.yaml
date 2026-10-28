@@ -501,6 +501,11 @@ tasks:
     dest: ./resources/[framework]/rsg-theatre
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-theatre
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-cinema
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-cinema
 
   # Community Shares
   
@@ -509,6 +514,9 @@ tasks:
     ref: main
     src: https://github.com/Nubetastic/Nt_Blackjack
     
+  - action: waste_time # prevent github throttling
+    seconds: 10
+    
   - action: download_github
     dest: ./resources/[community]/Nt_Holdem
     ref: main
@@ -516,9 +524,6 @@ tasks:
     
   # Download Rexshack MapMod resources
   
-  - action: waste_time # prevent github throttling
-    seconds: 10
-
   - action: download_github
     src: https://github.com/Rexshack-RedM/rsg-mapping
     ref: main
