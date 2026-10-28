@@ -514,6 +514,11 @@ tasks:
 
   - action: waste_time # prevent github throttling
     seconds: 10
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-guarma
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-guarma
 
   # Community Shares
   
