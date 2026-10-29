@@ -519,6 +519,11 @@ tasks:
     dest: ./resources/[framework]/rsg-guarma
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-guarma
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-legendary
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-legendary
 
   # Community Shares
   

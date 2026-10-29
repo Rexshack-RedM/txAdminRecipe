@@ -1649,4 +1649,11 @@ CREATE TABLE IF NOT EXISTS `rsg_bountyhunter` (
     PRIMARY KEY (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS `rsg_legendary_cooldowns` (
+    `citizenid` VARCHAR(50) NOT NULL,
+    `animal` VARCHAR(50) NOT NULL,
+    `last_hunt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`citizenid`, `animal`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 SET FOREIGN_KEY_CHECKS = 1;
