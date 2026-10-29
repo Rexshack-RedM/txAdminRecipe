@@ -524,6 +524,11 @@ tasks:
     dest: ./resources/[framework]/rsg-legendary
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-legendary
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-trams
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-trams
 
   # Community Shares
   
