@@ -74,11 +74,6 @@ tasks:
     src: https://github.com/Rexshack-RedM/rNotify
 
   - action: download_github
-    dest: ./resources/[standalone]/ox_target
-    ref: main
-    src: https://github.com/Rexshack-RedM/ox_target
-
-  - action: download_github
     dest: ./resources/[standalone]/redm-female-fix
     ref: main
     src: https://github.com/Popisek/redm-female-fix
@@ -529,6 +524,11 @@ tasks:
     dest: ./resources/[framework]/rsg-trams
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-trams
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-target
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-target
 
   # Community Shares
   
