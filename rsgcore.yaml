@@ -123,9 +123,6 @@ tasks:
     ref: main
     dest: ./resources/[framework]/rsg-doorlock
 
-  - action: waste_time # prevent github throttling
-    seconds: 10
-
   - action: download_github
     src: https://github.com/Rexshack-RedM/rsg-banking
     ref: main
@@ -135,6 +132,9 @@ tasks:
     src: https://github.com/Rexshack-RedM/rsg-weapons
     ref: main
     dest: ./resources/[framework]/rsg-weapons
+    
+  - action: waste_time # prevent github throttling
+    seconds: 10
 
   - action: download_github
     src: https://github.com/Rexshack-RedM/rsg-ammo
@@ -155,9 +155,6 @@ tasks:
     src: https://github.com/Rexshack-RedM/rsg-essentials
     ref: main
     dest: ./resources/[framework]/rsg-essentials
-
-  - action: waste_time # prevent github throttling
-    seconds: 10
 
   - action: download_github
     src: https://github.com/Rexshack-RedM/rsg-telegram
@@ -188,14 +185,14 @@ tasks:
     dest: ./resources/[framework]/rsg-bossmenu
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-bossmenu
+    
+  - action: waste_time # prevent github throttling
+    seconds: 10
 
   - action: download_github
     dest: ./resources/[framework]/rsg-gangmenu
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-gangmenu
-
-  - action: waste_time # prevent github throttling
-    seconds: 10
 
   - action: download_github
     dest: ./resources/[framework]/rsg-npcs
@@ -241,14 +238,14 @@ tasks:
     dest: ./resources/[framework]/rsg-consume
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-consume
+    
+  - action: waste_time # prevent github throttling
+    seconds: 10
 
   - action: download_github
     dest: ./resources/[framework]/rsg-fishing
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-fishing
-
-  - action: waste_time # prevent github throttling
-    seconds: 10
 
   - action: download_github
     dest: ./resources/[framework]/rsg-weaponcomp
@@ -295,13 +292,13 @@ tasks:
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-track
     
+  - action: waste_time # prevent github throttling
+    seconds: 10
+    
   - action: download_github
     dest: ./resources/[framework]/rsg-goldclaim
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-goldclaim
-    
-  - action: waste_time # prevent github throttling
-    seconds: 10
     
   - action: download_github
     dest: ./resources/[framework]/rsg-wagons
@@ -529,6 +526,11 @@ tasks:
     dest: ./resources/[framework]/rsg-target
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-target
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-boats
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-boats
 
   # Community Shares
   
