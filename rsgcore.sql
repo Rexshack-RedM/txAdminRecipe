@@ -1702,4 +1702,25 @@ CREATE TABLE IF NOT EXISTS `rsg_boats_settings` (
 INSERT IGNORE INTO `rsg_boats_models` (`model`, `label`, `description`, `price`, `enabled`, `slots`, `weight`)
 VALUES ('rowboat', 'Rowboat', 'A sturdy wooden rowboat for rivers and bayous.', 75, 1, 10, 50000);
 
+-- rsg-hunting: weekly leaderboard + weekly rewards
+CREATE TABLE IF NOT EXISTS `hunting_weekly` (
+    `citizenid` VARCHAR(50) NOT NULL,
+    `week` INT NOT NULL,
+    `name` VARCHAR(100) NOT NULL DEFAULT '',
+    `xp` INT NOT NULL DEFAULT 0,
+    PRIMARY KEY (`citizenid`, `week`),
+    KEY `week_xp` (`week`, `xp`)
+);
+
+CREATE TABLE IF NOT EXISTS `hunting_weekly_rewards` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `citizenid` VARCHAR(50) NOT NULL,
+    `week` INT NOT NULL,
+    `rank` INT NOT NULL,
+    `cash` DECIMAL(10,2) NOT NULL DEFAULT 0,
+    `claimed` TINYINT(1) NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `cid_week` (`citizenid`, `week`)
+);
+
 SET FOREIGN_KEY_CHECKS = 1;
