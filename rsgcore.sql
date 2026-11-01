@@ -10,11 +10,9 @@ CREATE TABLE IF NOT EXISTS `admin_activity_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table redm.admin_activity_log: ~1 rows (approximately)
 INSERT INTO `admin_activity_log` (`id`, `sample_time`, `online_count`, `total_money`) VALUES
 	(3, '2026-11-01 15:56:39', 0, 0.00);
 
--- Dumping structure for table redm.admin_chat_messages
 CREATE TABLE IF NOT EXISTS `admin_chat_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sender_citizenid` varchar(50) DEFAULT NULL,
@@ -27,9 +25,6 @@ CREATE TABLE IF NOT EXISTS `admin_chat_messages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table redm.admin_chat_messages: ~0 rows (approximately)
-
--- Dumping structure for table redm.admin_logs
 CREATE TABLE IF NOT EXISTS `admin_logs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(20) NOT NULL,
