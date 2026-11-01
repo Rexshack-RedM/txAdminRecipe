@@ -1,187 +1,195 @@
--- Optimized RSG Core SQL File[cite: 1]
+-- database structure for rsg-framework
 
 SET FOREIGN_KEY_CHECKS = 0;
 
 CREATE TABLE IF NOT EXISTS `admin_activity_log` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `sample_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
-  `online_count` INT(11) NOT NULL DEFAULT 0,
-  `total_money` DECIMAL(15,2) NOT NULL DEFAULT 0.00,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `admin_chat_messages` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `sender_citizenid` VARCHAR(50) DEFAULT NULL,
-  `sender_name` VARCHAR(255) NOT NULL,
-  `sender_role` VARCHAR(20) DEFAULT NULL,
-  `sender_discord_name` VARCHAR(255) DEFAULT NULL,
-  `sender_discord_avatar_url` VARCHAR(500) DEFAULT NULL,
-  `message` VARCHAR(500) NOT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sample_time` timestamp NULL DEFAULT current_timestamp(),
+  `online_count` int(11) NOT NULL DEFAULT 0,
+  `total_money` decimal(15,2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dumping data for table redm.admin_activity_log: ~1 rows (approximately)
+INSERT INTO `admin_activity_log` (`id`, `sample_time`, `online_count`, `total_money`) VALUES
+	(3, '2026-11-01 15:56:39', 0, 0.00);
+
+-- Dumping structure for table redm.admin_chat_messages
+CREATE TABLE IF NOT EXISTS `admin_chat_messages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sender_citizenid` varchar(50) DEFAULT NULL,
+  `sender_name` varchar(255) NOT NULL,
+  `sender_role` varchar(20) DEFAULT NULL,
+  `sender_discord_name` varchar(255) DEFAULT NULL,
+  `sender_discord_avatar_url` varchar(500) DEFAULT NULL,
+  `message` varchar(500) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table redm.admin_chat_messages: ~0 rows (approximately)
+
+-- Dumping structure for table redm.admin_logs
 CREATE TABLE IF NOT EXISTS `admin_logs` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `category` VARCHAR(20) NOT NULL,
-  `severity` VARCHAR(10) NOT NULL DEFAULT 'low',
-  `admin_citizenid` VARCHAR(50) DEFAULT NULL,
-  `admin_name` VARCHAR(255) DEFAULT NULL,
-  `action` VARCHAR(255) NOT NULL,
-  `details` VARCHAR(500) DEFAULT NULL,
-  `target_name` VARCHAR(255) DEFAULT NULL,
-  `ip` VARCHAR(50) DEFAULT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category` varchar(20) NOT NULL,
+  `severity` varchar(10) NOT NULL DEFAULT 'low',
+  `admin_citizenid` varchar(50) DEFAULT NULL,
+  `admin_name` varchar(255) DEFAULT NULL,
+  `action` varchar(255) NOT NULL,
+  `details` varchar(500) DEFAULT NULL,
+  `target_name` varchar(255) DEFAULT NULL,
+  `ip` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `category` (`category`),
   KEY `admin_citizenid` (`admin_citizenid`)
-) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `admin_player_history` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `action` VARCHAR(20) NOT NULL,
-  `reason` VARCHAR(255) DEFAULT NULL,
-  `admin_name` VARCHAR(255) DEFAULT NULL,
-  `duration_seconds` INT(11) DEFAULT NULL,
-  `severity` VARCHAR(20) DEFAULT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `action` varchar(20) NOT NULL,
+  `reason` varchar(255) DEFAULT NULL,
+  `admin_name` varchar(255) DEFAULT NULL,
+  `duration_seconds` int(11) DEFAULT NULL,
+  `severity` varchar(20) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `admin_reports` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `report_type` VARCHAR(50) NOT NULL,
-  `reporter_id` INT(11) NOT NULL,
-  `reporter_name` VARCHAR(255) NOT NULL,
-  `reporter_license` VARCHAR(255) NOT NULL,
-  `reporter_discord` VARCHAR(255) DEFAULT NULL,
-  `reporter_coords` VARCHAR(255) NOT NULL,
-  `reported_player_id` INT(11) DEFAULT NULL,
-  `reported_player_name` VARCHAR(255) DEFAULT NULL,
-  `reported_player_license` VARCHAR(255) DEFAULT NULL,
-  `reported_player_discord` VARCHAR(255) DEFAULT NULL,
-  `title` VARCHAR(255) NOT NULL,
-  `description` TEXT NOT NULL,
-  `image_url` VARCHAR(500) DEFAULT NULL,
-  `status` VARCHAR(50) DEFAULT 'open',
-  `assigned_admin_id` INT(11) DEFAULT NULL,
-  `assigned_admin_name` VARCHAR(255) DEFAULT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
-  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
-  `reporter_steam` VARCHAR(50) DEFAULT NULL,
-  `severity` VARCHAR(20) DEFAULT 'medium',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE IF NOT EXISTS `admin_report_messages` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `report_id` INT(11) NOT NULL,
-  `sender_type` VARCHAR(50) NOT NULL,
-  `sender_id` INT(11) NOT NULL,
-  `sender_name` VARCHAR(255) NOT NULL,
-  `message` TEXT NOT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `report_id` int(11) NOT NULL,
+  `sender_type` varchar(50) NOT NULL,
+  `sender_id` int(11) NOT NULL,
+  `sender_name` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `report_id` (`report_id`),
   CONSTRAINT `admin_report_messages_ibfk_1` FOREIGN KEY (`report_id`) REFERENCES `admin_reports` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `admin_report_nearby_players` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `report_id` INT(11) NOT NULL,
-  `player_id` INT(11) NOT NULL,
-  `player_name` VARCHAR(255) NOT NULL,
-  `player_license` VARCHAR(255) NOT NULL,
-  `distance` FLOAT NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `report_id` int(11) NOT NULL,
+  `player_id` int(11) NOT NULL,
+  `player_name` varchar(255) NOT NULL,
+  `player_license` varchar(255) NOT NULL,
+  `distance` float NOT NULL,
   PRIMARY KEY (`id`),
   KEY `report_id` (`report_id`),
   CONSTRAINT `admin_report_nearby_players_ibfk_1` FOREIGN KEY (`report_id`) REFERENCES `admin_reports` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `admin_reports` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `report_type` varchar(50) NOT NULL,
+  `reporter_id` int(11) NOT NULL,
+  `reporter_name` varchar(255) NOT NULL,
+  `reporter_license` varchar(255) NOT NULL,
+  `reporter_discord` varchar(255) DEFAULT NULL,
+  `reporter_coords` varchar(255) NOT NULL,
+  `reported_player_id` int(11) DEFAULT NULL,
+  `reported_player_name` varchar(255) DEFAULT NULL,
+  `reported_player_license` varchar(255) DEFAULT NULL,
+  `reported_player_discord` varchar(255) DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `image_url` varchar(500) DEFAULT NULL,
+  `status` varchar(50) DEFAULT 'open',
+  `assigned_admin_id` int(11) DEFAULT NULL,
+  `assigned_admin_name` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `reporter_steam` varchar(50) DEFAULT NULL,
+  `severity` varchar(20) DEFAULT 'medium',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `admin_roles` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `license` VARCHAR(100) DEFAULT NULL,
-  `discord` VARCHAR(50) DEFAULT NULL,
-  `name` VARCHAR(255) DEFAULT NULL,
-  `role` VARCHAR(20) NOT NULL,
-  `granted_by` VARCHAR(255) DEFAULT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `license` varchar(100) DEFAULT NULL,
+  `discord` varchar(50) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `role` varchar(20) NOT NULL,
+  `granted_by` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `admin_whitelist` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `player_name` VARCHAR(255) NOT NULL,
-  `account_name` VARCHAR(255) DEFAULT NULL,
-  `status` VARCHAR(20) NOT NULL DEFAULT 'active',
-  `reason` VARCHAR(255) DEFAULT NULL,
-  `added_by_name` VARCHAR(255) DEFAULT NULL,
-  `expires_at` TIMESTAMP NULL DEFAULT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `player_name` varchar(255) NOT NULL,
+  `account_name` varchar(255) DEFAULT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'active',
+  `reason` varchar(255) DEFAULT NULL,
+  `added_by_name` varchar(255) DEFAULT NULL,
+  `expires_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `adminmenu_blips` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NOT NULL,
-  `sprite` VARCHAR(50) NOT NULL,
-  `x` FLOAT NOT NULL,
-  `y` FLOAT NOT NULL,
-  `z` FLOAT NOT NULL,
-  `scale` FLOAT NOT NULL DEFAULT 1,
-  `created_by` VARCHAR(255) DEFAULT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `sprite` varchar(50) NOT NULL,
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `scale` float NOT NULL DEFAULT 1,
+  `created_by` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `adminmenu_custom_items` (
-  `name` VARCHAR(64) NOT NULL,
-  `label` VARCHAR(100) NOT NULL,
-  `description` VARCHAR(255) DEFAULT NULL,
-  `weight` INT(11) NOT NULL DEFAULT 0,
-  `type` VARCHAR(20) NOT NULL DEFAULT 'item',
-  `image` VARCHAR(150) NOT NULL,
-  `created_by` VARCHAR(255) DEFAULT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `name` varchar(64) NOT NULL,
+  `label` varchar(100) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `weight` int(11) NOT NULL DEFAULT 0,
+  `type` varchar(20) NOT NULL DEFAULT 'item',
+  `image` varchar(150) NOT NULL,
+  `created_by` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `adminmenu_settings` (
-  `setting_key` VARCHAR(64) NOT NULL,
-  `setting_value` TEXT DEFAULT NULL,
+  `setting_key` varchar(64) NOT NULL,
+  `setting_value` text DEFAULT NULL,
   PRIMARY KEY (`setting_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `adminmenu_teleports` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NOT NULL,
-  `category` VARCHAR(30) NOT NULL DEFAULT 'special',
-  `description` VARCHAR(255) DEFAULT NULL,
-  `x` FLOAT NOT NULL,
-  `y` FLOAT NOT NULL,
-  `z` FLOAT NOT NULL,
-  `heading` FLOAT NOT NULL DEFAULT 0,
-  `created_by` VARCHAR(255) DEFAULT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `category` varchar(30) NOT NULL DEFAULT 'special',
+  `description` varchar(255) DEFAULT NULL,
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `heading` float NOT NULL DEFAULT 0,
+  `created_by` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `bans` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(50) DEFAULT NULL,
-  `license` VARCHAR(50) DEFAULT NULL,
-  `discord` VARCHAR(50) DEFAULT NULL,
-  `ip` VARCHAR(50) DEFAULT NULL,
-  `reason` TEXT DEFAULT NULL,
-  `expire` INT(11) DEFAULT NULL,
-  `bannedby` VARCHAR(255) NOT NULL DEFAULT 'Anticheat',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `license` varchar(50) DEFAULT NULL,
+  `discord` varchar(50) DEFAULT NULL,
+  `ip` varchar(50) DEFAULT NULL,
+  `reason` text DEFAULT NULL,
+  `expire` int(11) DEFAULT NULL,
+  `bannedby` varchar(255) NOT NULL DEFAULT 'Anticheat',
   PRIMARY KEY (`id`),
   KEY `license` (`license`),
   KEY `discord` (`discord`),
@@ -189,33 +197,53 @@ CREATE TABLE IF NOT EXISTS `bans` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `favorites_animations` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `favorites` LONGTEXT NOT NULL DEFAULT '[]',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `favorites` longtext NOT NULL DEFAULT '[]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `horse_race_tracks` (
-  `track_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(50) NOT NULL,
-  `points` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`points`)),
-  `timestamp` DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  `track_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `points` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`points`)),
+  `timestamp` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`track_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `hunting_weekly` (
+  `citizenid` varchar(50) NOT NULL,
+  `week` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL DEFAULT '',
+  `xp` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`citizenid`,`week`),
+  KEY `week_xp` (`week`,`xp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `hunting_weekly_rewards` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `week` int(11) NOT NULL,
+  `rank` int(11) NOT NULL,
+  `cash` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `claimed` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `cid_week` (`citizenid`,`week`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
 CREATE TABLE IF NOT EXISTS `inventories` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `identifier` VARCHAR(255) NOT NULL,
-  `items` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`items`)),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `identifier` varchar(255) NOT NULL,
+  `items` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`items`)),
   PRIMARY KEY (`identifier`),
   KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `management_funds` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `job_name` VARCHAR(50) NOT NULL,
-  `amount` INT(100) NOT NULL,
-  `type` ENUM('boss','gang') NOT NULL DEFAULT 'boss',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `job_name` varchar(50) NOT NULL,
+  `amount` int(100) NOT NULL,
+  `type` enum('boss','gang') NOT NULL DEFAULT 'boss',
   PRIMARY KEY (`id`),
   UNIQUE KEY `job_name` (`job_name`),
   KEY `type` (`type`)
@@ -230,15 +258,15 @@ INSERT INTO `management_funds` (`id`, `job_name`, `amount`, `type`) VALUES
 	(6, 'medic', 0, 'boss');
 
 CREATE TABLE IF NOT EXISTS `mdt_audit_logs` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `action` VARCHAR(50) NOT NULL,
-  `target_type` VARCHAR(50) DEFAULT NULL,
-  `target_id` VARCHAR(100) DEFAULT NULL,
-  `target_name` VARCHAR(100) DEFAULT NULL,
-  `details` TEXT DEFAULT NULL,
-  `performed_by` VARCHAR(50) NOT NULL,
-  `performed_by_name` VARCHAR(100) NOT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action` varchar(50) NOT NULL,
+  `target_type` varchar(50) DEFAULT NULL,
+  `target_id` varchar(100) DEFAULT NULL,
+  `target_name` varchar(100) DEFAULT NULL,
+  `details` text DEFAULT NULL,
+  `performed_by` varchar(50) NOT NULL,
+  `performed_by_name` varchar(100) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `idx_action` (`action`),
   KEY `idx_performed_by` (`performed_by`),
@@ -246,126 +274,24 @@ CREATE TABLE IF NOT EXISTS `mdt_audit_logs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `mdt_bolos` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(255) NOT NULL,
-  `description` TEXT DEFAULT NULL,
-  `last_seen` VARCHAR(255) DEFAULT NULL,
-  `officer` VARCHAR(100) NOT NULL,
-  `officer_cid` VARCHAR(50) DEFAULT NULL,
-  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `last_seen` varchar(255) DEFAULT NULL,
+  `officer` varchar(100) NOT NULL,
+  `officer_cid` varchar(50) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `idx_title` (`title`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `mdt_charge_templates` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
-  `description` TEXT DEFAULT NULL,
-  `fine` INT(11) DEFAULT 0,
-  `jailtime` INT(11) DEFAULT 0,
-  `category` VARCHAR(50) DEFAULT 'misdemeanor',
-  `created_by` VARCHAR(50) DEFAULT NULL,
-  `created_by_name` VARCHAR(100) DEFAULT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
-  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
-  PRIMARY KEY (`id`),
-  KEY `idx_category` (`category`),
-  KEY `idx_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-INSERT INTO `mdt_charge_templates` (`id`, `name`, `description`, `fine`, `jailtime`, `category`, `created_by`, `created_by_name`, `created_at`, `updated_at`) VALUES
-	(1, 'Assault', 'Physical assault on another person', 50, 2, 'felony', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
-	(2, 'Battery', 'Unlawful physical force against another', 75, 3, 'felony', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
-	(3, 'Theft', 'Stealing property valued under $50', 25, 0, 'misdemeanor', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
-	(4, 'Grand Theft', 'Stealing property valued $50 or more', 100, 6, 'felony', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
-	(5, 'Trespassing', 'Unauthorized entry onto private property', 15, 0, 'misdemeanor', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
-	(6, 'Public Intoxication', 'Being drunk in public', 10, 0, 'infraction', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
-	(7, 'Disorderly Conduct', 'Disturbing the peace', 20, 0, 'misdemeanor', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
-	(8, 'Vandalism', 'Willful destruction of property', 30, 0, 'misdemeanor', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
-	(9, 'Fraud', 'Deception for personal gain', 150, 12, 'felony', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
-	(10, 'Murder', 'Unlawful killing of another person', 0, 60, 'felony', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
-	(11, 'Horse Theft', 'Stealing a horse or other mount', 200, 24, 'felony', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
-	(12, 'Bank Robbery', 'Robbery of a banking institution', 500, 48, 'felony', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
-	(13, 'Resisting Arrest', 'Resisting or fleeing from law enforcement', 50, 1, 'misdemeanor', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58'),
-	(14, 'Obstruction of Justice', 'Interfering with law enforcement duties', 40, 0, 'misdemeanor', NULL, NULL, '2026-10-10 19:26:58', '2026-10-10 19:26:58');
-
-CREATE TABLE IF NOT EXISTS `mdt_reports` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(255) NOT NULL,
-  `type` VARCHAR(50) DEFAULT 'incident',
-  `description` TEXT DEFAULT NULL,
-  `officers` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`officers`)),
-  `suspects` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`suspects`)),
-  `evidence` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`evidence`)),
-  `officer` VARCHAR(100) NOT NULL,
-  `officer_cid` VARCHAR(50) DEFAULT NULL,
-  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP(),
-  PRIMARY KEY (`id`),
-  KEY `idx_type` (`type`),
-  KEY `idx_officer` (`officer`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `mdt_citizen_profiles` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `profile_picture` VARCHAR(512) DEFAULT NULL,
-  `notes` TEXT DEFAULT NULL,
-  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `citizenid` (`citizenid`),
-  KEY `idx_citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `mdt_fines` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `citizen_name` VARCHAR(100) NOT NULL,
-  `issued_charge_ids` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`issued_charge_ids`)),
-  `total_amount` INT(11) NOT NULL DEFAULT 0,
-  `due_date` TIMESTAMP NULL DEFAULT NULL,
-  `status` ENUM('unpaid','paid','overdue') DEFAULT 'unpaid',
-  `issued_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
-  `paid_at` TIMESTAMP NULL DEFAULT NULL,
-  `officer_name` VARCHAR(100) DEFAULT NULL,
-  `officer_cid` VARCHAR(50) DEFAULT NULL,
-  `paid_to_officer` VARCHAR(100) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_citizenid` (`citizenid`),
-  KEY `idx_status` (`status`),
-  KEY `idx_due_date` (`due_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `mdt_issued_charges` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `citizen_name` VARCHAR(100) NOT NULL,
-  `charge_template_id` INT(11) DEFAULT NULL,
-  `charge_name` VARCHAR(255) NOT NULL,
-  `charge_description` TEXT DEFAULT NULL,
-  `fine` INT(11) DEFAULT 0,
-  `jailtime` INT(11) DEFAULT 0,
-  `time_served` INT(11) DEFAULT 0,
-  `is_served` TINYINT(1) DEFAULT 0,
-  `officer` VARCHAR(100) NOT NULL,
-  `officer_cid` VARCHAR(50) DEFAULT NULL,
-  `report_id` INT(11) DEFAULT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
-  `served_at` TIMESTAMP NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_citizenid` (`citizenid`),
-  KEY `idx_officer` (`officer`),
-  KEY `idx_is_served` (`is_served`),
-  KEY `charge_template_id` (`charge_template_id`),
-  CONSTRAINT `mdt_issued_charges_ibfk_1` FOREIGN KEY (`charge_template_id`) REFERENCES `mdt_charge_templates` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE IF NOT EXISTS `mdt_charge_attachments` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `charge_id` INT(11) NOT NULL,
-  `report_id` INT(11) NOT NULL,
-  `attached_by` VARCHAR(50) NOT NULL,
-  `attached_by_name` VARCHAR(100) NOT NULL,
-  `attached_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `charge_id` int(11) NOT NULL,
+  `report_id` int(11) NOT NULL,
+  `attached_by` varchar(50) NOT NULL,
+  `attached_by_name` varchar(100) NOT NULL,
+  `attached_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_charge_report` (`charge_id`,`report_id`),
   KEY `idx_charge_id` (`charge_id`),
@@ -374,228 +300,331 @@ CREATE TABLE IF NOT EXISTS `mdt_charge_attachments` (
   CONSTRAINT `mdt_charge_attachments_ibfk_2` FOREIGN KEY (`report_id`) REFERENCES `mdt_reports` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `mdt_charge_templates` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `fine` int(11) DEFAULT 0,
+  `jailtime` int(11) DEFAULT 0,
+  `category` varchar(50) DEFAULT 'misdemeanor',
+  `created_by` varchar(50) DEFAULT NULL,
+  `created_by_name` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_category` (`category`),
+  KEY `idx_name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `mdt_charge_templates` (`id`, `name`, `description`, `fine`, `jailtime`, `category`, `created_by`, `created_by_name`, `created_at`, `updated_at`) VALUES
+	(1, 'Assault', 'Physical assault on another person', 50, 2, 'felony', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
+	(2, 'Battery', 'Unlawful physical force against another', 75, 3, 'felony', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
+	(3, 'Theft', 'Stealing property valued under $50', 25, 0, 'misdemeanor', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
+	(4, 'Grand Theft', 'Stealing property valued $50 or more', 100, 6, 'felony', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
+	(5, 'Trespassing', 'Unauthorized entry onto private property', 15, 0, 'misdemeanor', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
+	(6, 'Public Intoxication', 'Being drunk in public', 10, 0, 'infraction', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
+	(7, 'Disorderly Conduct', 'Disturbing the peace', 20, 0, 'misdemeanor', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
+	(8, 'Vandalism', 'Willful destruction of property', 30, 0, 'misdemeanor', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
+	(9, 'Fraud', 'Deception for personal gain', 150, 12, 'felony', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
+	(10, 'Murder', 'Unlawful killing of another person', 0, 60, 'felony', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
+	(11, 'Horse Theft', 'Stealing a horse or other mount', 200, 24, 'felony', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
+	(12, 'Bank Robbery', 'Robbery of a banking institution', 500, 48, 'felony', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
+	(13, 'Resisting Arrest', 'Resisting or fleeing from law enforcement', 50, 1, 'misdemeanor', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
+	(14, 'Obstruction of Justice', 'Interfering with law enforcement duties', 40, 0, 'misdemeanor', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58');
+
+CREATE TABLE IF NOT EXISTS `mdt_citizen_profiles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `profile_picture` varchar(512) DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `citizenid` (`citizenid`),
+  KEY `idx_citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `mdt_fines` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `citizen_name` varchar(100) NOT NULL,
+  `issued_charge_ids` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`issued_charge_ids`)),
+  `total_amount` int(11) NOT NULL DEFAULT 0,
+  `due_date` timestamp NULL DEFAULT NULL,
+  `status` enum('unpaid','paid','overdue') DEFAULT 'unpaid',
+  `issued_at` timestamp NULL DEFAULT current_timestamp(),
+  `paid_at` timestamp NULL DEFAULT NULL,
+  `officer_name` varchar(100) DEFAULT NULL,
+  `officer_cid` varchar(50) DEFAULT NULL,
+  `paid_to_officer` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_citizenid` (`citizenid`),
+  KEY `idx_status` (`status`),
+  KEY `idx_due_date` (`due_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `mdt_issued_charges` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `citizen_name` varchar(100) NOT NULL,
+  `charge_template_id` int(11) DEFAULT NULL,
+  `charge_name` varchar(255) NOT NULL,
+  `charge_description` text DEFAULT NULL,
+  `fine` int(11) DEFAULT 0,
+  `jailtime` int(11) DEFAULT 0,
+  `time_served` int(11) DEFAULT 0,
+  `is_served` tinyint(1) DEFAULT 0,
+  `officer` varchar(100) NOT NULL,
+  `officer_cid` varchar(50) DEFAULT NULL,
+  `report_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `served_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_citizenid` (`citizenid`),
+  KEY `idx_officer` (`officer`),
+  KEY `idx_is_served` (`is_served`),
+  KEY `charge_template_id` (`charge_template_id`),
+  CONSTRAINT `mdt_issued_charges_ibfk_1` FOREIGN KEY (`charge_template_id`) REFERENCES `mdt_charge_templates` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `mdt_records` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `name` VARCHAR(100) NOT NULL,
-  `crime` VARCHAR(255) NOT NULL,
-  `description` TEXT DEFAULT NULL,
-  `fine` INT(11) DEFAULT 0,
-  `jailtime` INT(11) DEFAULT 0,
-  `officer` VARCHAR(100) NOT NULL,
-  `officer_cid` VARCHAR(50) DEFAULT NULL,
-  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `crime` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `fine` int(11) DEFAULT 0,
+  `jailtime` int(11) DEFAULT 0,
+  `officer` varchar(100) NOT NULL,
+  `officer_cid` varchar(50) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `idx_citizenid` (`citizenid`),
   KEY `idx_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `mdt_report_comments` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `report_id` INT(11) NOT NULL,
-  `author` VARCHAR(100) NOT NULL,
-  `author_cid` VARCHAR(50) DEFAULT NULL,
-  `content` TEXT NOT NULL,
-  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `report_id` int(11) NOT NULL,
+  `author` varchar(100) NOT NULL,
+  `author_cid` varchar(50) DEFAULT NULL,
+  `content` text NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `idx_report_id` (`report_id`),
   CONSTRAINT `mdt_report_comments_ibfk_1` FOREIGN KEY (`report_id`) REFERENCES `mdt_reports` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `mdt_reports` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `type` varchar(50) DEFAULT 'incident',
+  `description` text DEFAULT NULL,
+  `officers` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`officers`)),
+  `suspects` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`suspects`)),
+  `evidence` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`evidence`)),
+  `officer` varchar(100) NOT NULL,
+  `officer_cid` varchar(50) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_type` (`type`),
+  KEY `idx_officer` (`officer`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `mdt_roles` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(50) NOT NULL,
-  `label` VARCHAR(100) NOT NULL,
-  `permissions` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`permissions`)),
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `label` varchar(100) NOT NULL,
+  `permissions` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`permissions`)),
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dumping data for table redm.mdt_roles: ~3 rows (approximately)
 INSERT INTO `mdt_roles` (`id`, `name`, `label`, `permissions`, `created_at`) VALUES
-	(1, 'admin', 'Administrator', '{"canCreateRecords": true, "canDeleteRecords": true, "canManageWarrants": true, "isAdmin": true}', '2026-10-10 19:26:58'),
-	(2, 'supervisor', 'Supervisor', '{"canCreateRecords": true, "canDeleteRecords": true, "canManageWarrants": true, "isAdmin": false}', '2026-10-10 19:26:58'),
-	(3, 'officer', 'Officer', '{"canCreateRecords": true, "canDeleteRecords": false, "canManageWarrants": false, "isAdmin": false}', '2026-10-10 19:26:58');
+	(1, 'admin', 'Administrator', '{"canCreateRecords": true, "canDeleteRecords": true, "canManageWarrants": true, "isAdmin": true}', '2026-10-10 18:26:58'),
+	(2, 'supervisor', 'Supervisor', '{"canCreateRecords": true, "canDeleteRecords": true, "canManageWarrants": true, "isAdmin": false}', '2026-10-10 18:26:58'),
+	(3, 'officer', 'Officer', '{"canCreateRecords": true, "canDeleteRecords": false, "canManageWarrants": false, "isAdmin": false}', '2026-10-10 18:26:58');
 
 CREATE TABLE IF NOT EXISTS `mdt_staff` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `name` VARCHAR(100) NOT NULL,
-  `role` VARCHAR(50) DEFAULT 'officer',
-  `permissions` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`permissions`)),
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
-  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `role` varchar(50) DEFAULT 'officer',
+  `permissions` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`permissions`)),
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `citizenid` (`citizenid`),
   KEY `idx_citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `mdt_warrants` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `name` VARCHAR(100) NOT NULL,
-  `reason` TEXT NOT NULL,
-  `status` ENUM('active','served','expired') DEFAULT 'active',
-  `officer` VARCHAR(100) NOT NULL,
-  `officer_cid` VARCHAR(50) DEFAULT NULL,
-  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP(),
-  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `reason` text NOT NULL,
+  `status` enum('active','served','expired') DEFAULT 'active',
+  `officer` varchar(100) NOT NULL,
+  `officer_cid` varchar(50) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `idx_citizenid` (`citizenid`),
   KEY `idx_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `multijob_jobs` (
+  `name` varchar(50) NOT NULL,
+  `label` varchar(100) NOT NULL,
+  `type` varchar(50) DEFAULT NULL,
+  `icon` varchar(100) DEFAULT NULL,
+  `default_duty` tinyint(1) NOT NULL DEFAULT 1,
+  `off_duty_pay` tinyint(1) NOT NULL DEFAULT 0,
+  `grades` longtext NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `multijob_jobs` (`name`, `label`, `type`, `icon`, `default_duty`, `off_duty_pay`, `grades`, `updated_at`) VALUES
+	('blklaw', 'Blackwater Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58'),
+	('downesranch', 'Downes Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
+	('emeraldranch', 'Emerald Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
+	('hangingdogranch', 'Hanging Dog Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
+	('herbalist', 'Herbalist', NULL, NULL, 1, 0, '{"1":{"payment":0,"isboss":true,"name":"Master"},"0":{"payment":0,"name":"Apprentice"}}', '2026-10-14 13:26:58'),
+	('hillhavenranch', 'Hill Haven Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
+	('macfarranch', 'Macfarlane Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
+	('medic', 'Medic', 'medic', 'fa-solid fa-user-nurse', 0, 0, '{"1":{"payment":25,"name":"Trainee"},"2":{"payment":50,"name":"Doctor"},"0":{"payment":5,"name":"Recruit"},"3":{"payment":75,"name":"Surgeon"},"4":{"payment":100,"isboss":true,"name":"Manager"}}', '2026-10-14 13:26:58'),
+	('pronghornranch', 'Pronghorn Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
+	('rholaw', 'Rhodes Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58'),
+	('stdenlaw', 'Saint Denis Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58'),
+	('strlaw', 'Strawberry Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58'),
+	('unemployed', 'Civilian', NULL, NULL, 1, 0, '{"0":{"payment":3,"name":"Freelancer"}}', '2026-10-14 13:26:58'),
+	('vallaw', 'Valentine Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58');
+
 CREATE TABLE IF NOT EXISTS `player_ammo` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(255) NOT NULL,
-  `ammo_revolver` INT(3) NOT NULL DEFAULT 0,
-  `ammo_revolver_express` INT(3) NOT NULL DEFAULT 0,
-  `ammo_revolver_express_explosive` INT(3) NOT NULL DEFAULT 0,
-  `ammo_revolver_high_velocity` INT(3) NOT NULL DEFAULT 0,
-  `ammo_revolver_split_point` INT(3) NOT NULL DEFAULT 0,
-  `ammo_pistol` INT(3) NOT NULL DEFAULT 0,
-  `ammo_pistol_express` INT(3) NOT NULL DEFAULT 0,
-  `ammo_pistol_express_explosive` INT(3) NOT NULL DEFAULT 0,
-  `ammo_pistol_high_velocity` INT(3) NOT NULL DEFAULT 0,
-  `ammo_pistol_split_point` INT(3) NOT NULL DEFAULT 0,
-  `ammo_repeater` INT(3) NOT NULL DEFAULT 0,
-  `ammo_repeater_express` INT(3) NOT NULL DEFAULT 0,
-  `ammo_repeater_express_explosive` INT(3) NOT NULL DEFAULT 0,
-  `ammo_repeater_high_velocity` INT(3) NOT NULL DEFAULT 0,
-  `ammo_repeater_split_point` INT(3) NOT NULL DEFAULT 0,
-  `ammo_rifle` INT(3) NOT NULL DEFAULT 0,
-  `ammo_rifle_express` INT(3) NOT NULL DEFAULT 0,
-  `ammo_rifle_express_explosive` INT(3) NOT NULL DEFAULT 0,
-  `ammo_rifle_high_velocity` INT(3) NOT NULL DEFAULT 0,
-  `ammo_rifle_split_point` INT(3) NOT NULL DEFAULT 0,
-  `ammo_shotgun` INT(3) NOT NULL DEFAULT 0,
-  `ammo_shotgun_buckshot_incendiary` INT(3) NOT NULL DEFAULT 0,
-  `ammo_shotgun_slug` INT(3) NOT NULL DEFAULT 0,
-  `ammo_shotgun_slug_explosive` INT(3) NOT NULL DEFAULT 0,
-  `ammo_rifle_elephant` INT(3) NOT NULL DEFAULT 0,
-  `ammo_22` INT(3) NOT NULL DEFAULT 0,
-  `ammo_22_tranquilizer` INT(3) NOT NULL DEFAULT 0,
-  `ammo_arrow` INT(3) NOT NULL DEFAULT 0,
-  `ammo_arrow_small_game` INT(3) NOT NULL DEFAULT 0,
-  `ammo_arrow_fire` INT(3) NOT NULL DEFAULT 0,
-  `ammo_arrow_poison` INT(3) NOT NULL DEFAULT 0,
-  `ammo_arrow_dynamite` INT(3) NOT NULL DEFAULT 0,
-  `ammo_molotov` INT(3) NOT NULL DEFAULT 0,
-  `ammo_tomahawk` INT(3) NOT NULL DEFAULT 0,
-  `ammo_tomahawk_ancient` INT(3) NOT NULL DEFAULT 0,
-  `ammo_dynamite` INT(3) NOT NULL DEFAULT 0,
-  `ammo_poisonbottle` INT(3) NOT NULL DEFAULT 0,
-  `ammo_throwing_knives` INT(3) NOT NULL DEFAULT 0,
-  `ammo_throwing_knives_drain` INT(3) NOT NULL DEFAULT 0,
-  `ammo_throwing_knives_poison` INT(3) NOT NULL DEFAULT 0,
-  `ammo_bolas` INT(3) NOT NULL DEFAULT 0,
-  `ammo_bolas_hawkmoth` INT(3) NOT NULL DEFAULT 0,
-  `ammo_bolas_intertwined` INT(3) NOT NULL DEFAULT 0,
-  `ammo_bolas_ironspiked` INT(3) NOT NULL DEFAULT 0,
-  `ammo_hatchet` INT(3) NOT NULL DEFAULT 0,
-  `ammo_hatchet_hunter` INT(3) NOT NULL DEFAULT 0,
-  `ammo_hatchet_cleaver` INT(3) NOT NULL DEFAULT 0,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(255) NOT NULL,
+  `ammo_revolver` int(3) NOT NULL DEFAULT 0,
+  `ammo_revolver_express` int(3) NOT NULL DEFAULT 0,
+  `ammo_revolver_express_explosive` int(3) NOT NULL DEFAULT 0,
+  `ammo_revolver_high_velocity` int(3) NOT NULL DEFAULT 0,
+  `ammo_revolver_split_point` int(3) NOT NULL DEFAULT 0,
+  `ammo_pistol` int(3) NOT NULL DEFAULT 0,
+  `ammo_pistol_express` int(3) NOT NULL DEFAULT 0,
+  `ammo_pistol_express_explosive` int(3) NOT NULL DEFAULT 0,
+  `ammo_pistol_high_velocity` int(3) NOT NULL DEFAULT 0,
+  `ammo_pistol_split_point` int(3) NOT NULL DEFAULT 0,
+  `ammo_repeater` int(3) NOT NULL DEFAULT 0,
+  `ammo_repeater_express` int(3) NOT NULL DEFAULT 0,
+  `ammo_repeater_express_explosive` int(3) NOT NULL DEFAULT 0,
+  `ammo_repeater_high_velocity` int(3) NOT NULL DEFAULT 0,
+  `ammo_repeater_split_point` int(3) NOT NULL DEFAULT 0,
+  `ammo_rifle` int(3) NOT NULL DEFAULT 0,
+  `ammo_rifle_express` int(3) NOT NULL DEFAULT 0,
+  `ammo_rifle_express_explosive` int(3) NOT NULL DEFAULT 0,
+  `ammo_rifle_high_velocity` int(3) NOT NULL DEFAULT 0,
+  `ammo_rifle_split_point` int(3) NOT NULL DEFAULT 0,
+  `ammo_shotgun` int(3) NOT NULL DEFAULT 0,
+  `ammo_shotgun_buckshot_incendiary` int(3) NOT NULL DEFAULT 0,
+  `ammo_shotgun_slug` int(3) NOT NULL DEFAULT 0,
+  `ammo_shotgun_slug_explosive` int(3) NOT NULL DEFAULT 0,
+  `ammo_rifle_elephant` int(3) NOT NULL DEFAULT 0,
+  `ammo_22` int(3) NOT NULL DEFAULT 0,
+  `ammo_22_tranquilizer` int(3) NOT NULL DEFAULT 0,
+  `ammo_arrow` int(3) NOT NULL DEFAULT 0,
+  `ammo_arrow_small_game` int(3) NOT NULL DEFAULT 0,
+  `ammo_arrow_fire` int(3) NOT NULL DEFAULT 0,
+  `ammo_arrow_poison` int(3) NOT NULL DEFAULT 0,
+  `ammo_arrow_dynamite` int(3) NOT NULL DEFAULT 0,
+  `ammo_molotov` int(3) NOT NULL DEFAULT 0,
+  `ammo_tomahawk` int(3) NOT NULL DEFAULT 0,
+  `ammo_tomahawk_ancient` int(3) NOT NULL DEFAULT 0,
+  `ammo_dynamite` int(3) NOT NULL DEFAULT 0,
+  `ammo_poisonbottle` int(3) NOT NULL DEFAULT 0,
+  `ammo_throwing_knives` int(3) NOT NULL DEFAULT 0,
+  `ammo_throwing_knives_drain` int(3) NOT NULL DEFAULT 0,
+  `ammo_throwing_knives_poison` int(3) NOT NULL DEFAULT 0,
+  `ammo_bolas` int(3) NOT NULL DEFAULT 0,
+  `ammo_bolas_hawkmoth` int(3) NOT NULL DEFAULT 0,
+  `ammo_bolas_intertwined` int(3) NOT NULL DEFAULT 0,
+  `ammo_bolas_ironspiked` int(3) NOT NULL DEFAULT 0,
+  `ammo_hatchet` int(3) NOT NULL DEFAULT 0,
+  `ammo_hatchet_hunter` int(3) NOT NULL DEFAULT 0,
+  `ammo_hatchet_cleaver` int(3) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `citizenid` (`citizenid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `player_backpack` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `serial` VARCHAR(32) NOT NULL,
-  `citizenid` VARCHAR(50) DEFAULT NULL,
-  `owner` VARCHAR(50) DEFAULT NULL,
-  `backpackitem` VARCHAR(50) NOT NULL,
-  `model` VARCHAR(100) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `serial` varchar(32) NOT NULL,
+  `citizenid` varchar(50) DEFAULT NULL,
+  `owner` varchar(50) DEFAULT NULL,
+  `backpackitem` varchar(50) NOT NULL,
+  `model` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `serial` (`serial`),
   KEY `owner` (`owner`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `player_birds` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `identifier` VARCHAR(50) NOT NULL,
-  `charid` INT(11) NOT NULL,
-  `model` VARCHAR(255) NOT NULL,
-  `preset` INT(11) NOT NULL DEFAULT 0,
-  `xp` INT(11) NOT NULL DEFAULT 0,
-  `price` INT(11) NOT NULL DEFAULT 0,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `identifier` varchar(50) NOT NULL,
+  `charid` int(11) NOT NULL,
+  `model` varchar(255) NOT NULL,
+  `preset` int(11) NOT NULL DEFAULT 0,
+  `xp` int(11) NOT NULL DEFAULT 0,
+  `price` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `player_dogs` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `identifier` VARCHAR(50) NOT NULL,
-  `charid` INT(11) NOT NULL,
-  `model` VARCHAR(255) NOT NULL,
-  `preset` INT(11) NOT NULL DEFAULT 0,
-  `xp` INT(11) NOT NULL DEFAULT 0,
-  `price` INT(11) NOT NULL DEFAULT 0,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `identifier` varchar(50) NOT NULL,
+  `charid` int(11) NOT NULL,
+  `model` varchar(255) NOT NULL,
+  `preset` int(11) NOT NULL DEFAULT 0,
+  `xp` int(11) NOT NULL DEFAULT 0,
+  `price` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `player_goldrockers` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) DEFAULT NULL,
-  `owner` VARCHAR(50) DEFAULT NULL,
-  `properties` TEXT NOT NULL,
-  `propid` INT(11) NOT NULL,
-  `proptype` VARCHAR(50) DEFAULT NULL,
-  `licensed` TINYINT(1) NOT NULL DEFAULT 0,
-  `claimname` VARCHAR(100) DEFAULT NULL,
-  `paydirt` INT(3) NOT NULL DEFAULT 0,
-  `water` INT(3) NOT NULL DEFAULT 0,
-  `quality` INT(3) NOT NULL DEFAULT 100,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) DEFAULT NULL,
+  `owner` varchar(50) DEFAULT NULL,
+  `properties` text NOT NULL,
+  `propid` int(11) NOT NULL,
+  `proptype` varchar(50) DEFAULT NULL,
+  `licensed` tinyint(1) NOT NULL DEFAULT 0,
+  `claimname` varchar(100) DEFAULT NULL,
+  `paydirt` int(3) NOT NULL DEFAULT 0,
+  `water` int(3) NOT NULL DEFAULT 0,
+  `quality` int(3) NOT NULL DEFAULT 100,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `player_jobs` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) DEFAULT NULL,
-  `job` VARCHAR(50) DEFAULT NULL,
-  `grade` INT(11) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) DEFAULT NULL,
+  `job` varchar(50) DEFAULT NULL,
+  `grade` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `multijob_jobs` (
-    `name` VARCHAR(50) NOT NULL,
-    `label` VARCHAR(100) NOT NULL,
-    `type` VARCHAR(50) NULL DEFAULT NULL,
-    `icon` VARCHAR(100) NULL DEFAULT NULL,
-    `default_duty` TINYINT(1) NOT NULL DEFAULT 1,
-    `off_duty_pay` TINYINT(1) NOT NULL DEFAULT 0,
-    `grades` LONGTEXT NOT NULL,
-    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-INSERT INTO `multijob_jobs` (`name`, `label`, `type`, `icon`, `default_duty`, `off_duty_pay`, `grades`, `updated_at`) VALUES
-	('blklaw', 'Blackwater Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 14:26:58'),
-	('downesranch', 'Downes Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 14:26:58'),
-	('emeraldranch', 'Emerald Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 14:26:58'),
-	('hangingdogranch', 'Hanging Dog Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 14:26:58'),
-	('herbalist', 'Herbalist', NULL, NULL, 1, 0, '{"1":{"payment":0,"isboss":true,"name":"Master"},"0":{"payment":0,"name":"Apprentice"}}', '2026-10-14 14:26:58'),
-	('hillhavenranch', 'Hill Haven Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 14:26:58'),
-	('macfarranch', 'Macfarlane Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 14:26:58'),
-	('medic', 'Medic', 'medic', 'fa-solid fa-user-nurse', 0, 0, '{"1":{"payment":25,"name":"Trainee"},"2":{"payment":50,"name":"Doctor"},"0":{"payment":5,"name":"Recruit"},"3":{"payment":75,"name":"Surgeon"},"4":{"payment":100,"isboss":true,"name":"Manager"}}', '2026-10-14 14:26:58'),
-	('pronghornranch', 'Pronghorn Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 14:26:58'),
-	('rholaw', 'Rhodes Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 14:26:58'),
-	('stdenlaw', 'Saint Denis Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 14:26:58'),
-	('strlaw', 'Strawberry Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 14:26:58'),
-	('unemployed', 'Civilian', NULL, NULL, 1, 0, '{"0":{"payment":3,"name":"Freelancer"}}', '2026-10-14 14:26:58'),
-	('vallaw', 'Valentine Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 14:26:58');
-
 CREATE TABLE IF NOT EXISTS `player_playtime` (
-  `citizenid` VARCHAR(50) NOT NULL,
-  `minutes` INT(11) NOT NULL DEFAULT 0,
-  `last_seen` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `citizenid` varchar(50) NOT NULL,
+  `minutes` int(11) NOT NULL DEFAULT 0,
+  `last_seen` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `player_samples` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `sample_id` VARCHAR(50) NOT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `sample_id` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_citizenid_sampleid` (`citizenid`,`sample_id`),
   KEY `idx_citizenid` (`citizenid`),
@@ -603,68 +632,68 @@ CREATE TABLE IF NOT EXISTS `player_samples` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `player_selected_pets` (
-  `identifier` VARCHAR(50) NOT NULL,
-  `charid` INT(11) NOT NULL,
-  `selected_dog` INT(11) DEFAULT NULL,
-  `selected_bird` INT(11) DEFAULT NULL,
+  `identifier` varchar(50) NOT NULL,
+  `charid` int(11) NOT NULL,
+  `selected_dog` int(11) DEFAULT NULL,
+  `selected_bird` int(11) DEFAULT NULL,
   UNIQUE KEY `uc_player` (`identifier`,`charid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `player_smelter` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) DEFAULT NULL,
-  `properties` TEXT NOT NULL,
-  `propid` INT(11) NOT NULL,
-  `proptype` VARCHAR(50) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) DEFAULT NULL,
+  `properties` text NOT NULL,
+  `propid` int(11) NOT NULL,
+  `proptype` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `player_weapons` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `serial` VARCHAR(16) NOT NULL,
-  `citizenid` VARCHAR(9) NOT NULL,
-  `components` VARCHAR(4096) NOT NULL DEFAULT '{}',
-  `components_before` VARCHAR(4096) NOT NULL DEFAULT '{}',
-  `price` DECIMAL(5,2) NOT NULL DEFAULT 0.00,
-  `town` INT(11) NOT NULL DEFAULT 0,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `serial` varchar(16) NOT NULL,
+  `citizenid` varchar(9) NOT NULL,
+  `components` varchar(4096) NOT NULL DEFAULT '{}',
+  `components_before` varchar(4096) NOT NULL DEFAULT '{}',
+  `price` decimal(5,2) NOT NULL DEFAULT 0.00,
+  `town` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `player_weapons_custom` (
-  `gunsiteid` VARCHAR(20) NOT NULL,
-  `propid` VARCHAR(20) NOT NULL,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `item` VARCHAR(50) NOT NULL,
-  `propdata` LONGTEXT NOT NULL,
+  `gunsiteid` varchar(20) NOT NULL,
+  `propid` varchar(20) NOT NULL,
+  `citizenid` varchar(50) NOT NULL,
+  `item` varchar(50) NOT NULL,
+  `propdata` longtext NOT NULL,
   PRIMARY KEY (`gunsiteid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `playeroutfit` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  `clothes` LONGTEXT DEFAULT NULL,
-  `is_default` TINYINT(1) NOT NULL DEFAULT 0,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `clothes` longtext DEFAULT NULL,
+  `is_default` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `players` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(255) NOT NULL,
-  `cid` INT(11) DEFAULT NULL,
-  `license` VARCHAR(255) NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  `outlawstatus` INT(11) NOT NULL DEFAULT 0,
-  `money` TEXT NOT NULL,
-  `charinfo` TEXT DEFAULT NULL,
-  `job` TEXT NOT NULL,
-  `gang` TEXT DEFAULT NULL,
-  `position` TEXT NOT NULL,
-  `metadata` TEXT NOT NULL,
-  `inventory` LONGTEXT DEFAULT NULL,
-  `weight` INT(11) NOT NULL DEFAULT 0,
-  `slots` INT(11) NOT NULL DEFAULT 0,
-  `last_updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(255) NOT NULL,
+  `cid` int(11) DEFAULT NULL,
+  `license` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `outlawstatus` int(11) NOT NULL DEFAULT 0,
+  `money` text NOT NULL,
+  `charinfo` text DEFAULT NULL,
+  `job` text NOT NULL,
+  `gang` text DEFAULT NULL,
+  `position` text NOT NULL,
+  `metadata` text NOT NULL,
+  `inventory` longtext DEFAULT NULL,
+  `weight` int(11) NOT NULL DEFAULT 0,
+  `slots` int(11) NOT NULL DEFAULT 0,
+  `last_updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`citizenid`),
   KEY `id` (`id`),
   KEY `last_updated` (`last_updated`),
@@ -672,74 +701,74 @@ CREATE TABLE IF NOT EXISTS `players` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `playerskins` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(255) NOT NULL,
-  `skin` VARCHAR(8000) NOT NULL,
-  `clothes` VARCHAR(8000) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(255) NOT NULL,
+  `skin` varchar(8000) NOT NULL,
+  `clothes` varchar(8000) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `citizenid` (`citizenid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `railroad_companies` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL DEFAULT '',
-  `company_id` VARCHAR(50) NOT NULL DEFAULT '',
-  `rank` INT(11) NOT NULL DEFAULT 1,
-  `xp` INT(11) NOT NULL DEFAULT 0,
-  `missions_completed` INT(11) NOT NULL DEFAULT 0,
-  `total_earnings` FLOAT NOT NULL DEFAULT 0,
-  `joined_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL DEFAULT '',
+  `company_id` varchar(50) NOT NULL DEFAULT '',
+  `rank` int(11) NOT NULL DEFAULT 1,
+  `xp` int(11) NOT NULL DEFAULT 0,
+  `missions_completed` int(11) NOT NULL DEFAULT 0,
+  `total_earnings` float NOT NULL DEFAULT 0,
+  `joined_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_citizen_company` (`citizenid`,`company_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `railroad_companies_owned` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `company_id` VARCHAR(50) NOT NULL,
-  `owner_citizenid` VARCHAR(50) NOT NULL,
-  `owner_name` VARCHAR(100) NOT NULL DEFAULT '',
-  `company_name` VARCHAR(100) DEFAULT NULL,
-  `cash_register` FLOAT NOT NULL DEFAULT 0,
-  `purchased_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(50) NOT NULL,
+  `owner_citizenid` varchar(50) NOT NULL,
+  `owner_name` varchar(100) NOT NULL DEFAULT '',
+  `company_name` varchar(100) DEFAULT NULL,
+  `cash_register` float NOT NULL DEFAULT 0,
+  `purchased_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_company` (`company_id`),
   KEY `idx_owner` (`owner_citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `railroad_company_supplies` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `company_id` VARCHAR(50) NOT NULL,
-  `item_name` VARCHAR(50) NOT NULL,
-  `quantity` INT(11) NOT NULL DEFAULT 0,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(50) NOT NULL,
+  `item_name` varchar(50) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_company_item` (`company_id`,`item_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `railroad_company_upgrades` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `company_id` VARCHAR(50) NOT NULL,
-  `train_model` VARCHAR(50) NOT NULL,
-  `upgrade_speed` INT(11) NOT NULL DEFAULT 0,
-  `upgrade_fuel_cap` INT(11) NOT NULL DEFAULT 0,
-  `upgrade_water_cap` INT(11) NOT NULL DEFAULT 0,
-  `upgrade_durability` INT(11) NOT NULL DEFAULT 0,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(50) NOT NULL,
+  `train_model` varchar(50) NOT NULL,
+  `upgrade_speed` int(11) NOT NULL DEFAULT 0,
+  `upgrade_fuel_cap` int(11) NOT NULL DEFAULT 0,
+  `upgrade_water_cap` int(11) NOT NULL DEFAULT 0,
+  `upgrade_durability` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_company_model` (`company_id`,`train_model`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `railroad_employees` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `company_id` VARCHAR(50) NOT NULL,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `firstname` VARCHAR(50) DEFAULT '',
-  `lastname` VARCHAR(50) DEFAULT '',
-  `status` VARCHAR(20) NOT NULL DEFAULT 'pending',
-  `xp` INT(11) NOT NULL DEFAULT 0,
-  `rank` INT(11) NOT NULL DEFAULT 1,
-  `missions_completed` INT(11) NOT NULL DEFAULT 0,
-  `total_earnings` FLOAT NOT NULL DEFAULT 0,
-  `applied_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
-  `approved_at` TIMESTAMP NULL DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(50) NOT NULL,
+  `citizenid` varchar(50) NOT NULL,
+  `firstname` varchar(50) DEFAULT '',
+  `lastname` varchar(50) DEFAULT '',
+  `status` varchar(20) NOT NULL DEFAULT 'pending',
+  `xp` int(11) NOT NULL DEFAULT 0,
+  `rank` int(11) NOT NULL DEFAULT 1,
+  `missions_completed` int(11) NOT NULL DEFAULT 0,
+  `total_earnings` float NOT NULL DEFAULT 0,
+  `applied_at` timestamp NULL DEFAULT current_timestamp(),
+  `approved_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_company_citizen` (`company_id`,`citizenid`),
   KEY `idx_citizenid` (`citizenid`),
@@ -747,169 +776,587 @@ CREATE TABLE IF NOT EXISTS `railroad_employees` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `railroad_rewards` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL DEFAULT '',
-  `reward_id` VARCHAR(50) NOT NULL DEFAULT '',
-  `claimed_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL DEFAULT '',
+  `reward_id` varchar(50) NOT NULL DEFAULT '',
+  `claimed_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_citizen_reward` (`citizenid`,`reward_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `railroad_trains` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL DEFAULT '',
-  `company_id` VARCHAR(50) NOT NULL DEFAULT '',
-  `train_model` VARCHAR(50) NOT NULL,
-  `label` VARCHAR(100) NOT NULL DEFAULT '',
-  `fuel` INT(11) NOT NULL DEFAULT 100,
-  `water` INT(11) NOT NULL DEFAULT 100,
-  `condition` INT(11) NOT NULL DEFAULT 100,
-  `upgrade_speed` INT(11) NOT NULL DEFAULT 0,
-  `upgrade_fuel_cap` INT(11) NOT NULL DEFAULT 0,
-  `upgrade_water_cap` INT(11) NOT NULL DEFAULT 0,
-  `upgrade_durability` INT(11) NOT NULL DEFAULT 0,
-  `total_miles` FLOAT NOT NULL DEFAULT 0,
-  `is_parked` TINYINT(1) NOT NULL DEFAULT 1,
-  `parked_station` VARCHAR(50) DEFAULT NULL,
-  `parked_direction` TINYINT(1) NOT NULL DEFAULT 0,
-  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL DEFAULT '',
+  `company_id` varchar(50) NOT NULL DEFAULT '',
+  `train_model` varchar(50) NOT NULL,
+  `label` varchar(100) NOT NULL DEFAULT '',
+  `fuel` int(11) NOT NULL DEFAULT 100,
+  `water` int(11) NOT NULL DEFAULT 100,
+  `condition` int(11) NOT NULL DEFAULT 100,
+  `upgrade_speed` int(11) NOT NULL DEFAULT 0,
+  `upgrade_fuel_cap` int(11) NOT NULL DEFAULT 0,
+  `upgrade_water_cap` int(11) NOT NULL DEFAULT 0,
+  `upgrade_durability` int(11) NOT NULL DEFAULT 0,
+  `total_miles` float NOT NULL DEFAULT 0,
+  `is_parked` tinyint(1) NOT NULL DEFAULT 1,
+  `parked_station` varchar(50) DEFAULT NULL,
+  `parked_direction` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `idx_citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `rsg_auction_bids` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `auction_id` varchar(50) NOT NULL,
+  `citizenid` varchar(50) NOT NULL,
+  `player_name` varchar(100) NOT NULL,
+  `amount` bigint(20) NOT NULL,
+  `is_buyout` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_auction` (`auction_id`),
+  CONSTRAINT `fk_auction_bids_auction` FOREIGN KEY (`auction_id`) REFERENCES `rsg_auctions` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_auction_collections` (
+  `id` varchar(100) NOT NULL,
+  `citizenid` varchar(50) NOT NULL,
+  `auction_id` varchar(50) NOT NULL,
+  `item_name` varchar(100) NOT NULL,
+  `item_label` varchar(100) NOT NULL,
+  `count` int(11) NOT NULL,
+  `metadata` longtext DEFAULT NULL,
+  `sold_for` bigint(20) NOT NULL DEFAULT 0,
+  `seller_name` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_auction_payouts` (
+  `citizenid` varchar(50) NOT NULL,
+  `amount` bigint(20) NOT NULL,
+  `reason` varchar(100) DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_auctions` (
+  `id` varchar(50) NOT NULL,
+  `owner_citizenid` varchar(50) NOT NULL,
+  `owner_name` varchar(100) NOT NULL,
+  `item_name` varchar(100) NOT NULL,
+  `item_label` varchar(100) NOT NULL,
+  `item_count` int(11) NOT NULL,
+  `item_metadata` longtext DEFAULT NULL,
+  `category` varchar(50) NOT NULL,
+  `location` varchar(50) NOT NULL,
+  `location_label` varchar(100) NOT NULL,
+  `starting_bid` bigint(20) NOT NULL,
+  `current_bid` bigint(20) NOT NULL DEFAULT 0,
+  `buyout_price` bigint(20) DEFAULT NULL,
+  `highest_bidder_citizenid` varchar(50) DEFAULT NULL,
+  `highest_bidder_name` varchar(100) DEFAULT NULL,
+  `winner_citizenid` varchar(50) DEFAULT NULL,
+  `winner_name` varchar(100) DEFAULT NULL,
+  `sold_for` bigint(20) DEFAULT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'active',
+  `total_bids` int(11) NOT NULL DEFAULT 0,
+  `creation_fee` bigint(20) NOT NULL DEFAULT 0,
+  `created_at` int(11) NOT NULL,
+  `end_time` int(11) NOT NULL,
+  `escrow_item` tinyint(1) NOT NULL DEFAULT 0,
+  `escrow_amount` bigint(20) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `idx_status` (`status`),
+  KEY `idx_owner` (`owner_citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `rsg_bank_accounts` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `bank` VARCHAR(50) NOT NULL,
-  `balance` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `bank` varchar(50) NOT NULL,
+  `balance` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `citizen_bank` (`citizenid`,`bank`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_bank_home` (
-  `citizenid` VARCHAR(50) NOT NULL,
-  `bank` VARCHAR(50) NOT NULL,
+  `citizenid` varchar(50) NOT NULL,
+  `bank` varchar(50) NOT NULL,
   PRIMARY KEY (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_bank_loans` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `bank` VARCHAR(50) NOT NULL,
-  `principal` DECIMAL(12,2) NOT NULL,
-  `owed` DECIMAL(12,2) NOT NULL,
-  `due_at` TIMESTAMP NOT NULL,
-  `late` TINYINT(1) NOT NULL DEFAULT 0,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `bank` varchar(50) NOT NULL,
+  `principal` decimal(12,2) NOT NULL,
+  `owed` decimal(12,2) NOT NULL,
+  `due_at` timestamp NOT NULL,
+  `late` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `citizen_bank` (`citizenid`,`bank`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_bank_lockbox_items` (
-  `citizenid` VARCHAR(50) NOT NULL,
-  `bank` VARCHAR(50) NOT NULL,
-  `item` VARCHAR(100) NOT NULL,
-  `amount` INT(11) NOT NULL DEFAULT 0,
+  `citizenid` varchar(50) NOT NULL,
+  `bank` varchar(50) NOT NULL,
+  `item` varchar(100) NOT NULL,
+  `amount` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`citizenid`,`bank`,`item`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_bank_lockboxes` (
-  `citizenid` VARCHAR(50) NOT NULL,
-  `bank` VARCHAR(50) NOT NULL,
-  `size` VARCHAR(20) NOT NULL,
-  `upgrades` INT(11) NOT NULL DEFAULT 0,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `citizenid` varchar(50) NOT NULL,
+  `bank` varchar(50) NOT NULL,
+  `size` varchar(20) NOT NULL,
+  `upgrades` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`citizenid`,`bank`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_bank_meta` (
-  `k` VARCHAR(50) NOT NULL,
-  `v` VARCHAR(255) DEFAULT NULL,
+  `k` varchar(50) NOT NULL,
+  `v` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`k`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dumping data for table redm.rsg_bank_meta: ~1 rows (approximately)
+INSERT INTO `rsg_bank_meta` (`k`, `v`) VALUES
+	('core_migrated', '2026-11-01 15:56:36');
+
 CREATE TABLE IF NOT EXISTS `rsg_bank_transactions` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `bank` VARCHAR(50) NOT NULL,
-  `type` VARCHAR(20) NOT NULL,
-  `amount` DECIMAL(12,2) NOT NULL,
-  `note` VARCHAR(255) DEFAULT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `bank` varchar(50) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `amount` decimal(12,2) NOT NULL,
+  `note` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `citizen_bank_idx` (`citizenid`,`bank`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `rsg_cooking_campfires` (
-  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `x` FLOAT NOT NULL,
-  `y` FLOAT NOT NULL,
-  `z` FLOAT NOT NULL,
-  `heading` FLOAT NOT NULL DEFAULT 0,
-  `expires` INT(10) UNSIGNED DEFAULT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+CREATE TABLE IF NOT EXISTS `rsg_beehives` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) DEFAULT NULL,
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `heading` float NOT NULL DEFAULT 0,
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  `activated_at` int(10) unsigned DEFAULT NULL,
+  `food` tinyint(3) unsigned NOT NULL DEFAULT 100,
+  `water` tinyint(3) unsigned NOT NULL DEFAULT 100,
+  `health` tinyint(3) unsigned NOT NULL DEFAULT 100,
+  `honey` tinyint(3) unsigned NOT NULL DEFAULT 0,
+  `smoked_until` int(10) unsigned DEFAULT NULL,
+  `prop` varchar(50) NOT NULL DEFAULT 'bee_house_gk_1',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `idx_citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `rsg_boats_models` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `model` varchar(64) NOT NULL,
+  `label` varchar(64) NOT NULL,
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `price` int(11) NOT NULL DEFAULT 0,
+  `enabled` tinyint(1) NOT NULL DEFAULT 1,
+  `slots` int(11) NOT NULL DEFAULT 10,
+  `weight` int(11) NOT NULL DEFAULT 50000,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `model` (`model`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+-- Dumping data for table redm.rsg_boats_models: ~1 rows (approximately)
+INSERT INTO `rsg_boats_models` (`id`, `model`, `label`, `description`, `price`, `enabled`, `slots`, `weight`) VALUES
+	(1, 'rowboat', 'Rowboat', 'A sturdy wooden rowboat for rivers and bayous.', 75, 1, 10, 50000);
+
+CREATE TABLE IF NOT EXISTS `rsg_boats_owned` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `model` varchar(64) NOT NULL,
+  `label` varchar(64) NOT NULL,
+  `purchased` timestamp NOT NULL DEFAULT current_timestamp(),
+  `yard` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_boats_settings` (
+  `k` varchar(64) NOT NULL,
+  `v` longtext NOT NULL,
+  PRIMARY KEY (`k`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_boats_yards` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `coords` varchar(255) NOT NULL,
+  `spawn` varchar(255) DEFAULT NULL,
+  `dock` varchar(255) DEFAULT NULL,
+  `models` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+-- Dumping data for table redm.rsg_boats_yards: ~1 rows (approximately)
+INSERT INTO `rsg_boats_yards` (`id`, `name`, `coords`, `spawn`, `dock`, `models`) VALUES
+	(1, 'Saint Denis Boat Yard', '{"y":-1778.010009765625,"x":886.6599731445313,"w":283.2699890136719,"z":42.13999938964844}', NULL, NULL, NULL);
+
+CREATE TABLE IF NOT EXISTS `rsg_bountyhunter` (
+  `citizenid` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL DEFAULT '',
+  `completed` int(11) NOT NULL DEFAULT 0,
+  `alive` int(11) NOT NULL DEFAULT 0,
+  `dead` int(11) NOT NULL DEFAULT 0,
+  `earned` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_chat_channels` (
+  `id` varchar(32) NOT NULL,
+  `data` longtext NOT NULL,
+  `sort` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+-- Dumping data for table redm.rsg_chat_channels: ~4 rows (approximately)
+INSERT INTO `rsg_chat_channels` (`id`, `data`, `sort`) VALUES
+	('local', '{"gangs":[],"enabled":true,"permission":"","requireDuty":false,"distance":20,"maxLength":256,"color":"#ffffff","id":"local","command":"l","jobs":[],"label":"Local","range":"local","showPrefix":false,"prefix":"Local"}', 2),
+	('ooc', '{"gangs":[],"enabled":true,"permission":"","requireDuty":false,"distance":0,"maxLength":256,"color":"#bfbfbf","id":"ooc","command":"ooc","jobs":[],"label":"OOC","range":"global","showPrefix":true,"prefix":"OOC"}', 1),
+	('staff', '{"gangs":[],"enabled":true,"permission":"helper","requireDuty":false,"distance":0,"maxLength":512,"color":"#e0554f","id":"staff","command":"staff","jobs":[],"label":"Staff","range":"group","showPrefix":true,"prefix":"Staff"}', 4),
+	('trade', '{"gangs":[],"enabled":true,"permission":"","requireDuty":false,"distance":750,"maxLength":200,"color":"#d9a441","id":"trade","command":"trade","jobs":[],"label":"Trade","range":"regional","showPrefix":true,"prefix":"Trade"}', 3);
+
+CREATE TABLE IF NOT EXISTS `rsg_cooking_campfires` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `heading` float NOT NULL DEFAULT 0,
+  `expires` int(10) unsigned DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_cooking_stations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `world` tinyint(1) NOT NULL DEFAULT 0,
+  `stype` varchar(20) NOT NULL DEFAULT 'campfire',
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `heading` float NOT NULL DEFAULT 0,
+  `recipe` varchar(50) DEFAULT NULL,
+  `hopper` longtext DEFAULT NULL,
+  `output` int(11) NOT NULL DEFAULT 0,
+  `fuel` int(11) NOT NULL DEFAULT 0,
+  `batch_left` int(11) DEFAULT NULL,
+  `last_tick` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_doorlocks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `doors` longtext NOT NULL,
+  `text_coords` longtext NOT NULL,
+  `jobs` longtext NOT NULL,
+  `distance` float NOT NULL DEFAULT 1.25,
+  `locked` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table redm.rsg_doorlocks: ~41 rows (approximately)
+INSERT INTO `rsg_doorlocks` (`id`, `name`, `doors`, `text_coords`, `jobs`, `distance`, `locked`) VALUES
+	(1, 'Imported door 1988748538', '[{"coords":{"z":118.41165161132813,"y":802.591064453125,"x":-276.0126037597656},"hash":1988748538}]', '{"z":119.41165161132813,"y":802.591064453125,"x":-276.0126037597656}', '["vallaw"]', 3, 1),
+	(2, 'Imported door 395506985', '[{"coords":{"z":118.41483306884766,"y":812.0270385742188,"x":-275.8447570800781},"hash":395506985}]', '{"z":119.41483306884766,"y":812.0270385742188,"x":-275.8447570800781}', '["vallaw"]', 3, 1),
+	(3, 'Imported door 1508776842', '[{"coords":{"z":118.39580535888672,"y":810.0264892578125,"x":-270.76641845703127},"hash":1508776842}]', '{"z":119.39580535888672,"y":810.0264892578125,"x":-270.76641845703127}', '["vallaw"]', 1, 1),
+	(4, 'Imported door 535323366', '[{"coords":{"z":118.36856842041016,"y":809.2740478515625,"x":-275.0232849121094},"hash":535323366}]', '{"z":119.36856842041016,"y":809.2740478515625,"x":-275.0232849121094}', '["vallaw"]', 2, 1),
+	(5, 'Theatre Main Doors', '[{"coords":{"x":2547.550048828125,"y":-1289.8310546875,"z":48.21599960327148},"hash":544106233},{"coords":{"x":2545.345947265625,"y":-1289.8310546875,"z":48.21599960327148},"hash":340151973}]', '{"x":2546.447998046875,"y":-1289.8310546875,"z":49.21599960327148}', '[]', 1.25, 0),
+	(6, 'Imported door 295355979', '[{"coords":{"z":118.36823272705078,"y":809.966064453125,"x":-273.4643249511719},"hash":295355979}]', '{"z":119.36823272705078,"y":809.966064453125,"x":-273.4643249511719}', '["vallaw"]', 1, 1),
+	(7, 'Theatre Side Door 1', '[{"coords":{"x":2537.594970703125,"y":-1294.47802734375,"z":48.21599960327148},"hash":534819197},{"coords":{"x":2537.594970703125,"y":-1295.8360595703126,"z":48.21599960327148},"hash":836064614}]', '{"x":2537.594970703125,"y":-1295.156982421875,"z":49.21599960327148}', '[]', 1.25, 1),
+	(8, 'Imported door 193903155', '[{"coords":{"z":118.36851501464844,"y":808.25830078125,"x":-272.0520935058594},"hash":193903155}]', '{"z":119.36851501464844,"y":808.25830078125,"x":-272.0520935058594}', '["vallaw"]', 1, 1),
+	(9, 'Theatre Side Door 2', '[{"coords":{"x":2537.594970703125,"y":-1299.5899658203126,"z":48.21599960327148},"hash":1449678065},{"coords":{"x":2537.594970703125,"y":-1298.2330322265626,"z":48.21599960327148},"hash":2053545201}]', '{"x":2537.594970703125,"y":-1298.9114990234376,"z":49.21599960327148}', '[]', 1.25, 1),
+	(10, 'Imported door 349074475', '[{"coords":{"z":76.76842498779297,"y":-1305.9600830078126,"x":1359.710205078125},"hash":349074475}]', '{"z":77.76842498779297,"y":-1305.9600830078126,"x":1359.710205078125}', '["rholaw"]', 3, 1),
+	(11, 'Theatre Side Door 3', '[{"coords":{"x":2537.594970703125,"y":-1303.3360595703126,"z":48.21599960327148},"hash":627391959},{"coords":{"x":2537.594970703125,"y":-1301.97802734375,"z":48.21599960327148},"hash":3468071035}]', '{"x":2537.594970703125,"y":-1302.656982421875,"z":49.21599960327148}', '[]', 1.25, 1),
+	(12, 'Imported door 1614494720', '[{"coords":{"z":76.78761291503906,"y":-1297.5343017578126,"x":1359.097900390625},"hash":1614494720}]', '{"z":77.78761291503906,"y":-1297.5343017578126,"x":1359.097900390625}', '["rholaw"]', 3, 1),
+	(13, 'Imported door 1878514758', '[{"coords":{"z":76.76018524169922,"y":-1302.4530029296876,"x":1357.3343505859376},"hash":1878514758}]', '{"z":76.76018524169922,"y":-1302.4530029296876,"x":1357.3343505859376}', '["rholaw"]', 1.5, 1),
+	(14, 'Imported door 3410720590', '[{"coords":{"z":43.068603515625,"y":-1268.485107421875,"x":-757.0421752929688},"hash":3410720590},{"coords":{"z":43.06863021850586,"y":-1269.9234619140626,"x":-757.0421142578125},"hash":3821185084}]', '{"z":44.04000091552734,"y":-1269.3399658203126,"x":-757.27001953125}', '["blklaw"]', 3, 1),
+	(15, 'Imported door 2810801921', '[{"coords":{"z":43.0400390625,"y":-1268.7451171875,"x":-769.1370849609375},"hash":2810801921}]', '{"z":44.0400390625,"y":-1268.7451171875,"x":-769.1370849609375}', '["blklaw"]', 3, 1),
+	(16, 'Imported door 2167775834', '[{"coords":{"z":43.02327346801758,"y":-1262.4608154296876,"x":-763.52783203125},"hash":2167775834}]', '{"z":44.02327346801758,"y":-1262.4608154296876,"x":-763.52783203125}', '["blklaw"]', 1, 1),
+	(17, 'Imported door 2514996159', '[{"coords":{"z":43.02326965332031,"y":-1264.7044677734376,"x":-765.8607788085938},"hash":2514996159}]', '{"z":44.02326965332031,"y":-1264.7044677734376,"x":-765.8607788085938}', '["blklaw"]', 1, 1),
+	(18, 'Imported door 1821044729', '[{"coords":{"z":163.64759826660157,"y":-350.31280517578127,"x":-1806.6751708984376},"hash":1821044729}]', '{"z":164.64759826660157,"y":-350.31280517578127,"x":-1806.6751708984376}', '["strlaw"]', 3, 1),
+	(19, 'Imported door 902070893', '[{"coords":{"z":160.44180297851563,"y":-353.1470947265625,"x":-1814.400390625},"hash":902070893}]', '{"z":161.44180297851563,"y":-353.1470947265625,"x":-1814.400390625}', '["strlaw"]', 1.5, 1),
+	(20, 'Imported door 1207903970', '[{"coords":{"z":160.46839904785157,"y":-351.92095947265627,"x":-1812.0101318359376},"hash":1207903970}]', '{"z":161.46839904785157,"y":-351.92095947265627,"x":-1812.0101318359376}', '["strlaw"]', 1.5, 1),
+	(21, 'Imported door 1514359658', '[{"coords":{"z":163.64759826660157,"y":-345.08489990234377,"x":-1812.669189453125},"hash":1514359658}]', '{"z":164.64759826660157,"y":-345.08489990234377,"x":-1812.669189453125}', '["strlaw"]', 3, 1),
+	(22, 'Imported door 417663242', '[{"coords":{"z":47.95257186889648,"y":-1309.9276123046876,"x":2516.144287109375},"hash":417663242},{"coords":{"z":47.95257186889648,"y":-1307.724853515625,"x":2516.14453125},"hash":1611175760}]', '{"z":48.95257186889648,"y":-1309.9276123046876,"x":2516.144287109375}', '["stdenlaw"]', 1.5, 1),
+	(23, 'Imported door 3601535313', '[{"coords":{"z":47.95257186889648,"y":-1312.2154541015626,"x":2510.90771484375},"hash":3601535313},{"coords":{"z":47.95257186889648,"y":-1310.4840087890626,"x":2510.90771484375},"hash":3430284519}]', '{"z":48.95257186889648,"y":-1312.2154541015626,"x":2510.90771484375}', '["stdenlaw"]', 1.5, 1),
+	(24, 'Imported door 3124713594', '[{"coords":{"z":47.95716857910156,"y":-1307.141357421875,"x":2510.90771484375},"hash":3124713594},{"coords":{"z":47.95716857910156,"y":-1305.41162109375,"x":2510.90771484375},"hash":1879655431}]', '{"z":48.95716857910156,"y":-1307.141357421875,"x":2510.90771484375}', '["stdenlaw"]', 1.5, 1),
+	(25, 'Imported door 1020479727', '[{"coords":{"z":47.95257186889648,"y":-1317.2796630859376,"x":2508.337646484375},"hash":1020479727},{"coords":{"z":47.95257186889648,"y":-1317.2796630859376,"x":2506.606201171875},"hash":603068205}]', '{"z":48.95257186889648,"y":-1317.2796630859376,"x":2508.337646484375}', '["stdenlaw"]', 1.5, 1),
+	(26, 'Imported door 305296302', '[{"coords":{"z":47.95257186889648,"y":-1317.28271484375,"x":2497.684814453125},"hash":305296302},{"coords":{"z":47.95257186889648,"y":-1317.28271484375,"x":2495.953369140625},"hash":2503834054}]', '{"z":48.95257186889648,"y":-1317.28271484375,"x":2497.684814453125}', '["stdenlaw"]', 1.5, 1),
+	(27, 'Imported door 1992193795', '[{"coords":{"z":47.95257186889648,"y":-1311.95654296875,"x":2493.37255859375},"hash":1992193795},{"coords":{"z":47.95257186889648,"y":-1310.2252197265626,"x":2493.37255859375},"hash":1694749582}]', '{"z":48.95257186889648,"y":-1311.95654296875,"x":2493.37255859375}', '["stdenlaw"]', 1.5, 1),
+	(28, 'Imported door 1979938193', '[{"coords":{"z":47.95257186889648,"y":-1307.41845703125,"x":2493.37255859375},"hash":1979938193},{"coords":{"z":47.95257186889648,"y":-1305.68701171875,"x":2493.37255859375},"hash":1674105116}]', '{"z":48.95257186889648,"y":-1307.41845703125,"x":2493.37255859375}', '["stdenlaw"]', 1.5, 1),
+	(29, 'Imported door 3365520707', '[{"coords":{"z":47.95327377319336,"y":-1307.85595703125,"x":2498.5},"hash":3365520707}]', '{"z":48.95327377319336,"y":-1307.85595703125,"x":2498.5}', '["stdenlaw"]', 1, 1),
+	(30, 'Imported door 1995743734', '[{"coords":{"z":47.95327377319336,"y":-1309.8763427734376,"x":2499.752197265625},"hash":1995743734}]', '{"z":48.95327377319336,"y":-1309.8763427734376,"x":2499.752197265625}', '["stdenlaw"]', 1, 1),
+	(31, 'Imported door 1711767580', '[{"coords":{"z":47.95327377319336,"y":-1307.85595703125,"x":2502.4296875},"hash":1711767580}]', '{"z":48.95327377319336,"y":-1307.85595703125,"x":2502.4296875}', '["stdenlaw"]', 1, 1),
+	(32, 'Imported door 2515591150', '[{"coords":{"z":47.95327377319336,"y":-1309.8763427734376,"x":2503.638671875},"hash":2515591150}]', '{"z":48.95327377319336,"y":-1309.8763427734376,"x":2503.638671875}', '["stdenlaw"]', 1, 1),
+	(33, 'Imported door 1692000954', '[{"coords":{"z":43.09000015258789,"y":-700.0700073242188,"x":3331.85009765625},"hash":1692000954}]', '{"z":43.09000015258789,"y":-700.0700073242188,"x":3331.85009765625}', '[]', 3, 1),
+	(34, 'Imported door -1819721708', '[{"coords":{"z":43.09000015258789,"y":-702.02001953125,"x":3333.60009765625},"hash":-1819721708}]', '{"z":43.09000015258789,"y":-702.02001953125,"x":3333.60009765625}', '[]', 3, 1),
+	(35, 'Imported door 559643844', '[{"coords":{"z":44.4000015258789,"y":-648.0,"x":3350.699951171875},"hash":559643844}]', '{"z":44.4000015258789,"y":-648.0,"x":3350.699951171875}', '[]', 1.5, 1),
+	(36, 'Imported door 559643844', '[{"coords":{"z":44.40999984741211,"y":-645.280029296875,"x":3349.9599609375},"hash":559643844}]', '{"z":44.40999984741211,"y":-645.280029296875,"x":3349.9599609375}', '[]', 1.5, 1),
+	(37, 'Imported door 4249790129', '[{"coords":{"z":45.4660758972168,"y":-639.477783203125,"x":3384.615478515625},"hash":4249790129}]', '{"z":45.4660758972168,"y":-639.477783203125,"x":3384.615478515625}', '[]', 1.5, 1),
+	(38, 'Imported door 559643844', '[{"coords":{"z":45.4900016784668,"y":-680.1199951171875,"x":3366.449951171875},"hash":559643844}]', '{"z":45.4900016784668,"y":-680.1199951171875,"x":3366.449951171875}', '[]', 1.5, 1),
+	(39, 'Imported door 559643844', '[{"coords":{"z":44.31000137329101,"y":-723.5900268554688,"x":3369.56005859375},"hash":559643844}]', '{"z":44.31000137329101,"y":-723.5900268554688,"x":3369.56005859375}', '[]', 1.5, 1),
+	(40, 'Imported door 559643844', '[{"coords":{"z":45.5,"y":-677.719970703125,"x":3407.31005859375},"hash":559643844}]', '{"z":45.5,"y":-677.719970703125,"x":3407.31005859375}', '[]', 1.5, 1),
+	(41, 'Imported door -1694920053', '[{"coords":{"z":44.8508186340332,"y":-658.0032348632813,"x":3318.453125},"hash":-1694920053}]', '{"z":44.8508186340332,"y":-658.0032348632813,"x":3318.453125}', '[]', 1.5, 1);
+
+CREATE TABLE IF NOT EXISTS `rsg_drugs_labs` (
+  `citizenid` varchar(50) NOT NULL,
+  `data` longtext NOT NULL,
+  PRIMARY KEY (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
 CREATE TABLE IF NOT EXISTS `rsg_farming_plants` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `crop` VARCHAR(50) NOT NULL,
-  `x` FLOAT NOT NULL,
-  `y` FLOAT NOT NULL,
-  `z` FLOAT NOT NULL,
-  `h` FLOAT NOT NULL DEFAULT 0,
-  `growth` FLOAT NOT NULL DEFAULT 0,
-  `water` FLOAT NOT NULL DEFAULT 0,
-  `fertilizer` FLOAT NOT NULL DEFAULT 0,
-  `health` FLOAT NOT NULL DEFAULT 100,
-  `dead` TINYINT(1) NOT NULL DEFAULT 0,
-  `dead_time` INT(11) NOT NULL DEFAULT 0,
-  `planted_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `crop` varchar(50) NOT NULL,
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `h` float NOT NULL DEFAULT 0,
+  `growth` float NOT NULL DEFAULT 0,
+  `water` float NOT NULL DEFAULT 0,
+  `fertilizer` float NOT NULL DEFAULT 0,
+  `health` float NOT NULL DEFAULT 100,
+  `dead` tinyint(1) NOT NULL DEFAULT 0,
+  `dead_time` int(11) NOT NULL DEFAULT 0,
+  `planted_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_farming_wellpumps` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `x` FLOAT NOT NULL,
-  `y` FLOAT NOT NULL,
-  `z` FLOAT NOT NULL,
-  `h` FLOAT NOT NULL DEFAULT 0,
-  `placed_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `h` float NOT NULL DEFAULT 0,
+  `placed_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `rsg_housekeys` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `houseid` varchar(7) NOT NULL DEFAULT '0',
+  `citizenid` varchar(50) NOT NULL DEFAULT '0',
+  `guest` int(1) NOT NULL DEFAULT 0,
+  `perm_doors` tinyint(1) NOT NULL DEFAULT 1,
+  `perm_storage` tinyint(1) NOT NULL DEFAULT 1,
+  `perm_wardrobe` tinyint(1) NOT NULL DEFAULT 1,
+  `perm_mailbox` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  KEY `idx_citizenid` (`citizenid`),
+  KEY `idx_houseid` (`houseid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_housing` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `region` varchar(30) NOT NULL,
+  `houseid` varchar(7) NOT NULL,
+  `citizenid` varchar(50) NOT NULL DEFAULT '0',
+  `fullname` varchar(255) NOT NULL DEFAULT '0',
+  `rented` tinyint(1) NOT NULL DEFAULT 0,
+  `rent` int(11) NOT NULL DEFAULT 0,
+  `rent_due` datetime DEFAULT NULL,
+  `reminder_sent` tinyint(1) NOT NULL DEFAULT 0,
+  `custom_name` varchar(30) DEFAULT NULL,
+  `storage_tier` tinyint(4) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_houseid` (`houseid`),
+  KEY `idx_rented` (`rented`),
+  KEY `idx_citizenid` (`citizenid`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+-- Dumping data for table redm.rsg_housing: ~48 rows (approximately)
+INSERT INTO `rsg_housing` (`id`, `region`, `houseid`, `citizenid`, `fullname`, `rented`, `rent`, `rent_due`, `reminder_sent`, `custom_name`, `storage_tier`) VALUES
+	(1, 'newhanover', 'house1', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(2, 'westelizabeth', 'house2', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(3, 'newhanover', 'house3', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(4, 'lemoyne', 'house4', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(5, 'lemoyne', 'house5', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(6, 'lemoyne', 'house6', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(7, 'newaustin', 'house7', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(8, 'newhanover', 'house8', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(9, 'newhanover', 'house9', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(10, 'newhanover', 'house10', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(11, 'lemoyne', 'house11', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(12, 'lemoyne', 'house12', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(13, 'lemoyne', 'house13', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(14, 'lemoyne', 'house14', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(15, 'lemoyne', 'house15', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(16, 'lemoyne', 'house16', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(17, 'newhanover', 'house17', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(18, 'newhanover', 'house18', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(19, 'newhanover', 'house19', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(20, 'ambarino', 'house20', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(21, 'newhanover', 'house21', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(22, 'ambarino', 'house22', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(23, 'ambarino', 'house23', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(24, 'ambarino', 'house24', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(25, 'westelizabeth', 'house25', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(26, 'westelizabeth', 'house26', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(27, 'westelizabeth', 'house27', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(28, 'westelizabeth', 'house28', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(29, 'newaustin', 'house29', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(30, 'newaustin', 'house30', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(31, 'newaustin', 'house31', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(32, 'newaustin', 'house32', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(33, 'newaustin', 'house33', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(34, 'ambarino', 'house34', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(35, 'ambarino', 'house35', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(36, 'newhanover', 'house36', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(37, 'ambarino', 'house37', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(38, 'newhanover', 'house38', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(39, 'newhanover', 'house39', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(40, 'lemoyne', 'house40', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(41, 'lemoyne', 'house41', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(42, 'ambarino', 'house42', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(43, 'newaustin', 'house43', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(44, 'newhanover', 'house44', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(45, 'lemoyne', 'house45', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(46, 'westelizabeth', 'house46', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(47, 'newhanover', 'house47', '0', '0', 0, 50, NULL, 0, NULL, 1),
+	(48, 'westelizabeth', 'house48', '0', '0', 0, 50, NULL, 0, NULL, 1);
+
 CREATE TABLE IF NOT EXISTS `rsg_imaps` (
-  `hash` INT(11) NOT NULL,
-  `name` VARCHAR(128) DEFAULT NULL,
-  `label` VARCHAR(100) DEFAULT NULL,
-  `state` TINYINT(1) DEFAULT NULL,
-  `updated_by` VARCHAR(64) DEFAULT NULL,
-  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
+  `hash` int(11) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `label` varchar(100) DEFAULT NULL,
+  `state` tinyint(1) DEFAULT NULL,
+  `updated_by` varchar(64) DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`hash`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `rsg_legendary_cooldowns` (
+  `citizenid` varchar(50) NOT NULL,
+  `animal` varchar(50) NOT NULL,
+  `last_hunt` timestamp NOT NULL DEFAULT current_timestamp(),
+  `notified` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`citizenid`,`animal`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_legendary_hunts` (
+  `citizenid` varchar(50) NOT NULL,
+  `data` longtext NOT NULL,
+  `expires` int(11) NOT NULL,
+  PRIMARY KEY (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_legendary_trophies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `animal` varchar(50) NOT NULL,
+  `seconds` int(11) NOT NULL,
+  `quality` varchar(20) NOT NULL DEFAULT 'good',
+  `killed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_animal` (`animal`),
+  KEY `idx_citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_lottery_config` (
+  `setting` varchar(64) NOT NULL,
+  `value` text NOT NULL,
+  PRIMARY KEY (`setting`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table redm.rsg_lottery_config: ~1 rows (approximately)
+INSERT INTO `rsg_lottery_config` (`setting`, `value`) VALUES
+	('current_jackpot', '100');
+
+CREATE TABLE IF NOT EXISTS `rsg_lottery_draws` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `draw_date` date NOT NULL,
+  `jackpot` int(11) NOT NULL,
+  `winning_number` text DEFAULT NULL,
+  `drawn_at` datetime DEFAULT NULL,
+  `status` varchar(32) DEFAULT 'pending',
+  `winner_citizenid` varchar(64) DEFAULT NULL,
+  `winner_name` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `draw_date` (`draw_date`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `rsg_lottery_draws` (`id`, `draw_date`, `jackpot`, `winning_number`, `drawn_at`, `status`, `winner_citizenid`, `winner_name`) VALUES
+	(1, '2026-11-01', 100, NULL, NULL, 'pending', NULL, NULL);
+
+CREATE TABLE IF NOT EXISTS `rsg_lottery_tickets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(64) NOT NULL,
+  `ticket_number` varchar(16) NOT NULL,
+  `numbers` text NOT NULL,
+  `draw_date` date NOT NULL,
+  `purchased_at` timestamp NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_citizen_draw` (`citizenid`,`draw_date`),
+  KEY `idx_draw` (`draw_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_lottery_winners` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `draw_date` date NOT NULL,
+  `citizenid` varchar(64) NOT NULL,
+  `winner_name` varchar(128) NOT NULL,
+  `prize` int(11) NOT NULL,
+  `match_count` int(11) NOT NULL,
+  `win_type` varchar(32) NOT NULL DEFAULT 'regular',
+  `collected` tinyint(4) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `idx_citizen_collected` (`citizenid`,`collected`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_loyalty` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `charname` varchar(50) NOT NULL,
+  `loyalty_points` int(11) NOT NULL DEFAULT 0,
+  `lifetime_points` int(11) NOT NULL DEFAULT 0,
+  `last_update` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `citizenid` (`citizenid`),
+  KEY `loyalty_points_idx` (`loyalty_points`),
+  KEY `lifetime_points_idx` (`lifetime_points`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `rsg_lumberjack_trees` (
-  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `identifier` VARCHAR(64) NOT NULL,
-  `owner_citizenid` VARCHAR(50) NOT NULL,
-  `x` DOUBLE NOT NULL,
-  `y` DOUBLE NOT NULL,
-  `z` DOUBLE NOT NULL,
-  `heading` FLOAT NOT NULL DEFAULT 0,
-  `model` VARCHAR(64) NOT NULL DEFAULT 'p_tree_birch_01_sapling',
-  `stage` TINYINT(3) UNSIGNED NOT NULL DEFAULT 1,
-  `state` ENUM('planted','growing','ready','chopped') NOT NULL DEFAULT 'planted',
-  `watered` TINYINT(1) NOT NULL DEFAULT 0,
-  `fertilized` TINYINT(1) NOT NULL DEFAULT 0,
-  `planted_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  `next_stage_at` DATETIME DEFAULT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `identifier` varchar(64) NOT NULL,
+  `owner_citizenid` varchar(50) NOT NULL,
+  `x` double NOT NULL,
+  `y` double NOT NULL,
+  `z` double NOT NULL,
+  `heading` float NOT NULL DEFAULT 0,
+  `model` varchar(64) NOT NULL DEFAULT 'p_tree_birch_01_sapling',
+  `stage` tinyint(3) unsigned NOT NULL DEFAULT 1,
+  `state` enum('planted','growing','ready','chopped') NOT NULL DEFAULT 'planted',
+  `watered` tinyint(1) NOT NULL DEFAULT 0,
+  `fertilized` tinyint(1) NOT NULL DEFAULT 0,
+  `planted_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `next_stage_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_stage` (`stage`),
   KEY `idx_state` (`state`),
@@ -917,358 +1364,76 @@ CREATE TABLE IF NOT EXISTS `rsg_lumberjack_trees` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_mining` (
-  `mine` VARCHAR(50) NOT NULL,
-  `citizenid` VARCHAR(50) DEFAULT NULL,
-  `expires` INT(11) NOT NULL DEFAULT 0,
-  `wages` INT(11) NOT NULL DEFAULT 0,
-  `supplies` LONGTEXT DEFAULT NULL,
-  `storage` LONGTEXT DEFAULT NULL,
+  `mine` varchar(50) NOT NULL,
+  `citizenid` varchar(50) DEFAULT NULL,
+  `expires` int(11) NOT NULL DEFAULT 0,
+  `wages` int(11) NOT NULL DEFAULT 0,
+  `supplies` longtext DEFAULT NULL,
+  `storage` longtext DEFAULT NULL,
   PRIMARY KEY (`mine`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_mining_workers` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `mine` VARCHAR(50) NOT NULL,
-  `name` VARCHAR(100) NOT NULL,
-  `skill` FLOAT NOT NULL DEFAULT 1,
-  `food` INT(11) NOT NULL DEFAULT 100,
-  `water` INT(11) NOT NULL DEFAULT 100,
-  `pickaxe` INT(11) NOT NULL DEFAULT 0,
-  `status` VARCHAR(50) NOT NULL DEFAULT 'idle',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mine` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `skill` float NOT NULL DEFAULT 1,
+  `food` int(11) NOT NULL DEFAULT 100,
+  `water` int(11) NOT NULL DEFAULT 100,
+  `pickaxe` int(11) NOT NULL DEFAULT 0,
+  `status` varchar(50) NOT NULL DEFAULT 'idle',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_shops_blips` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NOT NULL,
-  `sprite` BIGINT(20) NOT NULL,
-  `color` VARCHAR(64) DEFAULT NULL,
-  `x` DOUBLE NOT NULL,
-  `y` DOUBLE NOT NULL,
-  `z` DOUBLE NOT NULL,
-  `associated_npc_id` INT(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_assoc_npc` (`associated_npc_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_shops_items` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `npc_id` INT(11) NOT NULL,
-  `item_name` VARCHAR(100) NOT NULL,
-  `label` VARCHAR(100) DEFAULT NULL,
-  `price` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-  `stock` INT(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_npc_id` (`npc_id`),
-  KEY `idx_item_name` (`item_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_shops_npcs` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) DEFAULT NULL,
-  `model` VARCHAR(100) NOT NULL,
-  `x` DOUBLE NOT NULL,
-  `y` DOUBLE NOT NULL,
-  `z` DOUBLE NOT NULL,
-  `h` DOUBLE NOT NULL,
-  `shop_name` VARCHAR(100) DEFAULT NULL,
-  `shop_label` VARCHAR(100) DEFAULT NULL,
-  `shop_type` VARCHAR(10) NOT NULL DEFAULT 'both',
-  PRIMARY KEY (`id`),
-  KEY `idx_shop_name` (`shop_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_shops_presets` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `kind` VARCHAR(10) NOT NULL,
-  `label` VARCHAR(100) NOT NULL,
-  `value` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_kind_value` (`kind`,`value`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-INSERT INTO `rsg_shops_presets` (`id`, `kind`, `label`, `value`) VALUES
-	(1, 'model', 'cfg_model_tumbleweed_store', 'u_f_m_tumgeneralstoreowner_01'),
-	(2, 'model', 'cfg_model_armadillo_store', 'u_m_m_armgeneralstoreowner_01'),
-	(3, 'model', 'cfg_model_saintdenis_store', 'u_m_m_nbxgeneralstoreowner_01'),
-	(4, 'model', 'cfg_model_rhodes_store_1', 'u_m_m_rhdgenstoreowner_01'),
-	(5, 'model', 'cfg_model_rhodes_store_2', 'u_m_m_rhdgenstoreowner_02'),
-	(6, 'model', 'cfg_model_strawberry_store', 'u_m_m_strgenstoreowner_01'),
-	(7, 'model', 'cfg_model_valentine_store', 'u_m_m_valgenstoreowner_01'),
-	(8, 'model', 'cfg_model_wallace_store', 'u_m_m_walgeneralstoreowner_01'),
-	(9, 'model', 'cfg_model_annesburg_gunsmith', 'u_m_m_asbgunsmith_01'),
-	(10, 'model', 'cfg_model_saintdenis_gunsmith', 'u_m_m_nbxgunsmith_01'),
-	(11, 'model', 'cfg_model_rhodes_gunsmith', 'u_m_m_rhdgunsmith_01'),
-	(12, 'model', 'cfg_model_tumbleweed_gunsmith', 'u_m_m_tumgunsmith_01'),
-	(13, 'model', 'cfg_model_valentine_gunsmith', 'u_m_m_valgunsmith_01'),
-	(14, 'model', 'cfg_model_generic_butcher', 's_m_m_unibutchers_01'),
-	(15, 'model', 'cfg_model_tumbleweed_butcher', 'u_m_m_tumbutcher_01'),
-	(16, 'model', 'cfg_model_valentine_butcher', 'u_m_m_valbutcher_01'),
-	(17, 'model', 'cfg_model_saintdenis_trapper', 'u_m_m_sdtrapper_01'),
-	(18, 'model', 'cfg_model_thieveslanding_bartender', 'u_f_m_tljbartender_01'),
-	(19, 'model', 'cfg_model_vanhorn_bartender', 'u_f_m_vhtbartender_01'),
-	(20, 'model', 'cfg_model_saintdenis_bartender_1', 'u_m_m_nbxbartender_01'),
-	(21, 'model', 'cfg_model_saintdenis_bartender_2', 'u_m_m_nbxbartender_02'),
-	(22, 'model', 'cfg_model_rhodes_bartender', 'u_m_m_rhdbartender_01'),
-	(23, 'model', 'cfg_model_armadillo_bartender', 'u_m_o_armbartender_01'),
-	(24, 'model', 'cfg_model_blackwater_bartender', 'u_m_o_blwbartender_01'),
-	(25, 'model', 'cfg_model_valentine_bartender', 'u_m_o_valbartender_01'),
-	(26, 'blip', 'cfg_blip_general_store', '1475879922'),
-	(27, 'blip', 'cfg_blip_gunsmith', '-145868367'),
-	(28, 'blip', 'cfg_blip_butcher', '-1665418949'),
-	(29, 'blip', 'cfg_blip_saloon', '1879260108');
-
-CREATE TABLE IF NOT EXISTS `rsg_smelting_state` (
-  `id` TINYINT(3) UNSIGNED NOT NULL,
-  `data` LONGTEXT NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_stables_horses` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `stable` VARCHAR(50) DEFAULT NULL,
-  `model` VARCHAR(100) NOT NULL,
-  `breed_label` VARCHAR(100) NOT NULL,
-  `gender` VARCHAR(6) DEFAULT NULL,
-  `breed_cooldown` BIGINT(20) NOT NULL DEFAULT 0,
-  `died_of_age` TINYINT(1) NOT NULL DEFAULT 0,
-  `name` VARCHAR(50) NOT NULL DEFAULT 'Unnamed Horse',
-  `outfit` INT(11) NOT NULL DEFAULT 0,
-  `tack` TEXT DEFAULT NULL,
-  `shoe_wear` FLOAT NOT NULL DEFAULT 0,
-  `coat` TEXT DEFAULT NULL,
-  `health` FLOAT NOT NULL DEFAULT 100,
-  `stamina` FLOAT NOT NULL DEFAULT 100,
-  `hunger` FLOAT NOT NULL DEFAULT 100,
-  `thirst` FLOAT NOT NULL DEFAULT 100,
-  `bonding` FLOAT NOT NULL DEFAULT 0,
-  `training` TEXT DEFAULT NULL,
-  `speed` INT(11) NOT NULL DEFAULT 50,
-  `accel` INT(11) NOT NULL DEFAULT 50,
-  `handling` INT(11) NOT NULL DEFAULT 50,
-  `maxhealth` INT(11) NOT NULL DEFAULT 50,
-  `alive` TINYINT(1) NOT NULL DEFAULT 1,
-  `insured` TINYINT(1) NOT NULL DEFAULT 0,
-  `active` TINYINT(1) NOT NULL DEFAULT 0,
-  `pos_x` FLOAT DEFAULT NULL,
-  `pos_y` FLOAT DEFAULT NULL,
-  `pos_z` FLOAT DEFAULT NULL,
-  `pos_h` FLOAT DEFAULT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `citizenid` (`citizenid`),
-  KEY `stable` (`stable`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `rsg_stables_breeding` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `stable` VARCHAR(50) NOT NULL,
-  `parent_a` INT(11) NOT NULL,
-  `parent_b` INT(11) NOT NULL,
-  `ready_at` BIGINT(20) NOT NULL,
-  `collected` TINYINT(1) NOT NULL DEFAULT 0,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `citizenid` (`citizenid`),
-  KEY `stable` (`stable`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `rsg_stables_races` (
-  `citizenid` VARCHAR(50) NOT NULL,
-  `race` VARCHAR(50) NOT NULL,
-  `rider` VARCHAR(100) NOT NULL DEFAULT '',
-  `horse` VARCHAR(50) NOT NULL DEFAULT '',
-  `best_ms` INT(11) NOT NULL,
-  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`citizenid`, `race`),
-  KEY `race_best` (`race`, `best_ms`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `rsg_telegram_contacts` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `contact_citizenid` VARCHAR(50) NOT NULL,
-  `contact_name` VARCHAR(100) NOT NULL,
-  `nickname` VARCHAR(50) DEFAULT NULL,
-  `added_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uniq_contact` (`citizenid`,`contact_citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_telegrams` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `recipient_name` VARCHAR(100) NOT NULL,
-  `sender_citizenid` VARCHAR(50) NOT NULL,
-  `sender_name` VARCHAR(100) NOT NULL,
-  `subject` VARCHAR(100) NOT NULL,
-  `message` TEXT NOT NULL,
-  `is_read` TINYINT(1) NOT NULL DEFAULT 0,
-  `sent_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  PRIMARY KEY (`id`),
-  KEY `idx_citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_trader` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `traderid` VARCHAR(50) NOT NULL,
-  `item` VARCHAR(50) NOT NULL,
-  `stock` INT(11) NOT NULL DEFAULT 0,
-  `lowstock` INT(11) NOT NULL DEFAULT 0,
-  `highstock` INT(11) NOT NULL DEFAULT 0,
-  `baseprice` DECIMAL(11,2) NOT NULL DEFAULT 0.00,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `trader_item` (`traderid`,`item`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_trader_npcs` (
-  `traderid` VARCHAR(50) NOT NULL,
-  `tradername` VARCHAR(50) NOT NULL,
-  `npcmodel` VARCHAR(60) NOT NULL,
-  `x` FLOAT NOT NULL,
-  `y` FLOAT NOT NULL,
-  `z` FLOAT NOT NULL,
-  `heading` FLOAT NOT NULL DEFAULT 0,
-  `showblip` TINYINT(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`traderid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_trapdoors` (
-  `door_id` VARCHAR(64) NOT NULL,
-  `passcode` CHAR(4) NOT NULL,
-  `owner` VARCHAR(50) NOT NULL,
-  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
-  PRIMARY KEY (`door_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_trapdoors_schema` (
-  `id` TINYINT(3) UNSIGNED NOT NULL DEFAULT 1,
-  `version` INT(10) UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_wagons` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL DEFAULT '0',
-  `wagon` VARCHAR(50) NOT NULL DEFAULT '0',
-  `custom` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`custom`)),
-  `animals` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`animals`)),
-  `active` INT(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_weather_state` (
-  `key` VARCHAR(50) NOT NULL,
-  `value` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `shop_stock` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `shop_name` VARCHAR(50) NOT NULL,
-  `item_name` VARCHAR(50) NOT NULL,
-  `stock` INT(11) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `shop_name_item_name` (`shop_name`,`item_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_loyalty` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `charname` VARCHAR(50) NOT NULL,
-  `loyalty_points` INT(11) NOT NULL DEFAULT 0,
-  `lifetime_points` INT(11) NOT NULL DEFAULT 0,
-  `last_update` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `citizenid` (`citizenid`),
-  KEY `loyalty_points_idx` (`loyalty_points`),
-  KEY `lifetime_points_idx` (`lifetime_points`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_auctions` (
-    `id` VARCHAR(50) NOT NULL,
-    `owner_citizenid` VARCHAR(50) NOT NULL,
-    `owner_name` VARCHAR(100) NOT NULL,
-    `item_name` VARCHAR(100) NOT NULL,
-    `item_label` VARCHAR(100) NOT NULL,
-    `item_count` INT NOT NULL,
-    `item_metadata` LONGTEXT NULL,
-    `category` VARCHAR(50) NOT NULL,
-    `location` VARCHAR(50) NOT NULL,
-    `location_label` VARCHAR(100) NOT NULL,
-    `starting_bid` BIGINT NOT NULL,
-    `current_bid` BIGINT NOT NULL DEFAULT 0,
-    `buyout_price` BIGINT NULL,
-    `highest_bidder_citizenid` VARCHAR(50) NULL,
-    `highest_bidder_name` VARCHAR(100) NULL,
-    `winner_citizenid` VARCHAR(50) NULL,
-    `winner_name` VARCHAR(100) NULL,
-    `sold_for` BIGINT NULL,
-    `status` VARCHAR(20) NOT NULL DEFAULT 'active',
-    `total_bids` INT NOT NULL DEFAULT 0,
-    `creation_fee` BIGINT NOT NULL DEFAULT 0,
-    `created_at` INT NOT NULL,
-    `end_time` INT NOT NULL,
-    `escrow_item` TINYINT(1) NOT NULL DEFAULT 0,
-    `escrow_amount` BIGINT NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    KEY `idx_status` (`status`),
-    KEY `idx_owner` (`owner_citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_auction_bids` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `auction_id` VARCHAR(50) NOT NULL,
-    `citizenid` VARCHAR(50) NOT NULL,
-    `player_name` VARCHAR(100) NOT NULL,
-    `amount` BIGINT NOT NULL,
-    `is_buyout` TINYINT(1) NOT NULL DEFAULT 0,
-    `created_at` INT NOT NULL,
-    PRIMARY KEY (`id`),
-    KEY `idx_auction` (`auction_id`),
-    CONSTRAINT `fk_auction_bids_auction` FOREIGN KEY (`auction_id`) REFERENCES `rsg_auctions` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_auction_collections` (
-    `id` VARCHAR(100) NOT NULL,
-    `citizenid` VARCHAR(50) NOT NULL,
-    `auction_id` VARCHAR(50) NOT NULL,
-    `item_name` VARCHAR(100) NOT NULL,
-    `item_label` VARCHAR(100) NOT NULL,
-    `count` INT NOT NULL,
-    `metadata` LONGTEXT NULL,
-    `sold_for` BIGINT NOT NULL DEFAULT 0,
-    `seller_name` VARCHAR(100) NULL,
-    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    KEY `idx_citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_auction_payouts` (
-    `citizenid` VARCHAR(50) NOT NULL,
-    `amount` BIGINT NOT NULL,
-    `reason` VARCHAR(100) NULL,
-    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_moonshine_stills` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `citizenid` VARCHAR(50) NOT NULL,
-    `x` FLOAT NOT NULL, 
-    `y` FLOAT NOT NULL, 
-    `z` FLOAT NOT NULL,
-    `heading` FLOAT NOT NULL DEFAULT 0,
-    `recipe` VARCHAR(50) DEFAULT NULL,
-    `hopper` LONGTEXT DEFAULT NULL,
-    `output` INT NOT NULL DEFAULT 0,
-    `fuel` INT NOT NULL DEFAULT 0,
-    `batch_left` INT DEFAULT NULL,
-    `last_tick` INT DEFAULT NULL,
-    PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `heading` float NOT NULL DEFAULT 0,
+  `recipe` varchar(50) DEFAULT NULL,
+  `hopper` longtext DEFAULT NULL,
+  `output` int(11) NOT NULL DEFAULT 0,
+  `fuel` int(11) NOT NULL DEFAULT 0,
+  `batch_left` int(11) DEFAULT NULL,
+  `last_tick` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_noticeboard_boards` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `label` varchar(64) NOT NULL DEFAULT 'Notice Board',
+  `x` double NOT NULL,
+  `y` double NOT NULL,
+  `z` double NOT NULL,
+  `heading` double NOT NULL DEFAULT 0,
+  `created_by` varchar(64) DEFAULT NULL,
+  `created_at` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+-- Dumping data for table redm.rsg_noticeboard_boards: ~0 rows (approximately)
+
+-- Dumping structure for table redm.rsg_noticeboard_notices
+CREATE TABLE IF NOT EXISTS `rsg_noticeboard_notices` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(64) NOT NULL,
+  `author` varchar(128) NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `body` text NOT NULL,
+  `image` varchar(512) DEFAULT NULL,
+  `category` varchar(32) NOT NULL,
+  `town` varchar(32) DEFAULT NULL,
+  `duration` varchar(16) NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `expires_at` int(11) NOT NULL,
+  `warned` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `idx_citizenid` (`citizenid`),
+  KEY `idx_expires` (`expires_at`),
+  KEY `idx_town` (`town`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_ranch_animals` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1305,78 +1470,6 @@ CREATE TABLE IF NOT EXISTS `rsg_ranch_animals` (
   KEY `idx_mother_id` (`mother_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `rsg_ranch_feedtroughs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `feedtroughid` varchar(50) DEFAULT NULL,
-  `ranchid` varchar(50) DEFAULT NULL,
-  `pos_x` float NOT NULL,
-  `pos_y` float NOT NULL,
-  `pos_z` float NOT NULL,
-  `pos_w` float NOT NULL,
-  `uses` tinyint(3) unsigned DEFAULT 10,
-  `placed_by` varchar(50) DEFAULT NULL,
-  `created_at` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_feedtroughid` (`feedtroughid`),
-  KEY `idx_ranchid` (`ranchid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_ranch_storages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `storageid` varchar(50) NOT NULL,
-  `ranchid` varchar(50) NOT NULL,
-  `size` varchar(20) NOT NULL DEFAULT 'general',
-  `label` varchar(50) NOT NULL DEFAULT 'General Storage',
-  `maxweight` int(10) unsigned NOT NULL DEFAULT 10000000,
-  `slots` smallint(5) unsigned NOT NULL DEFAULT 100,
-  `min_grade` tinyint(3) unsigned NOT NULL DEFAULT 1,
-  `purchased_by` varchar(50) DEFAULT NULL,
-  `created_at` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_storageid` (`storageid`),
-  KEY `idx_ranchid` (`ranchid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_ranch_owners` (
-  `ranchid` varchar(50) NOT NULL,
-  `citizenid` varchar(50) NOT NULL,
-  `purchased_at` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`ranchid`),
-  KEY `idx_citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_ranch_watertroughs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `watertroughid` varchar(50) DEFAULT NULL,
-  `ranchid` varchar(50) DEFAULT NULL,
-  `pos_x` float NOT NULL,
-  `pos_y` float NOT NULL,
-  `pos_z` float NOT NULL,
-  `pos_w` float NOT NULL,
-  `uses` tinyint(3) unsigned DEFAULT 10,
-  `placed_by` varchar(50) DEFAULT NULL,
-  `created_at` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_watertroughid` (`watertroughid`),
-  KEY `idx_ranchid` (`ranchid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_ranch_orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `orderid` varchar(50) DEFAULT NULL,
-  `ranchid` varchar(50) DEFAULT NULL,
-  `citizenid` varchar(50) DEFAULT NULL,
-  `item` varchar(50) NOT NULL,
-  `amount` smallint(5) unsigned DEFAULT 1,
-  `price` int(10) unsigned DEFAULT 0,
-  `ordered_at` int(10) unsigned DEFAULT NULL,
-  `ready_at` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_orderid` (`orderid`),
-  KEY `idx_ranchid` (`ranchid`),
-  KEY `idx_ready_at` (`ready_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE IF NOT EXISTS `rsg_ranch_chickencoops` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `coopid` varchar(50) DEFAULT NULL,
@@ -1395,17 +1488,6 @@ CREATE TABLE IF NOT EXISTS `rsg_ranch_chickencoops` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_coopid` (`coopid`),
   KEY `idx_ranchid` (`ranchid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_ranch_settings` (
-  `ranchid` varchar(50) NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `blipname` varchar(100) DEFAULT NULL,
-  `price` int(10) unsigned DEFAULT NULL,
-  `showblip` tinyint(1) DEFAULT NULL,
-  `updated_by` varchar(50) DEFAULT NULL,
-  `updated_at` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`ranchid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_ranch_custom` (
@@ -1428,340 +1510,383 @@ CREATE TABLE IF NOT EXISTS `rsg_ranch_custom` (
   PRIMARY KEY (`ranchid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `rsg_lottery_config` (
-   `setting` VARCHAR(64) PRIMARY KEY,
-   `value` TEXT NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_lottery_draws` (
-   `id` INT AUTO_INCREMENT PRIMARY KEY,
-   `draw_date` DATE NOT NULL,
-   `jackpot` INT NOT NULL,
-   `winning_number` TEXT,
-   `drawn_at` DATETIME,
-   `status` VARCHAR(32) DEFAULT 'pending',
-   `winner_citizenid` VARCHAR(64),
-   `winner_name` VARCHAR(128),
-   UNIQUE KEY `draw_date` (`draw_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_lottery_tickets` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `citizenid` VARCHAR(64) NOT NULL,
-    `ticket_number` VARCHAR(16) NOT NULL,
-    `numbers` TEXT NOT NULL,
-    `draw_date` DATE NOT NULL,
-    `purchased_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    KEY `idx_citizen_draw` (`citizenid`, `draw_date`),
-    KEY `idx_draw` (`draw_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_lottery_winners` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `draw_date` DATE NOT NULL,
-    `citizenid` VARCHAR(64) NOT NULL,
-    `winner_name` VARCHAR(128) NOT NULL,
-    `prize` INT NOT NULL,
-    `match_count` INT NOT NULL,
-    `win_type` VARCHAR(32) NOT NULL DEFAULT 'regular',
-    `collected` TINYINT NOT NULL DEFAULT 0,
-    KEY `idx_citizen_collected` (`citizenid`, `collected`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-INSERT IGNORE INTO `rsg_lottery_config` (`setting`, `value`) VALUES ('current_jackpot', '100');
-
-CREATE TABLE IF NOT EXISTS `rsg_beehives` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) DEFAULT NULL,
-  `x` FLOAT NOT NULL,
-  `y` FLOAT NOT NULL,
-  `z` FLOAT NOT NULL,
-  `heading` FLOAT NOT NULL DEFAULT 0,
-  `active` TINYINT(1) NOT NULL DEFAULT 0,
-  `activated_at` INT UNSIGNED DEFAULT NULL,
-  `food` TINYINT UNSIGNED NOT NULL DEFAULT 100,
-  `water` TINYINT UNSIGNED NOT NULL DEFAULT 100,
-  `health` TINYINT UNSIGNED NOT NULL DEFAULT 100,
-  `honey` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  `smoked_until` INT UNSIGNED DEFAULT NULL,
-  `prop` VARCHAR(50) NOT NULL DEFAULT 'bee_house_gk_1',
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE IF NOT EXISTS `rsg_ranch_feedtroughs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `feedtroughid` varchar(50) DEFAULT NULL,
+  `ranchid` varchar(50) DEFAULT NULL,
+  `pos_x` float NOT NULL,
+  `pos_y` float NOT NULL,
+  `pos_z` float NOT NULL,
+  `pos_w` float NOT NULL,
+  `uses` tinyint(3) unsigned DEFAULT 10,
+  `placed_by` varchar(50) DEFAULT NULL,
+  `created_at` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_feedtroughid` (`feedtroughid`),
+  KEY `idx_ranchid` (`ranchid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_ranch_orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orderid` varchar(50) DEFAULT NULL,
+  `ranchid` varchar(50) DEFAULT NULL,
+  `citizenid` varchar(50) DEFAULT NULL,
+  `item` varchar(50) NOT NULL,
+  `amount` smallint(5) unsigned DEFAULT 1,
+  `price` int(10) unsigned DEFAULT 0,
+  `ordered_at` int(10) unsigned DEFAULT NULL,
+  `ready_at` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_orderid` (`orderid`),
+  KEY `idx_ranchid` (`ranchid`),
+  KEY `idx_ready_at` (`ready_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_ranch_owners` (
+  `ranchid` varchar(50) NOT NULL,
+  `citizenid` varchar(50) NOT NULL,
+  `purchased_at` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`ranchid`),
   KEY `idx_citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `rsg_roulette_tables` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `x` FLOAT NOT NULL,
-    `y` FLOAT NOT NULL,
-    `z` FLOAT NOT NULL,
-    `heading` FLOAT NOT NULL DEFAULT 0,
-    `room` BIGINT NOT NULL DEFAULT 0,
-    `placed_by` VARCHAR(50) DEFAULT NULL,
-    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
+CREATE TABLE IF NOT EXISTS `rsg_ranch_settings` (
+  `ranchid` varchar(50) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `blipname` varchar(100) DEFAULT NULL,
+  `price` int(10) unsigned DEFAULT NULL,
+  `showblip` tinyint(1) DEFAULT NULL,
+  `updated_by` varchar(50) DEFAULT NULL,
+  `updated_at` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`ranchid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `rsg_doorlocks` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(64) NOT NULL,
-    `doors` LONGTEXT NOT NULL,
-    `text_coords` LONGTEXT NOT NULL,
-    `jobs` LONGTEXT NOT NULL,
-    `distance` FLOAT NOT NULL DEFAULT 1.25,
-    `locked` TINYINT(1) NOT NULL DEFAULT 1,
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_housing` (
+CREATE TABLE IF NOT EXISTS `rsg_ranch_storages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `region` varchar(30) NOT NULL,
-  `houseid` varchar(7) NOT NULL,
-  `citizenid` varchar(50) NOT NULL DEFAULT '0',
-  `fullname` varchar(255) NOT NULL DEFAULT '0',
-  `rented` tinyint(1) NOT NULL DEFAULT 0,
-  `rent` int(11) NOT NULL DEFAULT 0,
-  `rent_due` datetime DEFAULT NULL,
-  `reminder_sent` tinyint(1) NOT NULL DEFAULT 0,
-  `custom_name` varchar(30) DEFAULT NULL,
-  `storage_tier` tinyint(4) NOT NULL DEFAULT 1,
+  `storageid` varchar(50) NOT NULL,
+  `ranchid` varchar(50) NOT NULL,
+  `size` varchar(20) NOT NULL DEFAULT 'general',
+  `label` varchar(50) NOT NULL DEFAULT 'General Storage',
+  `maxweight` int(10) unsigned NOT NULL DEFAULT 10000000,
+  `slots` smallint(5) unsigned NOT NULL DEFAULT 100,
+  `min_grade` tinyint(3) unsigned NOT NULL DEFAULT 1,
+  `purchased_by` varchar(50) DEFAULT NULL,
+  `created_at` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uniq_houseid` (`houseid`),
-  KEY `idx_rented` (`rented`),
-  KEY `idx_citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  UNIQUE KEY `unique_storageid` (`storageid`),
+  KEY `idx_ranchid` (`ranchid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `rsg_housing` (`id`, `region`, `houseid`, `rent`) VALUES
-(1, 'newhanover', 'house1', 50),
-(2, 'westelizabeth', 'house2', 50),
-(3, 'newhanover', 'house3', 50),
-(4, 'lemoyne', 'house4', 50),
-(5, 'lemoyne', 'house5', 50),
-(6, 'lemoyne', 'house6', 50),
-(7, 'newaustin', 'house7', 50),
-(8, 'newhanover', 'house8', 50),
-(9, 'newhanover', 'house9', 50),
-(10, 'newhanover', 'house10', 50),
-(11, 'lemoyne', 'house11', 50),
-(12, 'lemoyne', 'house12', 50),
-(13, 'lemoyne', 'house13', 50),
-(14, 'lemoyne', 'house14', 50),
-(15, 'lemoyne', 'house15', 50),
-(16, 'lemoyne', 'house16', 50),
-(17, 'newhanover', 'house17', 50),
-(18, 'newhanover', 'house18', 50),
-(19, 'newhanover', 'house19', 50),
-(20, 'ambarino', 'house20', 50),
-(21, 'newhanover', 'house21', 50),
-(22, 'ambarino', 'house22', 50),
-(23, 'ambarino', 'house23', 50),
-(24, 'ambarino', 'house24', 50),
-(25, 'westelizabeth', 'house25', 50),
-(26, 'westelizabeth', 'house26', 50),
-(27, 'westelizabeth', 'house27', 50),
-(28, 'westelizabeth', 'house28', 50),
-(29, 'newaustin', 'house29', 50),
-(30, 'newaustin', 'house30', 50),
-(31, 'newaustin', 'house31', 50),
-(32, 'newaustin', 'house32', 50),
-(33, 'newaustin', 'house33', 50),
-(34, 'ambarino', 'house34', 50),
-(35, 'ambarino', 'house35', 50),
-(36, 'newhanover', 'house36', 50),
-(37, 'ambarino', 'house37', 50),
-(38, 'newhanover', 'house38', 50),
-(39, 'newhanover', 'house39', 50),
-(40, 'lemoyne', 'house40', 50),
-(41, 'lemoyne', 'house41', 50),
-(42, 'ambarino', 'house42', 50),
-(43, 'newaustin', 'house43', 50),
-(44, 'newhanover', 'house44', 50),
-(45, 'lemoyne', 'house45', 50),
-(46, 'westelizabeth', 'house46', 50),
-(47, 'newhanover', 'house47', 50),
-(48, 'westelizabeth', 'house48', 50);
-
-CREATE TABLE IF NOT EXISTS `rsg_housekeys` (
+CREATE TABLE IF NOT EXISTS `rsg_ranch_watertroughs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `houseid` varchar(7) NOT NULL DEFAULT '0',
-  `citizenid` varchar(50) NOT NULL DEFAULT '0',
-  `guest` int(1) NOT NULL DEFAULT 0,
-  `perm_doors` tinyint(1) NOT NULL DEFAULT 1,
-  `perm_storage` tinyint(1) NOT NULL DEFAULT 1,
-  `perm_wardrobe` tinyint(1) NOT NULL DEFAULT 1,
-  `perm_mailbox` tinyint(1) NOT NULL DEFAULT 1,
+  `watertroughid` varchar(50) DEFAULT NULL,
+  `ranchid` varchar(50) DEFAULT NULL,
+  `pos_x` float NOT NULL,
+  `pos_y` float NOT NULL,
+  `pos_z` float NOT NULL,
+  `pos_w` float NOT NULL,
+  `uses` tinyint(3) unsigned DEFAULT 10,
+  `placed_by` varchar(50) DEFAULT NULL,
+  `created_at` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_citizenid` (`citizenid`),
-  KEY `idx_houseid` (`houseid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `rsg_noticeboard_boards` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `label` VARCHAR(64) NOT NULL DEFAULT 'Notice Board',
-    `x` DOUBLE NOT NULL,
-    `y` DOUBLE NOT NULL,
-    `z` DOUBLE NOT NULL,
-    `heading` DOUBLE NOT NULL DEFAULT 0,
-    `created_by` VARCHAR(64) DEFAULT NULL,
-    `created_at` INT NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `rsg_noticeboard_notices` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `citizenid` VARCHAR(64) NOT NULL,
-    `author` VARCHAR(128) NOT NULL,
-    `title` VARCHAR(128) NOT NULL,
-    `body` TEXT NOT NULL,
-    `image` VARCHAR(512) DEFAULT NULL,
-    `category` VARCHAR(32) NOT NULL,
-    `town` VARCHAR(32) DEFAULT NULL,
-    `duration` VARCHAR(16) NOT NULL,
-    `created_at` INT NOT NULL,
-    `expires_at` INT NOT NULL,
-    `warned` TINYINT(1) NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    KEY `idx_citizenid` (`citizenid`),
-    KEY `idx_expires` (`expires_at`),
-    KEY `idx_town` (`town`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `rsg_telephones` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `number` VARCHAR(16) NOT NULL,
-    `label` VARCHAR(64) NOT NULL DEFAULT 'Telephone',
-    `model` VARCHAR(64) NOT NULL,
-    `x` DOUBLE NOT NULL,
-    `y` DOUBLE NOT NULL,
-    `z` DOUBLE NOT NULL,
-    `heading` DOUBLE NOT NULL DEFAULT 0,
-    `listed` TINYINT(1) NOT NULL DEFAULT 1,
-    `room` BIGINT NOT NULL DEFAULT 0,
-    `job` VARCHAR(64) DEFAULT NULL,
-    `owner` VARCHAR(64) DEFAULT NULL,
-    `stored` TINYINT(1) NOT NULL DEFAULT 0,
-    `created_by` VARCHAR(64) DEFAULT NULL,
-    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `number` (`number`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `rsg_drugs_labs` (
-  `citizenid` VARCHAR(50) NOT NULL,
-  `data` LONGTEXT NOT NULL,
-  PRIMARY KEY (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `rsg_bountyhunter` (
-    `citizenid` VARCHAR(50) NOT NULL,
-    `name` VARCHAR(100) NOT NULL DEFAULT '',
-    `completed` INT NOT NULL DEFAULT 0,
-    `alive` INT NOT NULL DEFAULT 0,
-    `dead` INT NOT NULL DEFAULT 0,
-    `earned` INT NOT NULL DEFAULT 0,
-    PRIMARY KEY (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `rsg_legendary_cooldowns` (
-    `citizenid` VARCHAR(50) NOT NULL,
-    `animal` VARCHAR(50) NOT NULL,
-    `last_hunt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `notified` TINYINT(1) NOT NULL DEFAULT 1,
-    PRIMARY KEY (`citizenid`, `animal`)
+  UNIQUE KEY `unique_watertroughid` (`watertroughid`),
+  KEY `idx_ranchid` (`ranchid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `rsg_legendary_trophies` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `citizenid` VARCHAR(50) NOT NULL,
-    `name` VARCHAR(100) NOT NULL,
-    `animal` VARCHAR(50) NOT NULL,
-    `seconds` INT NOT NULL,
-    `quality` VARCHAR(20) NOT NULL DEFAULT 'good',
-    `killed_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    INDEX `idx_animal` (`animal`),
-    INDEX `idx_citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_legendary_hunts` (
-    `citizenid` VARCHAR(50) NOT NULL,
-    `data` LONGTEXT NOT NULL,
-    `expires` INT NOT NULL,
-    PRIMARY KEY (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_boats_models` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `model` VARCHAR(64) NOT NULL,
-  `label` VARCHAR(64) NOT NULL,
-  `description` VARCHAR(255) NOT NULL DEFAULT '',
-  `price` INT NOT NULL DEFAULT 0,
-  `enabled` TINYINT(1) NOT NULL DEFAULT 1,
-  `slots` INT NOT NULL DEFAULT 10,
-  `weight` INT NOT NULL DEFAULT 50000,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `model` (`model`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `rsg_boats_owned` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `citizenid` VARCHAR(50) NOT NULL,
-  `model` VARCHAR(64) NOT NULL,
-  `label` VARCHAR(64) NOT NULL,
-  `purchased` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `yard` INT NULL DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `rsg_ranch_wellpumps` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `h` float NOT NULL DEFAULT 0,
+  `placed_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
-CREATE TABLE IF NOT EXISTS `rsg_boats_yards` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(64) NOT NULL,
-  `coords` VARCHAR(255) NOT NULL,
-  `spawn` VARCHAR(255) NULL DEFAULT NULL,
-  `dock` VARCHAR(255) NULL DEFAULT NULL,
-  `models` TEXT NULL DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `rsg_roulette_tables` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `heading` float NOT NULL DEFAULT 0,
+  `room` bigint(20) NOT NULL DEFAULT 0,
+  `placed_by` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `rsg_boats_settings` (
-  `k` VARCHAR(64) NOT NULL,
-  `v` LONGTEXT NOT NULL,
-  PRIMARY KEY (`k`)
-);
+CREATE TABLE IF NOT EXISTS `rsg_shops_blips` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `sprite` bigint(20) NOT NULL,
+  `color` varchar(64) DEFAULT NULL,
+  `x` double NOT NULL,
+  `y` double NOT NULL,
+  `z` double NOT NULL,
+  `associated_npc_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_assoc_npc` (`associated_npc_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- model: femga/rdr3_discoveries vehicles/vehicles_list.lua (0x9FD6BA58 "rowboat")
-INSERT IGNORE INTO `rsg_boats_models` (`model`, `label`, `description`, `price`, `enabled`, `slots`, `weight`)
-VALUES ('rowboat', 'Rowboat', 'A sturdy wooden rowboat for rivers and bayous.', 75, 1, 10, 50000);
+CREATE TABLE IF NOT EXISTS `rsg_shops_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `npc_id` int(11) NOT NULL,
+  `item_name` varchar(100) NOT NULL,
+  `label` varchar(100) DEFAULT NULL,
+  `price` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `stock` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_npc_id` (`npc_id`),
+  KEY `idx_item_name` (`item_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- rsg-hunting: weekly leaderboard + weekly rewards
-CREATE TABLE IF NOT EXISTS `hunting_weekly` (
-    `citizenid` VARCHAR(50) NOT NULL,
-    `week` INT NOT NULL,
-    `name` VARCHAR(100) NOT NULL DEFAULT '',
-    `xp` INT NOT NULL DEFAULT 0,
-    PRIMARY KEY (`citizenid`, `week`),
-    KEY `week_xp` (`week`, `xp`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS `rsg_shops_npcs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `model` varchar(100) NOT NULL,
+  `x` double NOT NULL,
+  `y` double NOT NULL,
+  `z` double NOT NULL,
+  `h` double NOT NULL,
+  `shop_name` varchar(100) DEFAULT NULL,
+  `shop_label` varchar(100) DEFAULT NULL,
+  `shop_type` varchar(10) NOT NULL DEFAULT 'both',
+  PRIMARY KEY (`id`),
+  KEY `idx_shop_name` (`shop_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `hunting_weekly_rewards` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `citizenid` VARCHAR(50) NOT NULL,
-    `week` INT NOT NULL,
-    `rank` INT NOT NULL,
-    `cash` DECIMAL(10,2) NOT NULL DEFAULT 0,
-    `claimed` TINYINT(1) NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `cid_week` (`citizenid`, `week`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS `rsg_shops_presets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kind` varchar(10) NOT NULL,
+  `label` varchar(100) NOT NULL,
+  `value` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_kind_value` (`kind`,`value`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table redm.rsg_shops_presets: ~29 rows (approximately)
+INSERT INTO `rsg_shops_presets` (`id`, `kind`, `label`, `value`) VALUES
+	(1, 'model', 'cfg_model_tumbleweed_store', 'u_f_m_tumgeneralstoreowner_01'),
+	(2, 'model', 'cfg_model_armadillo_store', 'u_m_m_armgeneralstoreowner_01'),
+	(3, 'model', 'cfg_model_saintdenis_store', 'u_m_m_nbxgeneralstoreowner_01'),
+	(4, 'model', 'cfg_model_rhodes_store_1', 'u_m_m_rhdgenstoreowner_01'),
+	(5, 'model', 'cfg_model_rhodes_store_2', 'u_m_m_rhdgenstoreowner_02'),
+	(6, 'model', 'cfg_model_strawberry_store', 'u_m_m_strgenstoreowner_01'),
+	(7, 'model', 'cfg_model_valentine_store', 'u_m_m_valgenstoreowner_01'),
+	(8, 'model', 'cfg_model_wallace_store', 'u_m_m_walgeneralstoreowner_01'),
+	(9, 'model', 'cfg_model_annesburg_gunsmith', 'u_m_m_asbgunsmith_01'),
+	(10, 'model', 'cfg_model_saintdenis_gunsmith', 'u_m_m_nbxgunsmith_01'),
+	(11, 'model', 'cfg_model_rhodes_gunsmith', 'u_m_m_rhdgunsmith_01'),
+	(12, 'model', 'cfg_model_tumbleweed_gunsmith', 'u_m_m_tumgunsmith_01'),
+	(13, 'model', 'cfg_model_valentine_gunsmith', 'u_m_m_valgunsmith_01'),
+	(14, 'model', 'cfg_model_generic_butcher', 's_m_m_unibutchers_01'),
+	(15, 'model', 'cfg_model_tumbleweed_butcher', 'u_m_m_tumbutcher_01'),
+	(16, 'model', 'cfg_model_valentine_butcher', 'u_m_m_valbutcher_01'),
+	(17, 'model', 'cfg_model_saintdenis_trapper', 'u_m_m_sdtrapper_01'),
+	(18, 'model', 'cfg_model_thieveslanding_bartender', 'u_f_m_tljbartender_01'),
+	(19, 'model', 'cfg_model_vanhorn_bartender', 'u_f_m_vhtbartender_01'),
+	(20, 'model', 'cfg_model_saintdenis_bartender_1', 'u_m_m_nbxbartender_01'),
+	(21, 'model', 'cfg_model_saintdenis_bartender_2', 'u_m_m_nbxbartender_02'),
+	(22, 'model', 'cfg_model_rhodes_bartender', 'u_m_m_rhdbartender_01'),
+	(23, 'model', 'cfg_model_armadillo_bartender', 'u_m_o_armbartender_01'),
+	(24, 'model', 'cfg_model_blackwater_bartender', 'u_m_o_blwbartender_01'),
+	(25, 'model', 'cfg_model_valentine_bartender', 'u_m_o_valbartender_01'),
+	(26, 'blip', 'cfg_blip_general_store', '1475879922'),
+	(27, 'blip', 'cfg_blip_gunsmith', '-145868367'),
+	(28, 'blip', 'cfg_blip_butcher', '-1665418949'),
+	(29, 'blip', 'cfg_blip_saloon', '1879260108');
+
+CREATE TABLE IF NOT EXISTS `rsg_smelting_state` (
+  `id` tinyint(3) unsigned NOT NULL,
+  `data` longtext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `rsg_smelting_state` (`id`, `data`) VALUES
+	(1, '{"live":[],"owed":[]}');
+
+CREATE TABLE IF NOT EXISTS `rsg_stables_breeding` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `stable` varchar(50) NOT NULL,
+  `parent_a` int(11) NOT NULL,
+  `parent_b` int(11) NOT NULL,
+  `ready_at` bigint(20) NOT NULL,
+  `collected` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `citizenid` (`citizenid`),
+  KEY `stable` (`stable`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_stables_horses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `stable` varchar(50) DEFAULT NULL,
+  `model` varchar(100) NOT NULL,
+  `breed_label` varchar(100) NOT NULL,
+  `gender` varchar(6) DEFAULT NULL,
+  `breed_cooldown` bigint(20) NOT NULL DEFAULT 0,
+  `died_of_age` tinyint(1) NOT NULL DEFAULT 0,
+  `name` varchar(50) NOT NULL DEFAULT 'Unnamed Horse',
+  `outfit` int(11) NOT NULL DEFAULT 0,
+  `tack` text DEFAULT NULL,
+  `shoe_wear` float NOT NULL DEFAULT 0,
+  `coat` text DEFAULT NULL,
+  `health` float NOT NULL DEFAULT 100,
+  `stamina` float NOT NULL DEFAULT 100,
+  `hunger` float NOT NULL DEFAULT 100,
+  `thirst` float NOT NULL DEFAULT 100,
+  `bonding` float NOT NULL DEFAULT 0,
+  `training` text DEFAULT NULL,
+  `speed` int(11) NOT NULL DEFAULT 50,
+  `accel` int(11) NOT NULL DEFAULT 50,
+  `handling` int(11) NOT NULL DEFAULT 50,
+  `maxhealth` int(11) NOT NULL DEFAULT 50,
+  `alive` tinyint(1) NOT NULL DEFAULT 1,
+  `insured` tinyint(1) NOT NULL DEFAULT 0,
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  `pos_x` float DEFAULT NULL,
+  `pos_y` float DEFAULT NULL,
+  `pos_z` float DEFAULT NULL,
+  `pos_h` float DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `citizenid` (`citizenid`),
+  KEY `stable` (`stable`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_stables_races` (
+  `citizenid` varchar(50) NOT NULL,
+  `race` varchar(50) NOT NULL,
+  `rider` varchar(100) NOT NULL DEFAULT '',
+  `horse` varchar(50) NOT NULL DEFAULT '',
+  `best_ms` int(11) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`citizenid`,`race`),
+  KEY `race_best` (`race`,`best_ms`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_telegram_contacts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `contact_citizenid` varchar(50) NOT NULL,
+  `contact_name` varchar(100) NOT NULL,
+  `nickname` varchar(50) DEFAULT NULL,
+  `added_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_contact` (`citizenid`,`contact_citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_telegrams` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `recipient_name` varchar(100) NOT NULL,
+  `sender_citizenid` varchar(50) NOT NULL,
+  `sender_name` varchar(100) NOT NULL,
+  `subject` varchar(100) NOT NULL,
+  `message` text NOT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT 0,
+  `sent_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_telephones` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `number` varchar(16) NOT NULL,
+  `label` varchar(64) NOT NULL DEFAULT 'Telephone',
+  `model` varchar(64) NOT NULL,
+  `x` double NOT NULL,
+  `y` double NOT NULL,
+  `z` double NOT NULL,
+  `heading` double NOT NULL DEFAULT 0,
+  `listed` tinyint(1) NOT NULL DEFAULT 1,
+  `room` bigint(20) NOT NULL DEFAULT 0,
+  `job` varchar(64) DEFAULT NULL,
+  `owner` varchar(64) DEFAULT NULL,
+  `stored` tinyint(1) NOT NULL DEFAULT 0,
+  `created_by` varchar(64) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `number` (`number`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_trader` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `traderid` varchar(50) NOT NULL,
+  `item` varchar(50) NOT NULL,
+  `stock` int(11) NOT NULL DEFAULT 0,
+  `lowstock` int(11) NOT NULL DEFAULT 0,
+  `highstock` int(11) NOT NULL DEFAULT 0,
+  `baseprice` decimal(11,2) NOT NULL DEFAULT 0.00,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `trader_item` (`traderid`,`item`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_trader_npcs` (
+  `traderid` varchar(50) NOT NULL,
+  `tradername` varchar(50) NOT NULL,
+  `npcmodel` varchar(60) NOT NULL,
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `heading` float NOT NULL DEFAULT 0,
+  `showblip` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`traderid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_trapdoors` (
+  `door_id` varchar(64) NOT NULL,
+  `passcode` char(4) NOT NULL,
+  `owner` varchar(50) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`door_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_trapdoors_schema` (
+  `id` tinyint(3) unsigned NOT NULL DEFAULT 1,
+  `version` int(10) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `rsg_trapdoors_schema` (`id`, `version`) VALUES
+	(1, 1);
 
 CREATE TABLE IF NOT EXISTS `rsg_voice_mutes` (
-    `license`    VARCHAR(64)  NOT NULL,
-    `reason`     VARCHAR(255) DEFAULT NULL,
-    `muted_by`   VARCHAR(100) DEFAULT NULL,
-    `expires_at` INT UNSIGNED DEFAULT NULL, -- unix time, NULL = permanent
-    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`license`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `license` varchar(64) NOT NULL,
+  `reason` varchar(255) DEFAULT NULL,
+  `muted_by` varchar(100) DEFAULT NULL,
+  `expires_at` int(10) unsigned DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`license`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_wagons` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL DEFAULT '0',
+  `wagon` varchar(50) NOT NULL DEFAULT '0',
+  `custom` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`custom`)),
+  `animals` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`animals`)),
+  `active` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_weather_state` (
+  `key` varchar(50) NOT NULL,
+  `value` varchar(100) NOT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `shop_stock` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `shop_name` varchar(50) NOT NULL,
+  `item_name` varchar(50) NOT NULL,
+  `stock` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `shop_name_item_name` (`shop_name`,`item_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 SET FOREIGN_KEY_CHECKS = 1;
