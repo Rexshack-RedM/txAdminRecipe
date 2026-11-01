@@ -1701,7 +1701,7 @@ CREATE TABLE IF NOT EXISTS `rsg_boats_models` (
   `weight` INT NOT NULL DEFAULT 50000,
   PRIMARY KEY (`id`),
   UNIQUE KEY `model` (`model`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `rsg_boats_owned` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -1712,7 +1712,7 @@ CREATE TABLE IF NOT EXISTS `rsg_boats_owned` (
   `yard` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `citizenid` (`citizenid`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `rsg_boats_yards` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -1722,7 +1722,7 @@ CREATE TABLE IF NOT EXISTS `rsg_boats_yards` (
   `dock` VARCHAR(255) NULL DEFAULT NULL,
   `models` TEXT NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `rsg_boats_settings` (
   `k` VARCHAR(64) NOT NULL,
@@ -1742,7 +1742,7 @@ CREATE TABLE IF NOT EXISTS `hunting_weekly` (
     `xp` INT NOT NULL DEFAULT 0,
     PRIMARY KEY (`citizenid`, `week`),
     KEY `week_xp` (`week`, `xp`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `hunting_weekly_rewards` (
     `id` INT NOT NULL AUTO_INCREMENT,
@@ -1753,6 +1753,15 @@ CREATE TABLE IF NOT EXISTS `hunting_weekly_rewards` (
     `claimed` TINYINT(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     UNIQUE KEY `cid_week` (`citizenid`, `week`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_voice_mutes` (
+    `license`    VARCHAR(64)  NOT NULL,
+    `reason`     VARCHAR(255) DEFAULT NULL,
+    `muted_by`   VARCHAR(100) DEFAULT NULL,
+    `expires_at` INT UNSIGNED DEFAULT NULL, -- unix time, NULL = permanent
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`license`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 SET FOREIGN_KEY_CHECKS = 1;
