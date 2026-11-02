@@ -1819,4 +1819,11 @@ CREATE TABLE IF NOT EXISTS `shop_stock` (
   UNIQUE KEY `shop_name_item_name` (`shop_name`,`item_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `zonenotify_discoveries` (
+  `citizenid` varchar(50) NOT NULL,
+  `zone` varchar(64) NOT NULL,
+  `discovered_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`citizenid`,`zone`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 SET FOREIGN_KEY_CHECKS = 1;
