@@ -10,9 +10,6 @@ CREATE TABLE IF NOT EXISTS `admin_activity_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `admin_activity_log` (`id`, `sample_time`, `online_count`, `total_money`) VALUES
-	(3, '2026-11-01 15:56:39', 0, 0.00);
-
 CREATE TABLE IF NOT EXISTS `admin_chat_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sender_citizenid` varchar(50) DEFAULT NULL,
@@ -195,7 +192,8 @@ CREATE TABLE IF NOT EXISTS `favorites_animations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `citizenid` varchar(50) NOT NULL,
   `favorites` longtext NOT NULL DEFAULT '[]',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `horse_race_tracks` (
@@ -213,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `hunting_weekly` (
   `xp` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`citizenid`,`week`),
   KEY `week_xp` (`week`,`xp`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `hunting_weekly_rewards` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -224,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `hunting_weekly_rewards` (
   `claimed` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cid_week` (`citizenid`,`week`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `inventories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -237,14 +235,14 @@ CREATE TABLE IF NOT EXISTS `inventories` (
 CREATE TABLE IF NOT EXISTS `management_funds` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `job_name` varchar(50) NOT NULL,
-  `amount` int(100) NOT NULL,
+  `amount` int(11) NOT NULL,
   `type` enum('boss','gang') NOT NULL DEFAULT 'boss',
   PRIMARY KEY (`id`),
   UNIQUE KEY `job_name` (`job_name`),
   KEY `type` (`type`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `management_funds` (`id`, `job_name`, `amount`, `type`) VALUES
+INSERT IGNORE INTO `management_funds` (`id`, `job_name`, `amount`, `type`) VALUES
 	(1, 'vallaw', 0, 'boss'),
 	(2, 'rholaw', 0, 'boss'),
 	(3, 'blklaw', 0, 'boss'),
@@ -311,7 +309,7 @@ CREATE TABLE IF NOT EXISTS `mdt_charge_templates` (
   KEY `idx_name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `mdt_charge_templates` (`id`, `name`, `description`, `fine`, `jailtime`, `category`, `created_by`, `created_by_name`, `created_at`, `updated_at`) VALUES
+INSERT IGNORE INTO `mdt_charge_templates` (`id`, `name`, `description`, `fine`, `jailtime`, `category`, `created_by`, `created_by_name`, `created_at`, `updated_at`) VALUES
 	(1, 'Assault', 'Physical assault on another person', 50, 2, 'felony', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
 	(2, 'Battery', 'Unlawful physical force against another', 75, 3, 'felony', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
 	(3, 'Theft', 'Stealing property valued under $50', 25, 0, 'misdemeanor', NULL, NULL, '2026-10-10 18:26:58', '2026-10-10 18:26:58'),
@@ -334,8 +332,7 @@ CREATE TABLE IF NOT EXISTS `mdt_citizen_profiles` (
   `notes` text DEFAULT NULL,
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
-  UNIQUE KEY `citizenid` (`citizenid`),
-  KEY `idx_citizenid` (`citizenid`)
+  UNIQUE KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `mdt_fines` (
@@ -435,8 +432,7 @@ CREATE TABLE IF NOT EXISTS `mdt_roles` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table redm.mdt_roles: ~3 rows (approximately)
-INSERT INTO `mdt_roles` (`id`, `name`, `label`, `permissions`, `created_at`) VALUES
+INSERT IGNORE INTO `mdt_roles` (`id`, `name`, `label`, `permissions`, `created_at`) VALUES
 	(1, 'admin', 'Administrator', '{"canCreateRecords": true, "canDeleteRecords": true, "canManageWarrants": true, "isAdmin": true}', '2026-10-10 18:26:58'),
 	(2, 'supervisor', 'Supervisor', '{"canCreateRecords": true, "canDeleteRecords": true, "canManageWarrants": true, "isAdmin": false}', '2026-10-10 18:26:58'),
 	(3, 'officer', 'Officer', '{"canCreateRecords": true, "canDeleteRecords": false, "canManageWarrants": false, "isAdmin": false}', '2026-10-10 18:26:58');
@@ -450,8 +446,7 @@ CREATE TABLE IF NOT EXISTS `mdt_staff` (
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
-  UNIQUE KEY `citizenid` (`citizenid`),
-  KEY `idx_citizenid` (`citizenid`)
+  UNIQUE KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `mdt_warrants` (
@@ -481,7 +476,7 @@ CREATE TABLE IF NOT EXISTS `multijob_jobs` (
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `multijob_jobs` (`name`, `label`, `type`, `icon`, `default_duty`, `off_duty_pay`, `grades`, `updated_at`) VALUES
+INSERT IGNORE INTO `multijob_jobs` (`name`, `label`, `type`, `icon`, `default_duty`, `off_duty_pay`, `grades`, `updated_at`) VALUES
 	('blklaw', 'Blackwater Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58'),
 	('downesranch', 'Downes Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
 	('emeraldranch', 'Emerald Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
@@ -499,7 +494,7 @@ INSERT INTO `multijob_jobs` (`name`, `label`, `type`, `icon`, `default_duty`, `o
 
 CREATE TABLE IF NOT EXISTS `player_ammo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(255) NOT NULL,
+  `citizenid` varchar(50) NOT NULL,
   `ammo_revolver` int(3) NOT NULL DEFAULT 0,
   `ammo_revolver_express` int(3) NOT NULL DEFAULT 0,
   `ammo_revolver_express_explosive` int(3) NOT NULL DEFAULT 0,
@@ -602,10 +597,11 @@ CREATE TABLE IF NOT EXISTS `player_goldrockers` (
 
 CREATE TABLE IF NOT EXISTS `player_jobs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(50) DEFAULT NULL,
-  `job` varchar(50) DEFAULT NULL,
-  `grade` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `citizenid` varchar(50) NOT NULL,
+  `job` varchar(50) NOT NULL,
+  `grade` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `citizen_job` (`citizenid`,`job`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `player_playtime` (
@@ -646,10 +642,10 @@ CREATE TABLE IF NOT EXISTS `player_smelter` (
 CREATE TABLE IF NOT EXISTS `player_weapons` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `serial` varchar(16) NOT NULL,
-  `citizenid` varchar(9) NOT NULL,
+  `citizenid` varchar(50) NOT NULL,
   `components` varchar(4096) NOT NULL DEFAULT '{}',
   `components_before` varchar(4096) NOT NULL DEFAULT '{}',
-  `price` decimal(5,2) NOT NULL DEFAULT 0.00,
+  `price` decimal(10,2) NOT NULL DEFAULT 0.00,
   `town` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -674,7 +670,7 @@ CREATE TABLE IF NOT EXISTS `playeroutfit` (
 
 CREATE TABLE IF NOT EXISTS `players` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(255) NOT NULL,
+  `citizenid` varchar(50) NOT NULL,
   `cid` int(11) DEFAULT NULL,
   `license` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -697,11 +693,11 @@ CREATE TABLE IF NOT EXISTS `players` (
 
 CREATE TABLE IF NOT EXISTS `playerskins` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(255) NOT NULL,
-  `skin` varchar(8000) NOT NULL,
-  `clothes` varchar(8000) NOT NULL,
+  `citizenid` varchar(50) NOT NULL,
+  `skin` longtext NOT NULL,
+  `clothes` longtext NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `citizenid` (`citizenid`) USING BTREE
+  UNIQUE KEY `citizenid` (`citizenid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `railroad_companies` (
@@ -920,10 +916,6 @@ CREATE TABLE IF NOT EXISTS `rsg_bank_meta` (
   PRIMARY KEY (`k`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table redm.rsg_bank_meta: ~1 rows (approximately)
-INSERT INTO `rsg_bank_meta` (`k`, `v`) VALUES
-	('core_migrated', '2026-11-01 15:56:36');
-
 CREATE TABLE IF NOT EXISTS `rsg_bank_transactions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `citizenid` varchar(50) NOT NULL,
@@ -967,10 +959,9 @@ CREATE TABLE IF NOT EXISTS `rsg_boats_models` (
   `weight` int(11) NOT NULL DEFAULT 50000,
   PRIMARY KEY (`id`),
   UNIQUE KEY `model` (`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table redm.rsg_boats_models: ~1 rows (approximately)
-INSERT INTO `rsg_boats_models` (`id`, `model`, `label`, `description`, `price`, `enabled`, `slots`, `weight`) VALUES
+INSERT IGNORE INTO `rsg_boats_models` (`id`, `model`, `label`, `description`, `price`, `enabled`, `slots`, `weight`) VALUES
 	(1, 'rowboat', 'Rowboat', 'A sturdy wooden rowboat for rivers and bayous.', 75, 1, 10, 50000);
 
 CREATE TABLE IF NOT EXISTS `rsg_boats_owned` (
@@ -982,13 +973,13 @@ CREATE TABLE IF NOT EXISTS `rsg_boats_owned` (
   `yard` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_boats_settings` (
   `k` varchar(64) NOT NULL,
   `v` longtext NOT NULL,
   PRIMARY KEY (`k`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_boats_yards` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -998,10 +989,9 @@ CREATE TABLE IF NOT EXISTS `rsg_boats_yards` (
   `dock` varchar(255) DEFAULT NULL,
   `models` text DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table redm.rsg_boats_yards: ~1 rows (approximately)
-INSERT INTO `rsg_boats_yards` (`id`, `name`, `coords`, `spawn`, `dock`, `models`) VALUES
+INSERT IGNORE INTO `rsg_boats_yards` (`id`, `name`, `coords`, `spawn`, `dock`, `models`) VALUES
 	(1, 'Saint Denis Boat Yard', '{"y":-1778.010009765625,"x":886.6599731445313,"w":283.2699890136719,"z":42.13999938964844}', NULL, NULL, NULL);
 
 CREATE TABLE IF NOT EXISTS `rsg_bountyhunter` (
@@ -1012,17 +1002,16 @@ CREATE TABLE IF NOT EXISTS `rsg_bountyhunter` (
   `dead` int(11) NOT NULL DEFAULT 0,
   `earned` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_chat_channels` (
   `id` varchar(32) NOT NULL,
   `data` longtext NOT NULL,
   `sort` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table redm.rsg_chat_channels: ~4 rows (approximately)
-INSERT INTO `rsg_chat_channels` (`id`, `data`, `sort`) VALUES
+INSERT IGNORE INTO `rsg_chat_channels` (`id`, `data`, `sort`) VALUES
 	('local', '{"gangs":[],"enabled":true,"permission":"","requireDuty":false,"distance":20,"maxLength":256,"color":"#ffffff","id":"local","command":"l","jobs":[],"label":"Local","range":"local","showPrefix":false,"prefix":"Local"}', 2),
 	('ooc', '{"gangs":[],"enabled":true,"permission":"","requireDuty":false,"distance":0,"maxLength":256,"color":"#bfbfbf","id":"ooc","command":"ooc","jobs":[],"label":"OOC","range":"global","showPrefix":true,"prefix":"OOC"}', 1),
 	('staff', '{"gangs":[],"enabled":true,"permission":"helper","requireDuty":false,"distance":0,"maxLength":512,"color":"#e0554f","id":"staff","command":"staff","jobs":[],"label":"Staff","range":"group","showPrefix":true,"prefix":"Staff"}', 4),
@@ -1058,7 +1047,7 @@ CREATE TABLE IF NOT EXISTS `rsg_cooking_stations` (
   `last_tick` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_doorlocks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1069,57 +1058,13 @@ CREATE TABLE IF NOT EXISTS `rsg_doorlocks` (
   `distance` float NOT NULL DEFAULT 1.25,
   `locked` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Dumping data for table redm.rsg_doorlocks: ~41 rows (approximately)
-INSERT INTO `rsg_doorlocks` (`id`, `name`, `doors`, `text_coords`, `jobs`, `distance`, `locked`) VALUES
-	(1, 'Imported door 1988748538', '[{"coords":{"z":118.41165161132813,"y":802.591064453125,"x":-276.0126037597656},"hash":1988748538}]', '{"z":119.41165161132813,"y":802.591064453125,"x":-276.0126037597656}', '["vallaw"]', 3, 1),
-	(2, 'Imported door 395506985', '[{"coords":{"z":118.41483306884766,"y":812.0270385742188,"x":-275.8447570800781},"hash":395506985}]', '{"z":119.41483306884766,"y":812.0270385742188,"x":-275.8447570800781}', '["vallaw"]', 3, 1),
-	(3, 'Imported door 1508776842', '[{"coords":{"z":118.39580535888672,"y":810.0264892578125,"x":-270.76641845703127},"hash":1508776842}]', '{"z":119.39580535888672,"y":810.0264892578125,"x":-270.76641845703127}', '["vallaw"]', 1, 1),
-	(4, 'Imported door 535323366', '[{"coords":{"z":118.36856842041016,"y":809.2740478515625,"x":-275.0232849121094},"hash":535323366}]', '{"z":119.36856842041016,"y":809.2740478515625,"x":-275.0232849121094}', '["vallaw"]', 2, 1),
-	(5, 'Theatre Main Doors', '[{"coords":{"x":2547.550048828125,"y":-1289.8310546875,"z":48.21599960327148},"hash":544106233},{"coords":{"x":2545.345947265625,"y":-1289.8310546875,"z":48.21599960327148},"hash":340151973}]', '{"x":2546.447998046875,"y":-1289.8310546875,"z":49.21599960327148}', '[]', 1.25, 0),
-	(6, 'Imported door 295355979', '[{"coords":{"z":118.36823272705078,"y":809.966064453125,"x":-273.4643249511719},"hash":295355979}]', '{"z":119.36823272705078,"y":809.966064453125,"x":-273.4643249511719}', '["vallaw"]', 1, 1),
-	(7, 'Theatre Side Door 1', '[{"coords":{"x":2537.594970703125,"y":-1294.47802734375,"z":48.21599960327148},"hash":534819197},{"coords":{"x":2537.594970703125,"y":-1295.8360595703126,"z":48.21599960327148},"hash":836064614}]', '{"x":2537.594970703125,"y":-1295.156982421875,"z":49.21599960327148}', '[]', 1.25, 1),
-	(8, 'Imported door 193903155', '[{"coords":{"z":118.36851501464844,"y":808.25830078125,"x":-272.0520935058594},"hash":193903155}]', '{"z":119.36851501464844,"y":808.25830078125,"x":-272.0520935058594}', '["vallaw"]', 1, 1),
-	(9, 'Theatre Side Door 2', '[{"coords":{"x":2537.594970703125,"y":-1299.5899658203126,"z":48.21599960327148},"hash":1449678065},{"coords":{"x":2537.594970703125,"y":-1298.2330322265626,"z":48.21599960327148},"hash":2053545201}]', '{"x":2537.594970703125,"y":-1298.9114990234376,"z":49.21599960327148}', '[]', 1.25, 1),
-	(10, 'Imported door 349074475', '[{"coords":{"z":76.76842498779297,"y":-1305.9600830078126,"x":1359.710205078125},"hash":349074475}]', '{"z":77.76842498779297,"y":-1305.9600830078126,"x":1359.710205078125}', '["rholaw"]', 3, 1),
-	(11, 'Theatre Side Door 3', '[{"coords":{"x":2537.594970703125,"y":-1303.3360595703126,"z":48.21599960327148},"hash":627391959},{"coords":{"x":2537.594970703125,"y":-1301.97802734375,"z":48.21599960327148},"hash":3468071035}]', '{"x":2537.594970703125,"y":-1302.656982421875,"z":49.21599960327148}', '[]', 1.25, 1),
-	(12, 'Imported door 1614494720', '[{"coords":{"z":76.78761291503906,"y":-1297.5343017578126,"x":1359.097900390625},"hash":1614494720}]', '{"z":77.78761291503906,"y":-1297.5343017578126,"x":1359.097900390625}', '["rholaw"]', 3, 1),
-	(13, 'Imported door 1878514758', '[{"coords":{"z":76.76018524169922,"y":-1302.4530029296876,"x":1357.3343505859376},"hash":1878514758}]', '{"z":76.76018524169922,"y":-1302.4530029296876,"x":1357.3343505859376}', '["rholaw"]', 1.5, 1),
-	(14, 'Imported door 3410720590', '[{"coords":{"z":43.068603515625,"y":-1268.485107421875,"x":-757.0421752929688},"hash":3410720590},{"coords":{"z":43.06863021850586,"y":-1269.9234619140626,"x":-757.0421142578125},"hash":3821185084}]', '{"z":44.04000091552734,"y":-1269.3399658203126,"x":-757.27001953125}', '["blklaw"]', 3, 1),
-	(15, 'Imported door 2810801921', '[{"coords":{"z":43.0400390625,"y":-1268.7451171875,"x":-769.1370849609375},"hash":2810801921}]', '{"z":44.0400390625,"y":-1268.7451171875,"x":-769.1370849609375}', '["blklaw"]', 3, 1),
-	(16, 'Imported door 2167775834', '[{"coords":{"z":43.02327346801758,"y":-1262.4608154296876,"x":-763.52783203125},"hash":2167775834}]', '{"z":44.02327346801758,"y":-1262.4608154296876,"x":-763.52783203125}', '["blklaw"]', 1, 1),
-	(17, 'Imported door 2514996159', '[{"coords":{"z":43.02326965332031,"y":-1264.7044677734376,"x":-765.8607788085938},"hash":2514996159}]', '{"z":44.02326965332031,"y":-1264.7044677734376,"x":-765.8607788085938}', '["blklaw"]', 1, 1),
-	(18, 'Imported door 1821044729', '[{"coords":{"z":163.64759826660157,"y":-350.31280517578127,"x":-1806.6751708984376},"hash":1821044729}]', '{"z":164.64759826660157,"y":-350.31280517578127,"x":-1806.6751708984376}', '["strlaw"]', 3, 1),
-	(19, 'Imported door 902070893', '[{"coords":{"z":160.44180297851563,"y":-353.1470947265625,"x":-1814.400390625},"hash":902070893}]', '{"z":161.44180297851563,"y":-353.1470947265625,"x":-1814.400390625}', '["strlaw"]', 1.5, 1),
-	(20, 'Imported door 1207903970', '[{"coords":{"z":160.46839904785157,"y":-351.92095947265627,"x":-1812.0101318359376},"hash":1207903970}]', '{"z":161.46839904785157,"y":-351.92095947265627,"x":-1812.0101318359376}', '["strlaw"]', 1.5, 1),
-	(21, 'Imported door 1514359658', '[{"coords":{"z":163.64759826660157,"y":-345.08489990234377,"x":-1812.669189453125},"hash":1514359658}]', '{"z":164.64759826660157,"y":-345.08489990234377,"x":-1812.669189453125}', '["strlaw"]', 3, 1),
-	(22, 'Imported door 417663242', '[{"coords":{"z":47.95257186889648,"y":-1309.9276123046876,"x":2516.144287109375},"hash":417663242},{"coords":{"z":47.95257186889648,"y":-1307.724853515625,"x":2516.14453125},"hash":1611175760}]', '{"z":48.95257186889648,"y":-1309.9276123046876,"x":2516.144287109375}', '["stdenlaw"]', 1.5, 1),
-	(23, 'Imported door 3601535313', '[{"coords":{"z":47.95257186889648,"y":-1312.2154541015626,"x":2510.90771484375},"hash":3601535313},{"coords":{"z":47.95257186889648,"y":-1310.4840087890626,"x":2510.90771484375},"hash":3430284519}]', '{"z":48.95257186889648,"y":-1312.2154541015626,"x":2510.90771484375}', '["stdenlaw"]', 1.5, 1),
-	(24, 'Imported door 3124713594', '[{"coords":{"z":47.95716857910156,"y":-1307.141357421875,"x":2510.90771484375},"hash":3124713594},{"coords":{"z":47.95716857910156,"y":-1305.41162109375,"x":2510.90771484375},"hash":1879655431}]', '{"z":48.95716857910156,"y":-1307.141357421875,"x":2510.90771484375}', '["stdenlaw"]', 1.5, 1),
-	(25, 'Imported door 1020479727', '[{"coords":{"z":47.95257186889648,"y":-1317.2796630859376,"x":2508.337646484375},"hash":1020479727},{"coords":{"z":47.95257186889648,"y":-1317.2796630859376,"x":2506.606201171875},"hash":603068205}]', '{"z":48.95257186889648,"y":-1317.2796630859376,"x":2508.337646484375}', '["stdenlaw"]', 1.5, 1),
-	(26, 'Imported door 305296302', '[{"coords":{"z":47.95257186889648,"y":-1317.28271484375,"x":2497.684814453125},"hash":305296302},{"coords":{"z":47.95257186889648,"y":-1317.28271484375,"x":2495.953369140625},"hash":2503834054}]', '{"z":48.95257186889648,"y":-1317.28271484375,"x":2497.684814453125}', '["stdenlaw"]', 1.5, 1),
-	(27, 'Imported door 1992193795', '[{"coords":{"z":47.95257186889648,"y":-1311.95654296875,"x":2493.37255859375},"hash":1992193795},{"coords":{"z":47.95257186889648,"y":-1310.2252197265626,"x":2493.37255859375},"hash":1694749582}]', '{"z":48.95257186889648,"y":-1311.95654296875,"x":2493.37255859375}', '["stdenlaw"]', 1.5, 1),
-	(28, 'Imported door 1979938193', '[{"coords":{"z":47.95257186889648,"y":-1307.41845703125,"x":2493.37255859375},"hash":1979938193},{"coords":{"z":47.95257186889648,"y":-1305.68701171875,"x":2493.37255859375},"hash":1674105116}]', '{"z":48.95257186889648,"y":-1307.41845703125,"x":2493.37255859375}', '["stdenlaw"]', 1.5, 1),
-	(29, 'Imported door 3365520707', '[{"coords":{"z":47.95327377319336,"y":-1307.85595703125,"x":2498.5},"hash":3365520707}]', '{"z":48.95327377319336,"y":-1307.85595703125,"x":2498.5}', '["stdenlaw"]', 1, 1),
-	(30, 'Imported door 1995743734', '[{"coords":{"z":47.95327377319336,"y":-1309.8763427734376,"x":2499.752197265625},"hash":1995743734}]', '{"z":48.95327377319336,"y":-1309.8763427734376,"x":2499.752197265625}', '["stdenlaw"]', 1, 1),
-	(31, 'Imported door 1711767580', '[{"coords":{"z":47.95327377319336,"y":-1307.85595703125,"x":2502.4296875},"hash":1711767580}]', '{"z":48.95327377319336,"y":-1307.85595703125,"x":2502.4296875}', '["stdenlaw"]', 1, 1),
-	(32, 'Imported door 2515591150', '[{"coords":{"z":47.95327377319336,"y":-1309.8763427734376,"x":2503.638671875},"hash":2515591150}]', '{"z":48.95327377319336,"y":-1309.8763427734376,"x":2503.638671875}', '["stdenlaw"]', 1, 1),
-	(33, 'Imported door 1692000954', '[{"coords":{"z":43.09000015258789,"y":-700.0700073242188,"x":3331.85009765625},"hash":1692000954}]', '{"z":43.09000015258789,"y":-700.0700073242188,"x":3331.85009765625}', '[]', 3, 1),
-	(34, 'Imported door -1819721708', '[{"coords":{"z":43.09000015258789,"y":-702.02001953125,"x":3333.60009765625},"hash":-1819721708}]', '{"z":43.09000015258789,"y":-702.02001953125,"x":3333.60009765625}', '[]', 3, 1),
-	(35, 'Imported door 559643844', '[{"coords":{"z":44.4000015258789,"y":-648.0,"x":3350.699951171875},"hash":559643844}]', '{"z":44.4000015258789,"y":-648.0,"x":3350.699951171875}', '[]', 1.5, 1),
-	(36, 'Imported door 559643844', '[{"coords":{"z":44.40999984741211,"y":-645.280029296875,"x":3349.9599609375},"hash":559643844}]', '{"z":44.40999984741211,"y":-645.280029296875,"x":3349.9599609375}', '[]', 1.5, 1),
-	(37, 'Imported door 4249790129', '[{"coords":{"z":45.4660758972168,"y":-639.477783203125,"x":3384.615478515625},"hash":4249790129}]', '{"z":45.4660758972168,"y":-639.477783203125,"x":3384.615478515625}', '[]', 1.5, 1),
-	(38, 'Imported door 559643844', '[{"coords":{"z":45.4900016784668,"y":-680.1199951171875,"x":3366.449951171875},"hash":559643844}]', '{"z":45.4900016784668,"y":-680.1199951171875,"x":3366.449951171875}', '[]', 1.5, 1),
-	(39, 'Imported door 559643844', '[{"coords":{"z":44.31000137329101,"y":-723.5900268554688,"x":3369.56005859375},"hash":559643844}]', '{"z":44.31000137329101,"y":-723.5900268554688,"x":3369.56005859375}', '[]', 1.5, 1),
-	(40, 'Imported door 559643844', '[{"coords":{"z":45.5,"y":-677.719970703125,"x":3407.31005859375},"hash":559643844}]', '{"z":45.5,"y":-677.719970703125,"x":3407.31005859375}', '[]', 1.5, 1),
-	(41, 'Imported door -1694920053', '[{"coords":{"z":44.8508186340332,"y":-658.0032348632813,"x":3318.453125},"hash":-1694920053}]', '{"z":44.8508186340332,"y":-658.0032348632813,"x":3318.453125}', '[]', 1.5, 1);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_drugs_labs` (
   `citizenid` varchar(50) NOT NULL,
   `data` longtext NOT NULL,
   PRIMARY KEY (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_farming_plants` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1154,7 +1099,7 @@ CREATE TABLE IF NOT EXISTS `rsg_farming_wellpumps` (
 
 CREATE TABLE IF NOT EXISTS `rsg_housekeys` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `houseid` varchar(7) NOT NULL DEFAULT '0',
+  `houseid` varchar(20) NOT NULL DEFAULT '0',
   `citizenid` varchar(50) NOT NULL DEFAULT '0',
   `guest` int(1) NOT NULL DEFAULT 0,
   `perm_doors` tinyint(1) NOT NULL DEFAULT 1,
@@ -1164,12 +1109,12 @@ CREATE TABLE IF NOT EXISTS `rsg_housekeys` (
   PRIMARY KEY (`id`),
   KEY `idx_citizenid` (`citizenid`),
   KEY `idx_houseid` (`houseid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_housing` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `region` varchar(30) NOT NULL,
-  `houseid` varchar(7) NOT NULL,
+  `houseid` varchar(20) NOT NULL,
   `citizenid` varchar(50) NOT NULL DEFAULT '0',
   `fullname` varchar(255) NOT NULL DEFAULT '0',
   `rented` tinyint(1) NOT NULL DEFAULT 0,
@@ -1182,10 +1127,9 @@ CREATE TABLE IF NOT EXISTS `rsg_housing` (
   UNIQUE KEY `uniq_houseid` (`houseid`),
   KEY `idx_rented` (`rented`),
   KEY `idx_citizenid` (`citizenid`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table redm.rsg_housing: ~48 rows (approximately)
-INSERT INTO `rsg_housing` (`id`, `region`, `houseid`, `citizenid`, `fullname`, `rented`, `rent`, `rent_due`, `reminder_sent`, `custom_name`, `storage_tier`) VALUES
+INSERT IGNORE INTO `rsg_housing` (`id`, `region`, `houseid`, `citizenid`, `fullname`, `rented`, `rent`, `rent_due`, `reminder_sent`, `custom_name`, `storage_tier`) VALUES
 	(1, 'newhanover', 'house1', '0', '0', 0, 50, NULL, 0, NULL, 1),
 	(2, 'westelizabeth', 'house2', '0', '0', 0, 50, NULL, 0, NULL, 1),
 	(3, 'newhanover', 'house3', '0', '0', 0, 50, NULL, 0, NULL, 1),
@@ -1279,8 +1223,7 @@ CREATE TABLE IF NOT EXISTS `rsg_lottery_config` (
   PRIMARY KEY (`setting`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table redm.rsg_lottery_config: ~1 rows (approximately)
-INSERT INTO `rsg_lottery_config` (`setting`, `value`) VALUES
+INSERT IGNORE INTO `rsg_lottery_config` (`setting`, `value`) VALUES
 	('current_jackpot', '100');
 
 CREATE TABLE IF NOT EXISTS `rsg_lottery_draws` (
@@ -1294,10 +1237,7 @@ CREATE TABLE IF NOT EXISTS `rsg_lottery_draws` (
   `winner_name` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `draw_date` (`draw_date`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-INSERT INTO `rsg_lottery_draws` (`id`, `draw_date`, `jackpot`, `winning_number`, `drawn_at`, `status`, `winner_citizenid`, `winner_name`) VALUES
-	(1, '2026-11-01', 100, NULL, NULL, 'pending', NULL, NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_lottery_tickets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1406,11 +1346,8 @@ CREATE TABLE IF NOT EXISTS `rsg_noticeboard_boards` (
   `created_by` varchar(64) DEFAULT NULL,
   `created_at` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table redm.rsg_noticeboard_boards: ~0 rows (approximately)
-
--- Dumping structure for table redm.rsg_noticeboard_notices
 CREATE TABLE IF NOT EXISTS `rsg_noticeboard_notices` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `citizenid` varchar(64) NOT NULL,
@@ -1428,7 +1365,7 @@ CREATE TABLE IF NOT EXISTS `rsg_noticeboard_notices` (
   KEY `idx_citizenid` (`citizenid`),
   KEY `idx_expires` (`expires_at`),
   KEY `idx_town` (`town`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_ranch_animals` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1456,7 +1393,6 @@ CREATE TABLE IF NOT EXISTS `rsg_ranch_animals` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_animalid` (`animalid`),
   KEY `idx_ranchid` (`ranchid`),
-  KEY `idx_animalid` (`animalid`),
   KEY `idx_product_ready` (`product_ready`),
   KEY `idx_ranchid_product` (`ranchid`,`product_ready`),
   KEY `idx_pregnant` (`pregnant`),
@@ -1598,7 +1534,7 @@ CREATE TABLE IF NOT EXISTS `rsg_ranch_wellpumps` (
   `placed_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_roulette_tables` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1661,8 +1597,7 @@ CREATE TABLE IF NOT EXISTS `rsg_shops_presets` (
   UNIQUE KEY `uq_kind_value` (`kind`,`value`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table redm.rsg_shops_presets: ~29 rows (approximately)
-INSERT INTO `rsg_shops_presets` (`id`, `kind`, `label`, `value`) VALUES
+INSERT IGNORE INTO `rsg_shops_presets` (`id`, `kind`, `label`, `value`) VALUES
 	(1, 'model', 'cfg_model_tumbleweed_store', 'u_f_m_tumgeneralstoreowner_01'),
 	(2, 'model', 'cfg_model_armadillo_store', 'u_m_m_armgeneralstoreowner_01'),
 	(3, 'model', 'cfg_model_saintdenis_store', 'u_m_m_nbxgeneralstoreowner_01'),
@@ -1699,7 +1634,7 @@ CREATE TABLE IF NOT EXISTS `rsg_smelting_state` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `rsg_smelting_state` (`id`, `data`) VALUES
+INSERT IGNORE INTO `rsg_smelting_state` (`id`, `data`) VALUES
 	(1, '{"live":[],"owed":[]}');
 
 CREATE TABLE IF NOT EXISTS `rsg_stables_breeding` (
@@ -1714,7 +1649,7 @@ CREATE TABLE IF NOT EXISTS `rsg_stables_breeding` (
   PRIMARY KEY (`id`),
   KEY `citizenid` (`citizenid`),
   KEY `stable` (`stable`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_stables_horses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1751,7 +1686,7 @@ CREATE TABLE IF NOT EXISTS `rsg_stables_horses` (
   PRIMARY KEY (`id`),
   KEY `citizenid` (`citizenid`),
   KEY `stable` (`stable`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_stables_races` (
   `citizenid` varchar(50) NOT NULL,
@@ -1762,7 +1697,7 @@ CREATE TABLE IF NOT EXISTS `rsg_stables_races` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`citizenid`,`race`),
   KEY `race_best` (`race`,`best_ms`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_telegram_contacts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1807,7 +1742,7 @@ CREATE TABLE IF NOT EXISTS `rsg_telephones` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `number` (`number`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_trader` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1847,7 +1782,7 @@ CREATE TABLE IF NOT EXISTS `rsg_trapdoors_schema` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `rsg_trapdoors_schema` (`id`, `version`) VALUES
+INSERT IGNORE INTO `rsg_trapdoors_schema` (`id`, `version`) VALUES
 	(1, 1);
 
 CREATE TABLE IF NOT EXISTS `rsg_voice_mutes` (
@@ -1857,7 +1792,7 @@ CREATE TABLE IF NOT EXISTS `rsg_voice_mutes` (
   `expires_at` int(10) unsigned DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`license`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_wagons` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
