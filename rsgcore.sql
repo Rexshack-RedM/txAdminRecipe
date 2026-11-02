@@ -639,6 +639,24 @@ CREATE TABLE IF NOT EXISTS `player_smelter` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `player_wagons` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `model` varchar(50) NOT NULL,
+  `name` varchar(40) NOT NULL,
+  `wagon_condition` int(11) NOT NULL DEFAULT 100,
+  `store` varchar(50) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  `livery` int(11) NOT NULL DEFAULT -1,
+  `tint` int(11) NOT NULL DEFAULT -1,
+  `propset` varchar(64) DEFAULT NULL,
+  `lantern` varchar(64) DEFAULT NULL,
+  `cargo` longtext DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `player_weapons` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `serial` varchar(16) NOT NULL,
@@ -1792,26 +1810,6 @@ CREATE TABLE IF NOT EXISTS `rsg_voice_mutes` (
   `expires_at` int(10) unsigned DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`license`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_wagons` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(50) NOT NULL DEFAULT '0',
-  `wagon` varchar(50) NOT NULL DEFAULT '0',
-  `custom` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`custom`)),
-  `animals` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`animals`)),
-  `active` int(11) NOT NULL DEFAULT 0,
-  `condition` int(11) NOT NULL DEFAULT 100,
-  `keys` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_wagons_stock` (
-  `store` varchar(50) NOT NULL,
-  `model` varchar(50) NOT NULL,
-  `stock` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`store`, `model`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_weather_state` (
