@@ -1801,7 +1801,17 @@ CREATE TABLE IF NOT EXISTS `rsg_wagons` (
   `custom` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`custom`)),
   `animals` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`animals`)),
   `active` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
+  `condition` int(11) NOT NULL DEFAULT 100,
+  `keys` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_wagons_stock` (
+  `store` varchar(50) NOT NULL,
+  `model` varchar(50) NOT NULL,
+  `stock` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`store`, `model`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_weather_state` (
