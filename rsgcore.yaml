@@ -526,6 +526,11 @@ tasks:
     dest: ./resources/[framework]/rsg-boats
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-boats
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-queue
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-queue
 
   # Community Shares
   
