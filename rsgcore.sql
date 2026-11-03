@@ -1622,6 +1622,7 @@ CREATE TABLE IF NOT EXISTS `rsg_shops_npcs` (
   `prop_model` varchar(100) DEFAULT NULL,
   `upkeep_owed` decimal(10,2) NOT NULL DEFAULT 0.00,
   `upkeep_next` int(11) DEFAULT NULL,
+  `packed_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_shop_name` (`shop_name`),
   KEY `idx_owner` (`owner_citizenid`)
@@ -1666,6 +1667,21 @@ INSERT IGNORE INTO `rsg_shops_presets` (`id`, `kind`, `label`, `value`) VALUES
 	(27, 'blip', 'cfg_blip_gunsmith', '-145868367'),
 	(28, 'blip', 'cfg_blip_butcher', '-1665418949'),
 	(29, 'blip', 'cfg_blip_saloon', '1879260108');
+
+CREATE TABLE IF NOT EXISTS `rsg_shops_staff` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `npc_id` int(11) NOT NULL,
+  `citizenid` varchar(50) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `staff_rank` varchar(32) NOT NULL DEFAULT 'custom',
+  `perms` varchar(255) NOT NULL DEFAULT '',
+  `withdrawn` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `withdraw_day` int(11) NOT NULL DEFAULT 0,
+  `hired_at` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_store_staff` (`npc_id`,`citizenid`),
+  KEY `idx_staff_cid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_smelting_state` (
   `id` tinyint(3) unsigned NOT NULL,
