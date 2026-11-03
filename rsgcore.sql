@@ -1591,6 +1591,19 @@ CREATE TABLE IF NOT EXISTS `rsg_shops_items` (
   KEY `idx_item_name` (`item_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `rsg_shops_ledger` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `npc_id` int(11) NOT NULL,
+  `ts` int(11) NOT NULL,
+  `kind` varchar(16) NOT NULL,
+  `item` varchar(100) DEFAULT NULL,
+  `qty` int(11) NOT NULL DEFAULT 0,
+  `amount` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `who` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_ledger_npc` (`npc_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `rsg_shops_npcs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
@@ -1602,8 +1615,16 @@ CREATE TABLE IF NOT EXISTS `rsg_shops_npcs` (
   `shop_name` varchar(100) DEFAULT NULL,
   `shop_label` varchar(100) DEFAULT NULL,
   `shop_type` varchar(10) NOT NULL DEFAULT 'both',
+  `store_kind` varchar(10) NOT NULL DEFAULT 'npc',
+  `owner_citizenid` varchar(50) DEFAULT NULL,
+  `owner_name` varchar(100) DEFAULT NULL,
+  `balance` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `prop_model` varchar(100) DEFAULT NULL,
+  `upkeep_owed` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `upkeep_next` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_shop_name` (`shop_name`)
+  KEY `idx_shop_name` (`shop_name`),
+  KEY `idx_owner` (`owner_citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_shops_presets` (
