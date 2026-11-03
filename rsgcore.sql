@@ -1867,4 +1867,10 @@ CREATE TABLE IF NOT EXISTS `rsg_queue_vip` (
     UNIQUE KEY `identifier` (`identifier`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS `rsg_queue_rewards` (
+    `license` VARCHAR(80) NOT NULL,
+    `last_claim` DATETIME NOT NULL,
+    PRIMARY KEY (`license`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 SET FOREIGN_KEY_CHECKS = 1;
