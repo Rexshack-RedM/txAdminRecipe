@@ -526,6 +526,11 @@ tasks:
     dest: ./resources/[framework]/rsg-queue
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-queue
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-gizmo
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-gizmo
 
   # Community Shares
   
