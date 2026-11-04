@@ -276,12 +276,7 @@ tasks:
     dest: ./resources/[framework]/rsg-samples
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-samples
-    
-  - action: download_github
-    dest: ./resources/[framework]/rsg-track
-    ref: main
-    src: https://github.com/Rexshack-RedM/rsg-track
-    
+        
   - action: waste_time # prevent github throttling
     seconds: 10
     
