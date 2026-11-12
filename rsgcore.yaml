@@ -526,6 +526,16 @@ tasks:
     dest: ./resources/[framework]/rsg-gizmo
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-gizmo
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-fireworks
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-fireworks
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-rocks
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-rocks
 
   # Community Shares
   
