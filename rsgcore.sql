@@ -1984,4 +1984,27 @@ INSERT INTO `rsg_rocks_zones` (`x`, `y`, `z`, `radius`, `ore_type`, `label`) VAL
 (-1387.19, 1182.66, 222.09, 2.0, 'saltrock', NULL),
 (-1412.58, 1182.56, 225.53, 2.0, 'rock', NULL);
 
+CREATE TABLE IF NOT EXISTS `rsg_cards_boxes` (
+    `serial`  VARCHAR(20) NOT NULL,
+    `creator` VARCHAR(50) NOT NULL,
+    `owner`   VARCHAR(50) NOT NULL,
+    PRIMARY KEY (`serial`),
+    INDEX `idx_creator` (`creator`),
+    INDEX `idx_owner` (`owner`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_cards_collection` (
+    `citizenid`   VARCHAR(50) NOT NULL,
+    `card`        VARCHAR(50) NOT NULL,
+    `obtained_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`citizenid`, `card`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_cards_pickups` (
+    `citizenid` VARCHAR(50) NOT NULL,
+    `card`      VARCHAR(50) NOT NULL,
+    `picked_at` INT UNSIGNED NOT NULL,
+    PRIMARY KEY (`citizenid`, `card`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 SET FOREIGN_KEY_CHECKS = 1;

@@ -536,6 +536,14 @@ tasks:
     dest: ./resources/[framework]/rsg-rocks
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-rocks
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-cards
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-cards
+    
+  - action: waste_time # prevent github throttling
+    seconds: 10
 
   # Community Shares
   
