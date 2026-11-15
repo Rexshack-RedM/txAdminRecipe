@@ -1710,67 +1710,68 @@ CREATE TABLE IF NOT EXISTS `rsg_smelting_state` (
 INSERT IGNORE INTO `rsg_smelting_state` (`id`, `data`) VALUES
 	(1, '{"live":[],"owed":[]}');
 
-CREATE TABLE IF NOT EXISTS `rsg_stables_breeding` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(50) NOT NULL,
-  `stable` varchar(50) NOT NULL,
-  `parent_a` int(11) NOT NULL,
-  `parent_b` int(11) NOT NULL,
-  `ready_at` bigint(20) NOT NULL,
-  `collected` tinyint(1) NOT NULL DEFAULT 0,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `citizenid` (`citizenid`),
-  KEY `stable` (`stable`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE IF NOT EXISTS `rsg_stables_horses` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(50) NOT NULL,
-  `stable` varchar(50) DEFAULT NULL,
-  `model` varchar(100) NOT NULL,
-  `breed_label` varchar(100) NOT NULL,
-  `gender` varchar(6) DEFAULT NULL,
-  `breed_cooldown` bigint(20) NOT NULL DEFAULT 0,
-  `died_of_age` tinyint(1) NOT NULL DEFAULT 0,
-  `name` varchar(50) NOT NULL DEFAULT 'Unnamed Horse',
-  `outfit` int(11) NOT NULL DEFAULT 0,
-  `tack` text DEFAULT NULL,
-  `shoe_wear` float NOT NULL DEFAULT 0,
-  `coat` text DEFAULT NULL,
-  `health` float NOT NULL DEFAULT 100,
-  `stamina` float NOT NULL DEFAULT 100,
-  `hunger` float NOT NULL DEFAULT 100,
-  `thirst` float NOT NULL DEFAULT 100,
-  `bonding` float NOT NULL DEFAULT 0,
-  `training` text DEFAULT NULL,
-  `speed` int(11) NOT NULL DEFAULT 50,
-  `accel` int(11) NOT NULL DEFAULT 50,
-  `handling` int(11) NOT NULL DEFAULT 50,
-  `maxhealth` int(11) NOT NULL DEFAULT 50,
-  `alive` tinyint(1) NOT NULL DEFAULT 1,
-  `insured` tinyint(1) NOT NULL DEFAULT 0,
-  `active` tinyint(1) NOT NULL DEFAULT 0,
-  `pos_x` float DEFAULT NULL,
-  `pos_y` float DEFAULT NULL,
-  `pos_z` float DEFAULT NULL,
-  `pos_h` float DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` VARCHAR(50) NOT NULL,
+  `stable` VARCHAR(50) DEFAULT NULL,
+  `model` VARCHAR(100) NOT NULL,
+  `breed_label` VARCHAR(100) NOT NULL,
+  `gender` VARCHAR(6) DEFAULT NULL,
+  `breed_cooldown` BIGINT(20) NOT NULL DEFAULT 0,
+  `died_of_age` TINYINT(1) NOT NULL DEFAULT 0,
+  `name` VARCHAR(50) NOT NULL DEFAULT 'Unnamed Horse',
+  `outfit` INT(11) NOT NULL DEFAULT 0,
+  `tack` TEXT DEFAULT NULL,
+  `shoe_wear` FLOAT NOT NULL DEFAULT 0,
+  `coat` TEXT DEFAULT NULL,
+  `health` FLOAT NOT NULL DEFAULT 100,
+  `stamina` FLOAT NOT NULL DEFAULT 100,
+  `hunger` FLOAT NOT NULL DEFAULT 100,
+  `thirst` FLOAT NOT NULL DEFAULT 100,
+  `bonding` FLOAT NOT NULL DEFAULT 0,
+  `training` TEXT DEFAULT NULL,
+  `speed` INT(11) NOT NULL DEFAULT 50,
+  `accel` INT(11) NOT NULL DEFAULT 50,
+  `handling` INT(11) NOT NULL DEFAULT 50,
+  `maxhealth` INT(11) NOT NULL DEFAULT 50,
+  `alive` TINYINT(1) NOT NULL DEFAULT 1,
+  `insured` TINYINT(1) NOT NULL DEFAULT 0,
+  `active` TINYINT(1) NOT NULL DEFAULT 0,
+  `born` TINYINT(1) NOT NULL DEFAULT 0,
+  `pos_x` FLOAT DEFAULT NULL,
+  `pos_y` FLOAT DEFAULT NULL,
+  `pos_z` FLOAT DEFAULT NULL,
+  `pos_h` FLOAT DEFAULT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `citizenid` (`citizenid`),
   KEY `stable` (`stable`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_stables_breeding` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` VARCHAR(50) NOT NULL,
+  `stable` VARCHAR(50) NOT NULL,
+  `parent_a` INT(11) NOT NULL,
+  `parent_b` INT(11) NOT NULL,
+  `ready_at` BIGINT(20) NOT NULL,
+  `collected` TINYINT(1) NOT NULL DEFAULT 0,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `citizenid` (`citizenid`),
+  KEY `stable` (`stable`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `rsg_stables_races` (
-  `citizenid` varchar(50) NOT NULL,
-  `race` varchar(50) NOT NULL,
-  `rider` varchar(100) NOT NULL DEFAULT '',
-  `horse` varchar(50) NOT NULL DEFAULT '',
-  `best_ms` int(11) NOT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`citizenid`,`race`),
-  KEY `race_best` (`race`,`best_ms`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `citizenid` VARCHAR(50) NOT NULL,
+  `race` VARCHAR(50) NOT NULL,
+  `rider` VARCHAR(100) NOT NULL DEFAULT '',
+  `horse` VARCHAR(50) NOT NULL DEFAULT '',
+  `best_ms` INT(11) NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`citizenid`, `race`),
+  KEY `race_best` (`race`, `best_ms`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `rsg_telegrams` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
