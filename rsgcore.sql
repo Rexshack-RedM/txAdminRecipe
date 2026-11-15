@@ -1103,35 +1103,29 @@ CREATE TABLE IF NOT EXISTS `rsg_drugs_labs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_farming_plants` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(50) NOT NULL,
-  `crop` varchar(50) NOT NULL,
-  `x` float NOT NULL,
-  `y` float NOT NULL,
-  `z` float NOT NULL,
-  `h` float NOT NULL DEFAULT 0,
-  `growth` float NOT NULL DEFAULT 0,
-  `water` float NOT NULL DEFAULT 0,
-  `fertilizer` float NOT NULL DEFAULT 0,
-  `health` float NOT NULL DEFAULT 100,
-  `dead` tinyint(1) NOT NULL DEFAULT 0,
-  `dead_time` int(11) NOT NULL DEFAULT 0,
-  `planted_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `citizenid` VARCHAR(50) NOT NULL,
+    `crop` VARCHAR(50) NOT NULL,
+    `x` FLOAT NOT NULL, `y` FLOAT NOT NULL, `z` FLOAT NOT NULL, `h` FLOAT NOT NULL DEFAULT 0,
+    `growth` FLOAT NOT NULL DEFAULT 0,
+    `water` FLOAT NOT NULL DEFAULT 0,
+    `fertilizer` FLOAT NOT NULL DEFAULT 0,
+    `health` FLOAT NOT NULL DEFAULT 100,
+    `dead` TINYINT(1) NOT NULL DEFAULT 0,
+    `dead_time` INT(11) NOT NULL DEFAULT 0,
+    `planted_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    KEY `citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `rsg_farming_wellpumps` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(50) NOT NULL,
-  `x` float NOT NULL,
-  `y` float NOT NULL,
-  `z` float NOT NULL,
-  `h` float NOT NULL DEFAULT 0,
-  `placed_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `citizenid` VARCHAR(50) NOT NULL,
+    `x` FLOAT NOT NULL, `y` FLOAT NOT NULL, `z` FLOAT NOT NULL, `h` FLOAT NOT NULL DEFAULT 0,
+    `placed_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    KEY `citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `rsg_housekeys` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
