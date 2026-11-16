@@ -2083,6 +2083,19 @@ CREATE TABLE IF NOT EXISTS `rsg_cards_profiles` (
     PRIMARY KEY (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS `rsg_cards_points` (
+    `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `item`       VARCHAR(50) NOT NULL,
+    `x`          DOUBLE NOT NULL,
+    `y`          DOUBLE NOT NULL,
+    `z`          DOUBLE NOT NULL,
+    `heading`    DOUBLE NOT NULL DEFAULT 0,
+    `exact`      TINYINT(1) NOT NULL DEFAULT 0,
+    `created_by` VARCHAR(50) NOT NULL DEFAULT 'config',
+    PRIMARY KEY (`id`),
+    INDEX `idx_item` (`item`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE IF NOT EXISTS `townhall_locations` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `label` VARCHAR(60) NOT NULL,
