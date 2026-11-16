@@ -2058,6 +2058,31 @@ CREATE TABLE IF NOT EXISTS `rsg_cards_pickups` (
     PRIMARY KEY (`citizenid`, `card`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS `rsg_cards_unclaimed` (
+    `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `citizenid`  VARCHAR(50) NOT NULL,
+    `card`       VARCHAR(50) NOT NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    INDEX `idx_citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_cards_bonuses` (
+    `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `citizenid`    VARCHAR(50) NOT NULL,
+    `set_id`       VARCHAR(20) NOT NULL,
+    `completed_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uniq_set` (`citizenid`, `set_id`),
+    INDEX `idx_set` (`set_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_cards_profiles` (
+    `citizenid` VARCHAR(50) NOT NULL,
+    `name`      VARCHAR(100) NOT NULL,
+    PRIMARY KEY (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE IF NOT EXISTS `townhall_locations` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `label` VARCHAR(60) NOT NULL,
