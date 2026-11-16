@@ -718,102 +718,103 @@ CREATE TABLE IF NOT EXISTS `playerskins` (
   UNIQUE KEY `citizenid` (`citizenid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `railroad_trains` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `citizenid` VARCHAR(50) NOT NULL DEFAULT '',
+    `company_id` VARCHAR(50) NOT NULL DEFAULT '',
+    `train_model` VARCHAR(50) NOT NULL,
+    `label` VARCHAR(100) NOT NULL DEFAULT '',
+    `fuel` INT(11) NOT NULL DEFAULT 100,
+    `water` INT(11) NOT NULL DEFAULT 100,
+    `condition` INT(11) NOT NULL DEFAULT 100,
+    `upgrade_speed` INT(11) NOT NULL DEFAULT 0,
+    `upgrade_fuel_cap` INT(11) NOT NULL DEFAULT 0,
+    `upgrade_water_cap` INT(11) NOT NULL DEFAULT 0,
+    `upgrade_durability` INT(11) NOT NULL DEFAULT 0,
+    `total_miles` FLOAT NOT NULL DEFAULT 0,
+    `is_parked` TINYINT(1) NOT NULL DEFAULT 1,
+    `parked_station` VARCHAR(50) DEFAULT NULL,
+    `parked_direction` TINYINT(1) NOT NULL DEFAULT 0,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    INDEX `idx_citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE IF NOT EXISTS `railroad_companies` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(50) NOT NULL DEFAULT '',
-  `company_id` varchar(50) NOT NULL DEFAULT '',
-  `rank` int(11) NOT NULL DEFAULT 1,
-  `xp` int(11) NOT NULL DEFAULT 0,
-  `missions_completed` int(11) NOT NULL DEFAULT 0,
-  `total_earnings` float NOT NULL DEFAULT 0,
-  `joined_at` timestamp NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_citizen_company` (`citizenid`,`company_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `railroad_companies_owned` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `company_id` varchar(50) NOT NULL,
-  `owner_citizenid` varchar(50) NOT NULL,
-  `owner_name` varchar(100) NOT NULL DEFAULT '',
-  `company_name` varchar(100) DEFAULT NULL,
-  `cash_register` float NOT NULL DEFAULT 0,
-  `purchased_at` timestamp NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_company` (`company_id`),
-  KEY `idx_owner` (`owner_citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `railroad_company_supplies` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `company_id` varchar(50) NOT NULL,
-  `item_name` varchar(50) NOT NULL,
-  `quantity` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_company_item` (`company_id`,`item_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `railroad_company_upgrades` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `company_id` varchar(50) NOT NULL,
-  `train_model` varchar(50) NOT NULL,
-  `upgrade_speed` int(11) NOT NULL DEFAULT 0,
-  `upgrade_fuel_cap` int(11) NOT NULL DEFAULT 0,
-  `upgrade_water_cap` int(11) NOT NULL DEFAULT 0,
-  `upgrade_durability` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_company_model` (`company_id`,`train_model`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `railroad_employees` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `company_id` varchar(50) NOT NULL,
-  `citizenid` varchar(50) NOT NULL,
-  `firstname` varchar(50) DEFAULT '',
-  `lastname` varchar(50) DEFAULT '',
-  `status` varchar(20) NOT NULL DEFAULT 'pending',
-  `xp` int(11) NOT NULL DEFAULT 0,
-  `rank` int(11) NOT NULL DEFAULT 1,
-  `missions_completed` int(11) NOT NULL DEFAULT 0,
-  `total_earnings` float NOT NULL DEFAULT 0,
-  `applied_at` timestamp NULL DEFAULT current_timestamp(),
-  `approved_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_company_citizen` (`company_id`,`citizenid`),
-  KEY `idx_citizenid` (`citizenid`),
-  KEY `idx_status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `citizenid` VARCHAR(50) NOT NULL DEFAULT '',
+    `company_id` VARCHAR(50) NOT NULL DEFAULT '',
+    `rank` INT(11) NOT NULL DEFAULT 1,
+    `xp` INT(11) NOT NULL DEFAULT 0,
+    `missions_completed` INT(11) NOT NULL DEFAULT 0,
+    `total_earnings` FLOAT NOT NULL DEFAULT 0,
+    `joined_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `idx_citizen_company` (`citizenid`, `company_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `railroad_rewards` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(50) NOT NULL DEFAULT '',
-  `reward_id` varchar(50) NOT NULL DEFAULT '',
-  `claimed_at` timestamp NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_citizen_reward` (`citizenid`,`reward_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `citizenid` VARCHAR(50) NOT NULL DEFAULT '',
+    `reward_id` VARCHAR(50) NOT NULL DEFAULT '',
+    `claimed_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `idx_citizen_reward` (`citizenid`, `reward_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `railroad_trains` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(50) NOT NULL DEFAULT '',
-  `company_id` varchar(50) NOT NULL DEFAULT '',
-  `train_model` varchar(50) NOT NULL,
-  `label` varchar(100) NOT NULL DEFAULT '',
-  `fuel` int(11) NOT NULL DEFAULT 100,
-  `water` int(11) NOT NULL DEFAULT 100,
-  `condition` int(11) NOT NULL DEFAULT 100,
-  `upgrade_speed` int(11) NOT NULL DEFAULT 0,
-  `upgrade_fuel_cap` int(11) NOT NULL DEFAULT 0,
-  `upgrade_water_cap` int(11) NOT NULL DEFAULT 0,
-  `upgrade_durability` int(11) NOT NULL DEFAULT 0,
-  `total_miles` float NOT NULL DEFAULT 0,
-  `is_parked` tinyint(1) NOT NULL DEFAULT 1,
-  `parked_station` varchar(50) DEFAULT NULL,
-  `parked_direction` tinyint(1) NOT NULL DEFAULT 0,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `idx_citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS `railroad_companies_owned` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `company_id` VARCHAR(50) NOT NULL,
+    `owner_citizenid` VARCHAR(50) NOT NULL,
+    `owner_name` VARCHAR(100) NOT NULL DEFAULT '',
+    `company_name` VARCHAR(100) DEFAULT NULL,
+    `cash_register` FLOAT NOT NULL DEFAULT 0,
+    `wage_percent` TINYINT UNSIGNED NOT NULL DEFAULT 0,
+    `purchased_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `idx_company` (`company_id`),
+    INDEX `idx_owner` (`owner_citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `railroad_employees` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `company_id` VARCHAR(50) NOT NULL,
+    `citizenid` VARCHAR(50) NOT NULL,
+    `firstname` VARCHAR(50) DEFAULT '',
+    `lastname` VARCHAR(50) DEFAULT '',
+    `status` VARCHAR(20) NOT NULL DEFAULT 'pending',
+    `xp` INT(11) NOT NULL DEFAULT 0,
+    `rank` INT(11) NOT NULL DEFAULT 1,
+    `missions_completed` INT(11) NOT NULL DEFAULT 0,
+    `total_earnings` FLOAT NOT NULL DEFAULT 0,
+    `applied_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `approved_at` TIMESTAMP NULL DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `idx_company_citizen` (`company_id`, `citizenid`),
+    INDEX `idx_citizenid` (`citizenid`),
+    INDEX `idx_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `railroad_company_upgrades` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `company_id` VARCHAR(50) NOT NULL,
+    `train_model` VARCHAR(50) NOT NULL,
+    `upgrade_speed` INT(11) NOT NULL DEFAULT 0,
+    `upgrade_fuel_cap` INT(11) NOT NULL DEFAULT 0,
+    `upgrade_water_cap` INT(11) NOT NULL DEFAULT 0,
+    `upgrade_durability` INT(11) NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `idx_company_model` (`company_id`, `train_model`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `railroad_company_supplies` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `company_id` VARCHAR(50) NOT NULL,
+    `item_name` VARCHAR(50) NOT NULL,
+    `quantity` INT(11) NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `idx_company_item` (`company_id`, `item_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `rsg_auction_bids` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
