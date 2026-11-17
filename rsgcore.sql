@@ -660,13 +660,15 @@ CREATE TABLE IF NOT EXISTS `player_wagons` (
 CREATE TABLE IF NOT EXISTS `player_weapons` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `serial` varchar(16) NOT NULL,
-  `citizenid` varchar(50) NOT NULL,
+  `citizenid` varchar(9) NOT NULL,
   `components` varchar(4096) NOT NULL DEFAULT '{}',
   `components_before` varchar(4096) NOT NULL DEFAULT '{}',
-  `price` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `price` decimal(5,2) NOT NULL DEFAULT 0.00,
   `town` int(11) NOT NULL DEFAULT 0,
+  `customname` varchar(32) NULL DEFAULT NULL,
+  `engraving` varchar(64) NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `player_weapons_custom` (
   `gunsiteid` varchar(20) NOT NULL,
@@ -675,7 +677,17 @@ CREATE TABLE IF NOT EXISTS `player_weapons_custom` (
   `item` varchar(50) NOT NULL,
   `propdata` longtext NOT NULL,
   PRIMARY KEY (`gunsiteid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `player_weapons_presets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `weapon` varchar(64) NOT NULL,
+  `name` varchar(32) NOT NULL,
+  `components` varchar(4096) NOT NULL DEFAULT '{}',
+  PRIMARY KEY (`id`),
+  KEY `idx_citizen_weapon` (`citizenid`, `weapon`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `playeroutfit` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
