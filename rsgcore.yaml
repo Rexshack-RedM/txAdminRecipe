@@ -554,6 +554,11 @@ tasks:
     dest: ./resources/[framework]/rsg-smoking
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-smoking
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-factory
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-factory
 
   # Community Shares
   
