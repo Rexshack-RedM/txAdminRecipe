@@ -549,6 +549,11 @@ tasks:
     dest: ./resources/[framework]/rsg-townhall
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-townhall
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-smoking
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-smoking
 
   # Community Shares
   
