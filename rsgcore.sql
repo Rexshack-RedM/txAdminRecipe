@@ -2,6 +2,80 @@
 
 SET FOREIGN_KEY_CHECKS = 0;
 
+CREATE TABLE IF NOT EXISTS `players` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `cid` int(11) DEFAULT NULL,
+  `license` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `money` text NOT NULL,
+  `charinfo` text DEFAULT NULL,
+  `job` text NOT NULL,
+  `gang` text DEFAULT NULL,
+  `position` text NOT NULL,
+  `metadata` text NOT NULL,
+  `inventory` longtext DEFAULT NULL,
+  `weight` int(11) DEFAULT 35000,
+  `slots` int(11) DEFAULT 25,
+  `last_updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`citizenid`),
+  KEY `id` (`id`),
+  KEY `last_updated` (`last_updated`),
+  KEY `license` (`license`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `bans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `license` varchar(50) DEFAULT NULL,
+  `discord` varchar(50) DEFAULT NULL,
+  `ip` varchar(50) DEFAULT NULL,
+  `reason` text DEFAULT NULL,
+  `expire` int(11) DEFAULT NULL,
+  `bannedby` varchar(255) NOT NULL DEFAULT 'Unknown',
+  PRIMARY KEY (`id`),
+  KEY `license` (`license`),
+  KEY `discord` (`discord`),
+  KEY `ip` (`ip`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `multijob_jobs` (
+  `name` varchar(50) NOT NULL,
+  `label` varchar(100) NOT NULL,
+  `type` varchar(50) DEFAULT NULL,
+  `icon` varchar(100) DEFAULT NULL,
+  `default_duty` tinyint(1) NOT NULL DEFAULT 1,
+  `off_duty_pay` tinyint(1) NOT NULL DEFAULT 0,
+  `grades` longtext NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT IGNORE INTO `multijob_jobs` (`name`, `label`, `type`, `icon`, `default_duty`, `off_duty_pay`, `grades`, `updated_at`) VALUES
+	('blklaw', 'Blackwater Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58'),
+	('downesranch', 'Downes Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
+	('emeraldranch', 'Emerald Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
+	('hangingdogranch', 'Hanging Dog Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
+	('herbalist', 'Herbalist', NULL, NULL, 1, 0, '{"1":{"payment":0,"isboss":true,"name":"Master"},"0":{"payment":0,"name":"Apprentice"}}', '2026-10-14 13:26:58'),
+	('hillhavenranch', 'Hill Haven Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
+	('macfarranch', 'Macfarlane Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
+	('medic', 'Medic', 'medic', 'fa-solid fa-user-nurse', 0, 0, '{"1":{"payment":25,"name":"Trainee"},"2":{"payment":50,"name":"Doctor"},"0":{"payment":5,"name":"Recruit"},"3":{"payment":75,"name":"Surgeon"},"4":{"payment":100,"isboss":true,"name":"Manager"}}', '2026-10-14 13:26:58'),
+	('pronghornranch', 'Pronghorn Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
+	('rholaw', 'Rhodes Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58'),
+	('stdenlaw', 'Saint Denis Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58'),
+	('strlaw', 'Strawberry Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58'),
+	('unemployed', 'Civilian', NULL, NULL, 1, 0, '{"0":{"payment":3,"name":"Freelancer"}}', '2026-10-14 13:26:58'),
+	('vallaw', 'Valentine Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58');
+
+CREATE TABLE IF NOT EXISTS `player_jobs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `job` varchar(50) NOT NULL,
+  `grade` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_player_job` (`citizenid`,`job`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 CREATE TABLE IF NOT EXISTS `inventories` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `identifier` VARCHAR(100) NOT NULL,
@@ -207,21 +281,6 @@ CREATE TABLE IF NOT EXISTS `adminmenu_teleports` (
   `created_by` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `bans` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `license` varchar(50) DEFAULT NULL,
-  `discord` varchar(50) DEFAULT NULL,
-  `ip` varchar(50) DEFAULT NULL,
-  `reason` text DEFAULT NULL,
-  `expire` int(11) DEFAULT NULL,
-  `bannedby` varchar(255) NOT NULL DEFAULT 'Anticheat',
-  PRIMARY KEY (`id`),
-  KEY `license` (`license`),
-  KEY `discord` (`discord`),
-  KEY `ip` (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `favorites_animations` (
@@ -492,34 +551,6 @@ CREATE TABLE IF NOT EXISTS `mdt_warrants` (
   KEY `idx_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `multijob_jobs` (
-  `name` varchar(50) NOT NULL,
-  `label` varchar(100) NOT NULL,
-  `type` varchar(50) DEFAULT NULL,
-  `icon` varchar(100) DEFAULT NULL,
-  `default_duty` tinyint(1) NOT NULL DEFAULT 1,
-  `off_duty_pay` tinyint(1) NOT NULL DEFAULT 0,
-  `grades` longtext NOT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-INSERT IGNORE INTO `multijob_jobs` (`name`, `label`, `type`, `icon`, `default_duty`, `off_duty_pay`, `grades`, `updated_at`) VALUES
-	('blklaw', 'Blackwater Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58'),
-	('downesranch', 'Downes Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
-	('emeraldranch', 'Emerald Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
-	('hangingdogranch', 'Hanging Dog Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
-	('herbalist', 'Herbalist', NULL, NULL, 1, 0, '{"1":{"payment":0,"isboss":true,"name":"Master"},"0":{"payment":0,"name":"Apprentice"}}', '2026-10-14 13:26:58'),
-	('hillhavenranch', 'Hill Haven Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
-	('macfarranch', 'Macfarlane Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
-	('medic', 'Medic', 'medic', 'fa-solid fa-user-nurse', 0, 0, '{"1":{"payment":25,"name":"Trainee"},"2":{"payment":50,"name":"Doctor"},"0":{"payment":5,"name":"Recruit"},"3":{"payment":75,"name":"Surgeon"},"4":{"payment":100,"isboss":true,"name":"Manager"}}', '2026-10-14 13:26:58'),
-	('pronghornranch', 'Pronghorn Rancher', 'rancher', NULL, 1, 0, '{"1":{"payment":5,"name":"Ranch Hand"},"2":{"payment":0,"isboss":true,"name":"Ranch Manager"},"0":{"payment":3,"name":"Trainee Rancher"}}', '2026-10-14 13:26:58'),
-	('rholaw', 'Rhodes Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58'),
-	('stdenlaw', 'Saint Denis Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58'),
-	('strlaw', 'Strawberry Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58'),
-	('unemployed', 'Civilian', NULL, NULL, 1, 0, '{"0":{"payment":3,"name":"Freelancer"}}', '2026-10-14 13:26:58'),
-	('vallaw', 'Valentine Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58');
-
 CREATE TABLE IF NOT EXISTS `player_ammo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `citizenid` varchar(50) NOT NULL,
@@ -623,15 +654,6 @@ CREATE TABLE IF NOT EXISTS `player_goldrockers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `player_jobs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(50) NOT NULL,
-  `job` varchar(50) NOT NULL,
-  `grade` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `citizen_job` (`citizenid`,`job`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE IF NOT EXISTS `player_playtime` (
   `citizenid` varchar(50) NOT NULL,
   `minutes` int(11) NOT NULL DEFAULT 0,
@@ -724,29 +746,6 @@ CREATE TABLE IF NOT EXISTS `playeroutfit` (
   `clothes` longtext DEFAULT NULL,
   `is_default` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `players` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(50) NOT NULL,
-  `cid` int(11) DEFAULT NULL,
-  `license` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `outlawstatus` int(11) NOT NULL DEFAULT 0,
-  `money` text NOT NULL,
-  `charinfo` text DEFAULT NULL,
-  `job` text NOT NULL,
-  `gang` text DEFAULT NULL,
-  `position` text NOT NULL,
-  `metadata` text NOT NULL,
-  `inventory` longtext DEFAULT NULL,
-  `weight` int(11) NOT NULL DEFAULT 0,
-  `slots` int(11) NOT NULL DEFAULT 0,
-  `last_updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`citizenid`),
-  KEY `id` (`id`),
-  KEY `last_updated` (`last_updated`),
-  KEY `license` (`license`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `playerskins` (
