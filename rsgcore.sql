@@ -1167,20 +1167,6 @@ CREATE TABLE IF NOT EXISTS `rsg_farming_wellpumps` (
     KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `rsg_housekeys` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `houseid` varchar(20) NOT NULL DEFAULT '0',
-  `citizenid` varchar(50) NOT NULL DEFAULT '0',
-  `guest` int(1) NOT NULL DEFAULT 0,
-  `perm_doors` tinyint(1) NOT NULL DEFAULT 1,
-  `perm_storage` tinyint(1) NOT NULL DEFAULT 1,
-  `perm_wardrobe` tinyint(1) NOT NULL DEFAULT 1,
-  `perm_mailbox` tinyint(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`),
-  KEY `idx_citizenid` (`citizenid`),
-  KEY `idx_houseid` (`houseid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE IF NOT EXISTS `rsg_housing` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `region` varchar(30) NOT NULL,
@@ -1197,57 +1183,97 @@ CREATE TABLE IF NOT EXISTS `rsg_housing` (
   UNIQUE KEY `uniq_houseid` (`houseid`),
   KEY `idx_rented` (`rented`),
   KEY `idx_citizenid` (`citizenid`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT IGNORE INTO `rsg_housing` (`id`, `region`, `houseid`, `citizenid`, `fullname`, `rented`, `rent`, `rent_due`, `reminder_sent`, `custom_name`, `storage_tier`) VALUES
-	(1, 'newhanover', 'house1', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(2, 'westelizabeth', 'house2', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(3, 'newhanover', 'house3', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(4, 'lemoyne', 'house4', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(5, 'lemoyne', 'house5', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(6, 'lemoyne', 'house6', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(7, 'newaustin', 'house7', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(8, 'newhanover', 'house8', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(9, 'newhanover', 'house9', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(10, 'newhanover', 'house10', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(11, 'lemoyne', 'house11', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(12, 'lemoyne', 'house12', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(13, 'lemoyne', 'house13', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(14, 'lemoyne', 'house14', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(15, 'lemoyne', 'house15', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(16, 'lemoyne', 'house16', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(17, 'newhanover', 'house17', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(18, 'newhanover', 'house18', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(19, 'newhanover', 'house19', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(20, 'ambarino', 'house20', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(21, 'newhanover', 'house21', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(22, 'ambarino', 'house22', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(23, 'ambarino', 'house23', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(24, 'ambarino', 'house24', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(25, 'westelizabeth', 'house25', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(26, 'westelizabeth', 'house26', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(27, 'westelizabeth', 'house27', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(28, 'westelizabeth', 'house28', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(29, 'newaustin', 'house29', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(30, 'newaustin', 'house30', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(31, 'newaustin', 'house31', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(32, 'newaustin', 'house32', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(33, 'newaustin', 'house33', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(34, 'ambarino', 'house34', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(35, 'ambarino', 'house35', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(36, 'newhanover', 'house36', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(37, 'ambarino', 'house37', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(38, 'newhanover', 'house38', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(39, 'newhanover', 'house39', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(40, 'lemoyne', 'house40', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(41, 'lemoyne', 'house41', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(42, 'ambarino', 'house42', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(43, 'newaustin', 'house43', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(44, 'newhanover', 'house44', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(45, 'lemoyne', 'house45', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(46, 'westelizabeth', 'house46', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(47, 'newhanover', 'house47', '0', '0', 0, 50, NULL, 0, NULL, 1),
-	(48, 'westelizabeth', 'house48', '0', '0', 0, 50, NULL, 0, NULL, 1);
+-- `rent` is the monthly rent in $
+INSERT IGNORE INTO `rsg_housing` (`id`, `region`, `houseid`, `rent`) VALUES
+(1, 'newhanover', 'house1', 50),
+(2, 'westelizabeth', 'house2', 50),
+(3, 'newhanover', 'house3', 50),
+(4, 'lemoyne', 'house4', 50),
+(5, 'lemoyne', 'house5', 50),
+(6, 'lemoyne', 'house6', 50),
+(7, 'newaustin', 'house7', 50),
+(8, 'newhanover', 'house8', 50),
+(9, 'newhanover', 'house9', 50),
+(10, 'newhanover', 'house10', 50),
+(11, 'lemoyne', 'house11', 50),
+(12, 'lemoyne', 'house12', 50),
+(13, 'lemoyne', 'house13', 50),
+(14, 'lemoyne', 'house14', 50),
+(15, 'lemoyne', 'house15', 50),
+(16, 'lemoyne', 'house16', 50),
+(17, 'newhanover', 'house17', 50),
+(18, 'newhanover', 'house18', 50),
+(19, 'newhanover', 'house19', 50),
+(20, 'ambarino', 'house20', 50),
+(21, 'newhanover', 'house21', 50),
+(22, 'ambarino', 'house22', 50),
+(23, 'ambarino', 'house23', 50),
+(24, 'ambarino', 'house24', 50),
+(25, 'westelizabeth', 'house25', 50),
+(26, 'westelizabeth', 'house26', 50),
+(27, 'westelizabeth', 'house27', 50),
+(28, 'westelizabeth', 'house28', 50),
+(29, 'newaustin', 'house29', 50),
+(30, 'newaustin', 'house30', 50),
+(31, 'newaustin', 'house31', 50),
+(32, 'newaustin', 'house32', 50),
+(33, 'newaustin', 'house33', 50),
+(34, 'ambarino', 'house34', 50),
+(35, 'ambarino', 'house35', 50),
+(36, 'newhanover', 'house36', 50),
+(37, 'ambarino', 'house37', 50),
+(38, 'newhanover', 'house38', 50),
+(39, 'newhanover', 'house39', 50),
+(40, 'lemoyne', 'house40', 50),
+(41, 'lemoyne', 'house41', 50),
+(42, 'ambarino', 'house42', 50),
+(43, 'newaustin', 'house43', 50),
+(44, 'newhanover', 'house44', 50),
+(45, 'lemoyne', 'house45', 50),
+(46, 'westelizabeth', 'house46', 50),
+(47, 'newhanover', 'house47', 50),
+(48, 'westelizabeth', 'house48', 50);
+
+CREATE TABLE IF NOT EXISTS `rsg_housekeys` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `houseid` varchar(20) NOT NULL DEFAULT '0',
+  `citizenid` varchar(50) NOT NULL DEFAULT '0',
+  `guest` int(1) NOT NULL DEFAULT 0,
+  `perm_doors` tinyint(1) NOT NULL DEFAULT 1,
+  `perm_storage` tinyint(1) NOT NULL DEFAULT 1,
+  `perm_wardrobe` tinyint(1) NOT NULL DEFAULT 1,
+  `perm_mailbox` tinyint(1) NOT NULL DEFAULT 1,
+  `expires` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_citizenid` (`citizenid`),
+  KEY `idx_houseid` (`houseid`),
+  KEY `idx_house_citizen` (`houseid`,`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_housing_props` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `houseid` varchar(20) NOT NULL,
+  `model_key` varchar(32) NOT NULL,
+  `x` double NOT NULL,
+  `y` double NOT NULL,
+  `z` double NOT NULL,
+  `rx` double NOT NULL DEFAULT 0,
+  `ry` double NOT NULL DEFAULT 0,
+  `rz` double NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `idx_houseid` (`houseid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_housing_retrieval` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `houseid` varchar(20) NOT NULL,
+  `citizenid` varchar(50) NOT NULL,
+  `expires` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_house_citizen` (`houseid`,`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `rsg_imaps` (
   `hash` int(11) NOT NULL,
