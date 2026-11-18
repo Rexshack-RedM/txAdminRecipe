@@ -2,6 +2,42 @@
 
 SET FOREIGN_KEY_CHECKS = 0;
 
+CREATE TABLE IF NOT EXISTS `inventories` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `identifier` VARCHAR(100) NOT NULL,
+    `items` LONGTEXT NULL,
+    PRIMARY KEY (`identifier`),
+    KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `shop_stock` (
+    `shop_name` VARCHAR(100) NOT NULL,
+    `item_name` VARCHAR(100) NOT NULL,
+    `stock` INT NOT NULL DEFAULT 0,
+    PRIMARY KEY (`shop_name`, `item_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `inventory_stash_log` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `stash` VARCHAR(100) NOT NULL,
+    `citizenid` VARCHAR(50) NOT NULL DEFAULT '',
+    `name` VARCHAR(100) NOT NULL DEFAULT '',
+    `action` VARCHAR(8) NOT NULL,
+    `item` VARCHAR(100) NOT NULL,
+    `amount` INT NOT NULL DEFAULT 1,
+    `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    KEY `stash_idx` (`stash`, `id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `inventory_drops` (
+    `id` VARCHAR(64) NOT NULL,
+    `coords` VARCHAR(120) NOT NULL,
+    `items` LONGTEXT NULL,
+    `touched` INT NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE IF NOT EXISTS `admin_activity_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sample_time` timestamp NULL DEFAULT current_timestamp(),
@@ -222,14 +258,6 @@ CREATE TABLE IF NOT EXISTS `hunting_weekly_rewards` (
   `claimed` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cid_week` (`citizenid`,`week`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `inventories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `identifier` varchar(255) NOT NULL,
-  `items` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`items`)),
-  PRIMARY KEY (`identifier`),
-  KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `management_funds` (
@@ -1917,15 +1945,6 @@ CREATE TABLE IF NOT EXISTS `rsg_weather_state` (
   `key` varchar(50) NOT NULL,
   `value` varchar(100) NOT NULL,
   PRIMARY KEY (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `shop_stock` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `shop_name` varchar(50) NOT NULL,
-  `item_name` varchar(50) NOT NULL,
-  `stock` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `shop_name_item_name` (`shop_name`,`item_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `zonenotify_discoveries` (
