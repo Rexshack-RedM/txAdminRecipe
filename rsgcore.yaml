@@ -559,6 +559,21 @@ tasks:
     dest: ./resources/[framework]/rsg-factory
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-factory
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-economy
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-economy
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-reputation
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-reputation
+    
+  - action: download_github
+    dest: ./resources/[framework]/rsg-skills
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-skills
 
   # Community Shares
   
