@@ -292,14 +292,6 @@ CREATE TABLE IF NOT EXISTS `favorites_animations` (
   UNIQUE KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `horse_race_tracks` (
-  `track_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `points` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`points`)),
-  `timestamp` datetime DEFAULT current_timestamp(),
-  PRIMARY KEY (`track_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE IF NOT EXISTS `hunting_weekly` (
   `citizenid` varchar(50) NOT NULL,
   `week` int(11) NOT NULL,
@@ -679,15 +671,6 @@ CREATE TABLE IF NOT EXISTS `player_selected_pets` (
   `selected_dog` int(11) DEFAULT NULL,
   `selected_bird` int(11) DEFAULT NULL,
   UNIQUE KEY `uc_player` (`identifier`,`charid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `player_smelter` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(50) DEFAULT NULL,
-  `properties` text NOT NULL,
-  `propid` int(11) NOT NULL,
-  `proptype` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `player_wagons` (
@@ -1155,15 +1138,6 @@ CREATE TABLE IF NOT EXISTS `rsg_farming_plants` (
     `dead` TINYINT(1) NOT NULL DEFAULT 0,
     `dead_time` INT(11) NOT NULL DEFAULT 0,
     `planted_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    KEY `citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `rsg_farming_wellpumps` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `citizenid` VARCHAR(50) NOT NULL,
-    `x` FLOAT NOT NULL, `y` FLOAT NOT NULL, `z` FLOAT NOT NULL, `h` FLOAT NOT NULL DEFAULT 0,
-    `placed_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -1643,18 +1617,6 @@ CREATE TABLE IF NOT EXISTS `rsg_ranch_watertroughs` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_watertroughid` (`watertroughid`),
   KEY `idx_ranchid` (`ranchid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `rsg_ranch_wellpumps` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(50) NOT NULL,
-  `x` float NOT NULL,
-  `y` float NOT NULL,
-  `z` float NOT NULL,
-  `h` float NOT NULL DEFAULT 0,
-  `placed_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_roulette_tables` (

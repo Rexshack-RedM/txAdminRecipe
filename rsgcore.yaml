@@ -585,6 +585,11 @@ tasks:
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-wellpump
 
+  - action: download_github
+    dest: ./resources/[framework]/rsg-robbery
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-robbery
+
   # Community Shares
   
   - action: download_github
