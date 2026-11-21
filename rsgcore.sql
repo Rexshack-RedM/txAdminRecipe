@@ -312,6 +312,12 @@ CREATE TABLE IF NOT EXISTS `hunting_weekly_rewards` (
   UNIQUE KEY `cid_week` (`citizenid`,`week`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `hunting_weekly_state` (
+  `key` varchar(50) NOT NULL,
+  `value` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `management_funds` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `job_name` varchar(50) NOT NULL,
@@ -1124,6 +1130,12 @@ CREATE TABLE IF NOT EXISTS `rsg_drugs_labs` (
   `citizenid` varchar(50) NOT NULL,
   `data` longtext NOT NULL,
   PRIMARY KEY (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_drugs_state` (
+  `key` varchar(50) NOT NULL,
+  `value` longtext NOT NULL,
+  PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_farming_plants` (
@@ -1946,6 +1958,19 @@ CREATE TABLE IF NOT EXISTS `rsg_weather_state` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `rsg_trams_state` (
+  `key` varchar(60) NOT NULL,
+  `value` varchar(10) NOT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_fishmonger_stock` (
+  `location` varchar(50) NOT NULL,
+  `day` varchar(10) NOT NULL,
+  `sold` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`location`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `zonenotify_discoveries` (
   `citizenid` varchar(50) NOT NULL,
   `zone` varchar(64) NOT NULL,
@@ -1970,6 +1995,12 @@ CREATE TABLE IF NOT EXISTS `rsg_queue_rewards` (
     `last_claim` DATETIME NOT NULL,
     PRIMARY KEY (`license`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_queue_state` (
+  `key` varchar(50) NOT NULL,
+  `value` varchar(100) NOT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_rocks_zones` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -2442,6 +2473,12 @@ CREATE TABLE IF NOT EXISTS `rsg_gang_rivals` (
   CONSTRAINT `fk_gang_rival_gang` FOREIGN KEY (`gang_name`) REFERENCES `rsg_gangs` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_gang_rival_other` FOREIGN KEY (`rival_name`) REFERENCES `rsg_gangs` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_gang_state` (
+  `key` varchar(50) NOT NULL,
+  `value` varchar(100) NOT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `rsg_wellpumps` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
