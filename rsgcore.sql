@@ -1462,6 +1462,17 @@ CREATE TABLE IF NOT EXISTS `rsg_noticeboard_notices` (
   KEY `idx_town` (`town`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `rsg_radio_private` (
+  `freq` varchar(16) NOT NULL,
+  `owner` varchar(50) NOT NULL,
+  `name` varchar(32) NOT NULL DEFAULT '',
+  `code` varchar(32) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_used` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`freq`),
+  KEY `owner` (`owner`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `rsg_ranch_animals` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ranchid` varchar(50) DEFAULT NULL,

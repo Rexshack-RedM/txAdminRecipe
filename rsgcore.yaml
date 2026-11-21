@@ -383,6 +383,11 @@ tasks:
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-voice
 
+  - action: download_github
+    dest: ./resources/[framework]/rsg-radio
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-radio
+
   - action: waste_time # prevent github throttling
     seconds: 10
 
