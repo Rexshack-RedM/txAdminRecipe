@@ -1053,12 +1053,13 @@ CREATE TABLE IF NOT EXISTS `rsg_boats_models` (
   `enabled` tinyint(1) NOT NULL DEFAULT 1,
   `slots` int(11) NOT NULL DEFAULT 10,
   `weight` int(11) NOT NULL DEFAULT 50000,
+  `rent_price` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `model` (`model`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT IGNORE INTO `rsg_boats_models` (`id`, `model`, `label`, `description`, `price`, `enabled`, `slots`, `weight`) VALUES
-	(1, 'rowboat', 'Rowboat', 'A sturdy wooden rowboat for rivers and bayous.', 75, 1, 10, 50000);
+INSERT IGNORE INTO `rsg_boats_models` (`id`, `model`, `label`, `description`, `price`, `enabled`, `slots`, `weight`, `rent_price`) VALUES
+	(1, 'rowboat', 'Rowboat', 'A sturdy wooden rowboat for rivers and bayous.', 75, 1, 10, 50000, 10);
 
 CREATE TABLE IF NOT EXISTS `rsg_boats_owned` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1067,6 +1068,8 @@ CREATE TABLE IF NOT EXISTS `rsg_boats_owned` (
   `label` varchar(64) NOT NULL,
   `purchased` timestamp NOT NULL DEFAULT current_timestamp(),
   `yard` int(11) DEFAULT NULL,
+  `price_paid` int(11) DEFAULT NULL,
+  `upgrades` text DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
