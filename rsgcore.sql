@@ -735,7 +735,8 @@ CREATE TABLE IF NOT EXISTS `playeroutfit` (
   `name` varchar(255) NOT NULL,
   `clothes` longtext DEFAULT NULL,
   `is_default` tinyint(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `citizen_default` (`citizenid`, `is_default`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `playerskins` (
@@ -744,8 +745,37 @@ CREATE TABLE IF NOT EXISTS `playerskins` (
   `skin` longtext NOT NULL,
   `clothes` longtext NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `citizenid` (`citizenid`) USING BTREE
+  UNIQUE KEY `uq_playerskins_citizenid` (`citizenid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- rsg-character 3.4.0: extra character slots per license
+CREATE TABLE IF NOT EXISTS `playerslots` (
+  `license` varchar(255) NOT NULL,
+  `extra_slots` int(11) NOT NULL DEFAULT 0,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`license`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- rsg-character 3.4.0: indexed first/last names for the unique-name check
+CREATE TABLE IF NOT EXISTS `rsg_character_names` (
+  `citizenid` varchar(50) NOT NULL,
+  `firstname` varchar(64) NOT NULL,
+  `lastname` varchar(64) NOT NULL,
+  PRIMARY KEY (`citizenid`),
+  KEY `fullname` (`firstname`, `lastname`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- rsg-character 3.4.0: characters hidden during the delete grace period
+CREATE TABLE IF NOT EXISTS `rsg_character_deleted` (
+  `citizenid` varchar(50) NOT NULL,
+  `license` varchar(255) NOT NULL,
+  `original_cid` int(11) NOT NULL,
+  `deleted_at` int(11) NOT NULL,
+  `purge_at` int(11) NOT NULL,
+  PRIMARY KEY (`citizenid`),
+  KEY `license` (`license`),
+  KEY `purge_at` (`purge_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `railroad_trains` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
