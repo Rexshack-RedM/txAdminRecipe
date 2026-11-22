@@ -177,17 +177,12 @@ tasks:
     src: https://github.com/Rexshack-RedM/rsg-playerinfo
 
   - action: download_github
-    dest: ./resources/[framework]/rsg-bossmenu
+    dest: ./resources/[framework]/rsg-society # replaces rsg-bossmenu and rsg-gangmenu
     ref: main
-    src: https://github.com/Rexshack-RedM/rsg-bossmenu
+    src: https://github.com/Rexshack-RedM/rsg-society
     
   - action: waste_time # prevent github throttling
     seconds: 10
-
-  - action: download_github
-    dest: ./resources/[framework]/rsg-gangmenu
-    ref: main
-    src: https://github.com/Rexshack-RedM/rsg-gangmenu
 
   - action: download_github
     dest: ./resources/[framework]/rsg-npcs
