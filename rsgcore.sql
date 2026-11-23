@@ -318,6 +318,30 @@ CREATE TABLE IF NOT EXISTS `hunting_weekly_state` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `hunting_journal` (
+  `citizenid` varchar(50) NOT NULL,
+  `model` bigint(20) NOT NULL,
+  `skinned` int(11) NOT NULL DEFAULT 0,
+  `perfect` int(11) NOT NULL DEFAULT 0,
+  `sold` int(11) NOT NULL DEFAULT 0,
+  `best_sale` decimal(10,2) NOT NULL DEFAULT 0.00,
+  PRIMARY KEY (`citizenid`,`model`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `hunting_contracts` (
+  `citizenid` varchar(50) NOT NULL,
+  `model` bigint(20) NOT NULL DEFAULT 0,
+  `need` int(11) NOT NULL DEFAULT 1,
+  `got` int(11) NOT NULL DEFAULT 0,
+  `quality` varchar(10) NOT NULL DEFAULT '',
+  `reward` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `xp` int(11) NOT NULL DEFAULT 0,
+  `expires` int(11) NOT NULL DEFAULT 0,
+  `status` varchar(10) NOT NULL DEFAULT 'active',
+  `claimed_at` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `management_funds` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `job_name` varchar(50) NOT NULL,
