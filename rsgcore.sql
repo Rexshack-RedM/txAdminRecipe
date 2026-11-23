@@ -2753,4 +2753,34 @@ CREATE TABLE IF NOT EXISTS `rsg_society_meta` (
   PRIMARY KEY (`k`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS `rsg_crafting_recipes` (
+  `citizenid` varchar(50) NOT NULL,
+  `recipe` varchar(64) NOT NULL,
+  `learned_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`citizenid`, `recipe`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_crafting_stations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(32) NOT NULL,
+  `x` double NOT NULL,
+  `y` double NOT NULL,
+  `z` double NOT NULL,
+  `rx` double NOT NULL DEFAULT 0,
+  `ry` double NOT NULL DEFAULT 0,
+  `rz` double NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_canteen_pumps` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `model` varchar(64) NOT NULL DEFAULT '',
+  `added_by` varchar(50) NOT NULL DEFAULT '',
+  `added_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 SET FOREIGN_KEY_CHECKS = 1;
