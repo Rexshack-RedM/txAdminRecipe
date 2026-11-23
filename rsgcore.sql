@@ -777,6 +777,37 @@ CREATE TABLE IF NOT EXISTS `rsg_character_deleted` (
   KEY `purge_at` (`purge_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- rsg-chat 3.4.0: channels managed in-game with /chatadmin
+CREATE TABLE IF NOT EXISTS `rsg_chat_channels` (
+  `id` varchar(32) NOT NULL,
+  `data` longtext NOT NULL,
+  `sort` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- rsg-chat 3.4.0: persistent chat mutes (/chatmute)
+CREATE TABLE IF NOT EXISTS `rsg_chat_mutes` (
+  `citizenid` varchar(50) NOT NULL,
+  `expires` bigint(20) NOT NULL DEFAULT 0,
+  `reason` varchar(200) NOT NULL DEFAULT '',
+  `muted_by` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- rsg-chat 3.4.0: searchable chat logs (/chatlog)
+CREATE TABLE IF NOT EXISTS `rsg_chat_logs` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created` timestamp NOT NULL DEFAULT current_timestamp(),
+  `channel` varchar(32) NOT NULL,
+  `citizenid` varchar(50) NOT NULL DEFAULT '',
+  `name` varchar(100) NOT NULL DEFAULT '',
+  `player_id` int(11) NOT NULL DEFAULT 0,
+  `message` varchar(768) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_created` (`created`),
+  KEY `idx_citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 CREATE TABLE IF NOT EXISTS `railroad_trains` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `citizenid` VARCHAR(50) NOT NULL DEFAULT '',
