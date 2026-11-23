@@ -1147,19 +1147,6 @@ INSERT IGNORE INTO `rsg_chat_channels` (`id`, `data`, `sort`) VALUES
 	('staff', '{"gangs":[],"enabled":true,"permission":"helper","requireDuty":false,"distance":0,"maxLength":512,"color":"#e0554f","id":"staff","command":"staff","jobs":[],"label":"Staff","range":"group","showPrefix":true,"prefix":"Staff"}', 4),
 	('trade', '{"gangs":[],"enabled":true,"permission":"","requireDuty":false,"distance":750,"maxLength":200,"color":"#d9a441","id":"trade","command":"trade","jobs":[],"label":"Trade","range":"regional","showPrefix":true,"prefix":"Trade"}', 3);
 
-CREATE TABLE IF NOT EXISTS `rsg_cooking_campfires` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `citizenid` varchar(50) NOT NULL,
-  `x` float NOT NULL,
-  `y` float NOT NULL,
-  `z` float NOT NULL,
-  `heading` float NOT NULL DEFAULT 0,
-  `expires` int(10) unsigned DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `idx_citizenid` (`citizenid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE IF NOT EXISTS `rsg_cooking_stations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `citizenid` varchar(50) NOT NULL,
@@ -1175,6 +1162,7 @@ CREATE TABLE IF NOT EXISTS `rsg_cooking_stations` (
   `fuel` int(11) NOT NULL DEFAULT 0,
   `batch_left` int(11) DEFAULT NULL,
   `last_tick` int(11) DEFAULT NULL,
+  `last_used` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
