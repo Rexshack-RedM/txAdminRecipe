@@ -2783,4 +2783,18 @@ CREATE TABLE IF NOT EXISTS `rsg_canteen_pumps` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- rsg-deliveries 3.3.0: player delivery stats, streaks and leaderboard
+CREATE TABLE IF NOT EXISTS `rsg_deliveries_stats` (
+  `citizenid` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL DEFAULT '',
+  `completed` int(10) unsigned NOT NULL DEFAULT 0,
+  `distance` double NOT NULL DEFAULT 0,
+  `earned` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `streak` int(10) unsigned NOT NULL DEFAULT 0,
+  `best_streak` int(10) unsigned NOT NULL DEFAULT 0,
+  `last_delivery` int(10) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`citizenid`),
+  KEY `idx_completed` (`completed`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 SET FOREIGN_KEY_CHECKS = 1;
