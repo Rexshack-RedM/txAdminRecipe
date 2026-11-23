@@ -1177,6 +1177,11 @@ CREATE TABLE IF NOT EXISTS `rsg_doorlocks` (
   `locked` tinyint(1) NOT NULL DEFAULT 1,
   `lockpick` varchar(16) DEFAULT NULL,
   `region` varchar(32) DEFAULT NULL,
+  `key_item` varchar(64) DEFAULT NULL,
+  `gangs` longtext DEFAULT NULL,
+  `group_name` varchar(32) DEFAULT NULL,
+  `open_from` tinyint(4) DEFAULT NULL,
+  `open_to` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
