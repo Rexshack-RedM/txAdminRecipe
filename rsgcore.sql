@@ -2163,7 +2163,16 @@ CREATE TABLE IF NOT EXISTS `rsg_fishmonger_stock` (
   `location` varchar(50) NOT NULL,
   `day` varchar(10) NOT NULL,
   `sold` int(11) NOT NULL DEFAULT 0,
+  `updated` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`location`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_fishmonger_orders` (
+  `citizenid` varchar(50) NOT NULL,
+  `location` varchar(50) NOT NULL,
+  `slot` tinyint(4) NOT NULL,
+  `day` varchar(10) NOT NULL,
+  PRIMARY KEY (`citizenid`,`location`,`slot`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `zonenotify_discoveries` (
