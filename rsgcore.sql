@@ -2231,6 +2231,13 @@ CREATE TABLE IF NOT EXISTS `zonenotify_discoveries` (
   PRIMARY KEY (`citizenid`,`zone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `zonenotify_milestones` (
+  `citizenid` varchar(50) NOT NULL,
+  `milestone` varchar(32) NOT NULL,
+  `claimed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`citizenid`,`milestone`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `rsg_queue_vip` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `identifier` VARCHAR(80) NOT NULL,
