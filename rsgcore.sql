@@ -2418,6 +2418,7 @@ CREATE TABLE IF NOT EXISTS `rsg_cards_points` (
     INDEX `idx_item` (`item`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- rsg-townhall 3.2.0
 CREATE TABLE IF NOT EXISTS `townhall_locations` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `label` VARCHAR(60) NOT NULL,
@@ -2464,6 +2465,8 @@ CREATE TABLE IF NOT EXISTS `townhall_postings` (
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `closed_at` TIMESTAMP NULL DEFAULT NULL,
     `warned` TINYINT(1) NOT NULL DEFAULT 0,
+    `req_extra` TEXT NULL,
+    `probation_days` INT NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     KEY `idx_status` (`status`),
     KEY `idx_job` (`job`)
@@ -2486,6 +2489,9 @@ CREATE TABLE IF NOT EXISTS `townhall_applications` (
     `notified` TINYINT(1) NOT NULL DEFAULT 1,
     `fee` INT NOT NULL DEFAULT 0,
     `refund` INT NOT NULL DEFAULT 0,
+    `claimed_by` VARCHAR(50) NULL,
+    `claimed_by_name` VARCHAR(100) NULL,
+    `claimed_at` TIMESTAMP NULL DEFAULT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     KEY `idx_posting` (`posting_id`),
@@ -2500,7 +2506,7 @@ CREATE TABLE IF NOT EXISTS `townhall_resignations` (
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     KEY `idx_citizen_job` (`citizenid`, `job`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `townhall_messages` (
     `id` INT NOT NULL AUTO_INCREMENT,
@@ -2535,6 +2541,43 @@ CREATE TABLE IF NOT EXISTS `townhall_blacklist` (
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     UNIQUE KEY `uniq_block` (`citizenid`, `job`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `townhall_probation` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `citizenid` VARCHAR(50) NOT NULL,
+    `name` VARCHAR(100) NULL,
+    `job` VARCHAR(50) NOT NULL,
+    `application_id` INT NULL,
+    `source` VARCHAR(12) NOT NULL DEFAULT 'application',
+    `status` VARCHAR(12) NOT NULL DEFAULT 'active',
+    `ends_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `decided_by` VARCHAR(50) NULL,
+    `decided_at` TIMESTAMP NULL DEFAULT NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    KEY `idx_status_ends` (`status`, `ends_at`),
+    KEY `idx_citizen` (`citizenid`),
+    KEY `idx_job` (`job`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `townhall_invites` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `citizenid` VARCHAR(50) NOT NULL,
+    `name` VARCHAR(100) NULL,
+    `job` VARCHAR(50) NOT NULL,
+    `grade` INT NOT NULL DEFAULT 0,
+    `message` TEXT NULL,
+    `probation_days` INT NOT NULL DEFAULT 0,
+    `invited_by` VARCHAR(50) NOT NULL,
+    `invited_by_name` VARCHAR(100) NULL,
+    `status` VARCHAR(12) NOT NULL DEFAULT 'pending',
+    `notified` TINYINT(1) NOT NULL DEFAULT 0,
+    `expires_at` TIMESTAMP NULL DEFAULT NULL,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    KEY `idx_citizen_status` (`citizenid`, `status`),
+    KEY `idx_job_status` (`job`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `rsg_factories` (
