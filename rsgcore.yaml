@@ -59,11 +59,6 @@ tasks:
     src: https://github.com/Rexshack-RedM/interact-sound 
 
   - action: download_github
-    dest: ./resources/[standalone]/menu_base
-    ref: main
-    src: https://github.com/Rexshack-RedM/menu_base
-
-  - action: download_github
     dest: ./resources/[standalone]/rNotify
     ref: main
     src: https://github.com/Rexshack-RedM/rNotify
@@ -165,11 +160,6 @@ tasks:
     src: https://github.com/Rexshack-RedM/rsg-hud
     ref: main
     dest: ./resources/[framework]/rsg-hud
-
-  - action: download_github
-    dest: ./resources/[framework]/rsg-menubase
-    ref: main
-    src: https://github.com/Rexshack-RedM/rsg-menubase
 
   - action: download_github
     dest: ./resources/[framework]/rsg-playerinfo
