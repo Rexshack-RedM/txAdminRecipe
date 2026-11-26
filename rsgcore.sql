@@ -287,7 +287,7 @@ CREATE TABLE IF NOT EXISTS `adminmenu_teleports` (
 CREATE TABLE IF NOT EXISTS `favorites_animations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `citizenid` varchar(50) NOT NULL,
-  `favorites` longtext NOT NULL DEFAULT '[]',
+  `favorites` longtext NOT NULL DEFAULT ('[]'),
   PRIMARY KEY (`id`),
   UNIQUE KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
