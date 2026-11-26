@@ -2202,6 +2202,18 @@ CREATE TABLE IF NOT EXISTS `rsg_weather_state` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `rsg_herbalist_state` (
+  `key` varchar(50) NOT NULL,
+  `value` longtext NOT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_hud_state` (
+  `key` varchar(50) NOT NULL,
+  `value` longtext NOT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `rsg_trams_state` (
   `key` varchar(60) NOT NULL,
   `value` varchar(10) NOT NULL,
