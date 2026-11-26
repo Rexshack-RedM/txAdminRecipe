@@ -67,8 +67,7 @@ Review these settings in `server.cfg`:
 | Setting | Purpose |
 |---|---|
 | `sv_maxclients` | Player slots (set from your txAdmin answer) |
-| `setr rsg_locale "en"` | Language for RSG resources |
-| `setr ox:locale en` | Language for ox_lib |
+| `setr rsg:locale "en"` | Language for RSG resources |
 | `set mysql_connection_string` | Database connection (filled in by txAdmin) |
 | `set mysql_slow_query_warning 300` | Logs database queries slower than 300 ms |
 | `setr voice_useNativeAudio` and related lines | Voice settings used with `rsg-voice` |
