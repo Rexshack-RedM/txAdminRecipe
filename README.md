@@ -270,11 +270,8 @@ When you add a resource that others depend on, `ensure` it before them. Do not i
 |---|---|
 | Cfx default resources | https://github.com/citizenfx/cfx-server-data |
 | oxmysql | https://github.com/CommunityOx/oxmysql |
-| ox_lib | https://github.com/Rexshack-RedM/ox_lib |
-| PolyZone | https://github.com/Rexshack-RedM/PolyZone |
 | xsound | https://github.com/Xogy/xsound |
 | interact-sound | https://github.com/Rexshack-RedM/interact-sound |
-| rNotify | https://github.com/Rexshack-RedM/rNotify |
 | redm-female-fix | https://github.com/Popisek/redm-female-fix |
 | Nt_Blackjack | https://github.com/Nubetastic/Nt_Blackjack |
 | Nt_Holdem | https://github.com/Nubetastic/Nt_Holdem |

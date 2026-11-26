@@ -35,16 +35,6 @@ tasks:
     src: ./tmp/files/oxmysql.zip
     
   - action: download_github
-    dest: ./resources/[standalone]/ox_lib
-    ref: main
-    src: https://github.com/Rexshack-RedM/ox_lib
-
-  - action: download_github
-    dest: ./resources/[standalone]/PolyZone
-    ref: main
-    src: https://github.com/Rexshack-RedM/PolyZone
-
-  - action: download_github
     dest: ./resources/[standalone]/xsound
     ref: master
     src: https://github.com/Xogy/xsound
@@ -53,11 +43,6 @@ tasks:
     dest: ./resources/[standalone]/interact-sound 
     ref: main
     src: https://github.com/Rexshack-RedM/interact-sound 
-
-  - action: download_github
-    dest: ./resources/[standalone]/rNotify
-    ref: main
-    src: https://github.com/Rexshack-RedM/rNotify
 
   - action: download_github
     dest: ./resources/[standalone]/redm-female-fix
