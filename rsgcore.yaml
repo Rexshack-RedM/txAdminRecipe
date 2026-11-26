@@ -576,6 +576,11 @@ tasks:
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-robbery
 
+  - action: download_github
+    dest: ./resources/[framework]/rsg-npcdialog
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-npcdialog
+
   # Community Shares
   
   - action: download_github

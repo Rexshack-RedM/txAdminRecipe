@@ -3060,4 +3060,36 @@ CREATE TABLE IF NOT EXISTS `rsg_fishing_records` (
   PRIMARY KEY (`species`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- rsg-npcdialog
+CREATE TABLE IF NOT EXISTS `rsg_npcdialog_npcs` (
+  `id` VARCHAR(50) NOT NULL,
+  `data` LONGTEXT NOT NULL,
+  `updated_by` VARCHAR(50) DEFAULT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_npcdialog_progress` (
+  `citizenid` VARCHAR(50) NOT NULL,
+  `kind` VARCHAR(8) NOT NULL,
+  `name` VARCHAR(160) NOT NULL,
+  `value` BIGINT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`citizenid`, `kind`, `name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_npcdialog_quests` (
+  `id` VARCHAR(50) NOT NULL,
+  `data` LONGTEXT NOT NULL,
+  `updated_by` VARCHAR(50) DEFAULT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `rsg_npcdialog_quest_progress` (
+  `citizenid` VARCHAR(50) NOT NULL,
+  `quest_id` VARCHAR(50) NOT NULL,
+  `data` TEXT NOT NULL,
+  PRIMARY KEY (`citizenid`, `quest_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 SET FOREIGN_KEY_CHECKS = 1;

@@ -146,6 +146,7 @@ When you add a resource that others depend on, `ensure` it before them. Do not i
 | rsg-weather | Time, weather and wind sync |
 | rsg-zonenotify | Location banner for states, districts and towns |
 | rsg-npcs | Ambient NPCs with blips, scenarios and audio |
+| rsg-npcdialog | NPC conversations and quests with an in-game editor |
 | rsg-doorlock | Database door locks with an in-game editor |
 | rsg-trapdoors | Animated trapdoors with optional passcodes |
 
