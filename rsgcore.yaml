@@ -16,10 +16,6 @@ tasks:
     src: ./tmp/RSGCore/server.cfg
     dest: ./server.cfg
 
-  - action: move_path
-    src: ./tmp/RSGCore/myLogo.png
-    dest: ./myLogo.png
-
   # Prepare Database
   - action: connect_database
   - action: query_database
