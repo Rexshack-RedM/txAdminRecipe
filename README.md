@@ -165,6 +165,7 @@ When you add a resource that others depend on, `ensure` it before them. Do not i
 | rsg-stores | NPC and player-owned stores |
 | rsg-trader | NPC traders with prices that follow stock |
 | rsg-auction | Town auction houses |
+| rsg-playertrade | Secure two-way trading of items and cash between players |
 | rsg-factory | Admin-built factories and production lines |
 
 ### Law, medical and crime

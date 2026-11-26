@@ -581,6 +581,11 @@ tasks:
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-npcdialog
 
+  - action: download_github
+    dest: ./resources/[framework]/rsg-playertrade
+    ref: main
+    src: https://github.com/Rexshack-RedM/rsg-playertrade
+
   # Community Shares
   
   - action: download_github
