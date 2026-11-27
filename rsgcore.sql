@@ -68,6 +68,48 @@ INSERT IGNORE INTO `multijob_jobs` (`name`, `label`, `type`, `icon`, `default_du
 	('unemployed', 'Civilian', NULL, NULL, 1, 0, '{"0":{"payment":3,"name":"Freelancer"}}', '2026-10-14 13:26:58'),
 	('vallaw', 'Valentine Law Enforcement', 'leo', 'fa-solid fa-shield', 0, 0, '{"1":{"payment":25,"name":"Deputy"},"2":{"payment":50,"isboss":true,"name":"Sheriff"},"0":{"payment":10,"name":"Recruit"}}', '2026-10-14 13:26:58');
 
+CREATE TABLE IF NOT EXISTS `rsg_held_payouts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `moneytype` varchar(20) NOT NULL,
+  `amount` decimal(15,2) NOT NULL,
+  `reason` varchar(100) DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `citizenid` (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_transactions` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `citizenid` varchar(50) NOT NULL,
+  `moneytype` varchar(20) NOT NULL,
+  `operation` varchar(10) NOT NULL,
+  `amount` decimal(20,2) NOT NULL,
+  `balance` decimal(20,2) NOT NULL,
+  `reason` varchar(150) DEFAULT NULL,
+  `resource` varchar(60) DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `citizenid` (`citizenid`),
+  KEY `created` (`created`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_playtime` (
+  `citizenid` varchar(50) NOT NULL,
+  `seconds` bigint(20) NOT NULL DEFAULT 0,
+  `first_seen` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_seen` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`citizenid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `rsg_whitelist` (
+  `license` varchar(60) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `added_by` varchar(100) DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`license`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 CREATE TABLE IF NOT EXISTS `player_jobs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `citizenid` varchar(50) NOT NULL,
