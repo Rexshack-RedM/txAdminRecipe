@@ -368,11 +368,6 @@ tasks:
     src: https://github.com/Rexshack-RedM/rsg-deliveries
     
   - action: download_github
-    dest: ./resources/[framework]/rsg-moonshine
-    ref: main
-    src: https://github.com/Rexshack-RedM/rsg-moonshine
-    
-  - action: download_github
     dest: ./resources/[framework]/rsg-ranch
     ref: main
     src: https://github.com/Rexshack-RedM/rsg-ranch

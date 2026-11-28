@@ -181,7 +181,6 @@ When you add a resource that others depend on, `ensure` it before them. Do not i
 | rsg-looting | NPC looting and player robbery |
 | rsg-lockpick | Lockpicking minigame |
 | rsg-drugs | Cannabis production, corner selling and addiction |
-| rsg-moonshine | Placeable moonshine stills |
 | rsg-ambush | Random gang ambushes on the trail |
 
 ### Jobs, gathering and production
